@@ -1,0 +1,42 @@
+{
+  "files": {
+    "main.css": "/memecoinsrace_front/static/css/main.2655dca2.chunk.css",
+    "main.js": "/memecoinsrace_front/static/js/main.90ca3c9f.chunk.js",
+    "main.js.map": "/memecoinsrace_front/static/js/main.90ca3c9f.chunk.js.map",
+    "runtime-main.js": "/memecoinsrace_front/static/js/runtime-main.b5b2309b.js",
+    "runtime-main.js.map": "/memecoinsrace_front/static/js/runtime-main.b5b2309b.js.map",
+    "static/js/2.7a919e63.chunk.js": "/memecoinsrace_front/static/js/2.7a919e63.chunk.js",
+    "static/js/2.7a919e63.chunk.js.map": "/memecoinsrace_front/static/js/2.7a919e63.chunk.js.map",
+    "static/js/3.b85b5c0a.chunk.js": "/memecoinsrace_front/static/js/3.b85b5c0a.chunk.js",
+    "static/js/3.b85b5c0a.chunk.js.map": "/memecoinsrace_front/static/js/3.b85b5c0a.chunk.js.map",
+    "index.html": "/memecoinsrace_front/index.html",
+    "static/css/main.2655dca2.chunk.css.map": "/memecoinsrace_front/static/css/main.2655dca2.chunk.css.map",
+    "static/js/2.7a919e63.chunk.js.LICENSE.txt": "/memecoinsrace_front/static/js/2.7a919e63.chunk.js.LICENSE.txt",
+    "static/media/Logo_MCR.63920dad.svg": "/memecoinsrace_front/static/media/Logo_MCR.63920dad.svg",
+    "static/media/arrow_down.70643a1c.svg": "/memecoinsrace_front/static/media/arrow_down.70643a1c.svg",
+    "static/media/arrow_height-2.14aca7ff.svg": "/memecoinsrace_front/static/media/arrow_height-2.14aca7ff.svg",
+    "static/media/arrow_height.3e5b5a0f.svg": "/memecoinsrace_front/static/media/arrow_height.3e5b5a0f.svg",
+    "static/media/banana.78dd80af.svg": "/memecoinsrace_front/static/media/banana.78dd80af.svg",
+    "static/media/bone-finish.bf645063.svg": "/memecoinsrace_front/static/media/bone-finish.bf645063.svg",
+    "static/media/bone.f92dc600.svg": "/memecoinsrace_front/static/media/bone.f92dc600.svg",
+    "static/media/book.c7fdda84.svg": "/memecoinsrace_front/static/media/book.c7fdda84.svg",
+    "static/media/connectWallet.0daebc5b.svg": "/memecoinsrace_front/static/media/connectWallet.0daebc5b.svg",
+    "static/media/dollar@2x.5a6c1ba8.png": "/memecoinsrace_front/static/media/dollar@2x.5a6c1ba8.png",
+    "static/media/fish.655af36a.svg": "/memecoinsrace_front/static/media/fish.655af36a.svg",
+    "static/media/icon-dogecoin@2x.8dbe4d3e.png": "/memecoinsrace_front/static/media/icon-dogecoin@2x.8dbe4d3e.png",
+    "static/media/icon-samoyedcoin@2x.373e8ec7.png": "/memecoinsrace_front/static/media/icon-samoyedcoin@2x.373e8ec7.png",
+    "static/media/icon-soldoge@2x.39971d7b.png": "/memecoinsrace_front/static/media/icon-soldoge@2x.39971d7b.png",
+    "static/media/logo.6ce24c58.svg": "/memecoinsrace_front/static/media/logo.6ce24c58.svg",
+    "static/media/overview.a513a16c.svg": "/memecoinsrace_front/static/media/overview.a513a16c.svg",
+    "static/media/peeg.b4f08630.svg": "/memecoinsrace_front/static/media/peeg.b4f08630.svg",
+    "static/media/question.94e36334.svg": "/memecoinsrace_front/static/media/question.94e36334.svg",
+    "static/media/rocket.b028e922.svg": "/memecoinsrace_front/static/media/rocket.b028e922.svg",
+    "static/media/stake.5d7d52c9.svg": "/memecoinsrace_front/static/media/stake.5d7d52c9.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b5b2309b.js",
+    "static/js/2.7a919e63.chunk.js",
+    "static/css/main.2655dca2.chunk.css",
+    "static/js/main.90ca3c9f.chunk.js"
+  ]
+}
