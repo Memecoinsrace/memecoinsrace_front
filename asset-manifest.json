@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/memecoinsrace_front/static/css/main.2655dca2.chunk.css",
-    "main.js": "/memecoinsrace_front/static/js/main.90ca3c9f.chunk.js",
-    "main.js.map": "/memecoinsrace_front/static/js/main.90ca3c9f.chunk.js.map",
-    "runtime-main.js": "/memecoinsrace_front/static/js/runtime-main.b5b2309b.js",
-    "runtime-main.js.map": "/memecoinsrace_front/static/js/runtime-main.b5b2309b.js.map",
-    "static/js/2.7a919e63.chunk.js": "/memecoinsrace_front/static/js/2.7a919e63.chunk.js",
-    "static/js/2.7a919e63.chunk.js.map": "/memecoinsrace_front/static/js/2.7a919e63.chunk.js.map",
-    "static/js/3.b85b5c0a.chunk.js": "/memecoinsrace_front/static/js/3.b85b5c0a.chunk.js",
-    "static/js/3.b85b5c0a.chunk.js.map": "/memecoinsrace_front/static/js/3.b85b5c0a.chunk.js.map",
+    "main.css": "/memecoinsrace_front/static/css/main.6e6ab983.chunk.css",
+    "main.js": "/memecoinsrace_front/static/js/main.1828593d.chunk.js",
+    "main.js.map": "/memecoinsrace_front/static/js/main.1828593d.chunk.js.map",
+    "runtime-main.js": "/memecoinsrace_front/static/js/runtime-main.1efe1780.js",
+    "runtime-main.js.map": "/memecoinsrace_front/static/js/runtime-main.1efe1780.js.map",
+    "static/js/2.bd088688.chunk.js": "/memecoinsrace_front/static/js/2.bd088688.chunk.js",
+    "static/js/2.bd088688.chunk.js.map": "/memecoinsrace_front/static/js/2.bd088688.chunk.js.map",
+    "static/js/3.97da762f.chunk.js": "/memecoinsrace_front/static/js/3.97da762f.chunk.js",
+    "static/js/3.97da762f.chunk.js.map": "/memecoinsrace_front/static/js/3.97da762f.chunk.js.map",
     "index.html": "/memecoinsrace_front/index.html",
-    "static/css/main.2655dca2.chunk.css.map": "/memecoinsrace_front/static/css/main.2655dca2.chunk.css.map",
-    "static/js/2.7a919e63.chunk.js.LICENSE.txt": "/memecoinsrace_front/static/js/2.7a919e63.chunk.js.LICENSE.txt",
+    "static/css/main.6e6ab983.chunk.css.map": "/memecoinsrace_front/static/css/main.6e6ab983.chunk.css.map",
+    "static/js/2.bd088688.chunk.js.LICENSE.txt": "/memecoinsrace_front/static/js/2.bd088688.chunk.js.LICENSE.txt",
     "static/media/Logo_MCR.63920dad.svg": "/memecoinsrace_front/static/media/Logo_MCR.63920dad.svg",
     "static/media/arrow_down.70643a1c.svg": "/memecoinsrace_front/static/media/arrow_down.70643a1c.svg",
     "static/media/arrow_height-2.14aca7ff.svg": "/memecoinsrace_front/static/media/arrow_height-2.14aca7ff.svg",
@@ -34,9 +34,9 @@
     "static/media/stake.5d7d52c9.svg": "/memecoinsrace_front/static/media/stake.5d7d52c9.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.b5b2309b.js",
-    "static/js/2.7a919e63.chunk.js",
-    "static/css/main.2655dca2.chunk.css",
-    "static/js/main.90ca3c9f.chunk.js"
+    "static/js/runtime-main.1efe1780.js",
+    "static/js/2.bd088688.chunk.js",
+    "static/css/main.6e6ab983.chunk.css",
+    "static/js/main.1828593d.chunk.js"
   ]
 }
