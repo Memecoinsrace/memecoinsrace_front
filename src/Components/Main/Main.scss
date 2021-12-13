@@ -200,7 +200,7 @@
             // }
 
             .announcement-description {
-                z-index: 999;
+                z-index: 1;
                 margin-top: -40px;
                 height: auto;
                 width: 100%;
@@ -352,7 +352,7 @@
             width: 30px;
             margin-top: auto;
             margin-bottom: auto;
-            z-index: 999;
+            z-index: 1;
             margin-left: -15px;
         }
 
@@ -412,4 +412,196 @@
         }
     }
     
+}
+
+.show-modal {
+    opacity: 1!important;
+    visibility: visible!important;
+    transform: scale(1.0)!important;
+    transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s!important;
+    z-index: 2;
+}
+
+.connect-wallet-modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.1);
+    transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+
+    .connect-wallet-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        height: 420px;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        width: 420px;
+        border-radius: 30px;
+
+        .connect-wallet-header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            height: 40px;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            
+            label {
+                opacity: 0.5;
+            }
+
+            span {
+                img {
+                    height: 25px;
+                    width: 25px;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .underline {
+            height: 1px;
+            width: 100%;
+            background-color: lightgray;
+        }
+
+        .connect-wallet-body {
+            display: flex;
+            flex-direction: column;
+
+            h2 {
+                margin-top: 40px;
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 55px;
+            }
+
+            div {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+
+                div {
+                    display: flex;
+                    flex-direction: column;
+                    text-align: center;
+
+                    img {
+                        cursor: pointer;
+                    }
+
+                    label {
+                        cursor: pointer;
+                        font-size: 13px;
+                        opacity: 0.5;
+                    }
+                }
+
+                div:first-child {
+                    label {
+                        color: #6C1AEB;
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.select-application-modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.1);
+    transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+
+    .select-application-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        height: 420px;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        width: 420px;
+        border-radius: 30px;
+
+        .select-application-header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            height: 40px;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            
+            label {
+                opacity: 0.5;
+            }
+
+            span {
+                img {
+                    height: 25px;
+                    width: 25px;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .underline {
+            height: 1px;
+            width: 100%;
+            background-color: lightgray;
+        }
+
+        .select-application-body {
+            display: flex;
+            flex-direction: column;
+
+            h2 {
+                margin-top: 40px;
+                margin-left: auto;
+                margin-right: auto;
+                margin-bottom: 55px;
+            }
+
+            div {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+
+                div {
+                    display: flex;
+                    flex-direction: column;
+                    text-align: center;
+
+                    img {
+                        cursor: pointer;
+                    }
+
+                    label {
+                        cursor: pointer;
+                        font-size: 13px;
+                        opacity: 0.5;
+                    }
+                }
+
+                div:first-child {
+                    label {
+                        color: #6C1AEB;
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+    }
 }

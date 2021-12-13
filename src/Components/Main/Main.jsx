@@ -1,5 +1,12 @@
 import React from 'react';
 import './Main.scss';
+import phantom from '../../SVG/Phantom.svg';
+import solflare from '../../SVG/solflare.svg';
+import mathWallet from '../../SVG/MathWallet.svg';
+import solana from '../../SVG/Solana.svg';
+import binance from '../../SVG/Binance.svg';
+import poligon from '../../SVG/Poligon.svg';
+import close from '../../SVG/close.svg';
 import dogecoin from '../../PNG/icon-dogecoin@2x.png';
 import shibacoin from '../../PNG/icon-SHIBAINU@2x.png';
 import samoyedcoin from '../../PNG/icon-samoyedcoin@2x.png';
@@ -17,8 +24,39 @@ import arrowHeight2 from '../../SVG/arrow_height-2.svg';
 
 export default function Main() {
 
+    function openSelectBlockchain() {
+        let elem = document.querySelector('.connect-wallet-modal');
+        elem.classList.toggle('show-modal');
+    }
+
+    function closeSelectApplication() {
+        let elem = document.querySelector('.select-application-modal');
+        elem.classList.toggle('show-modal');
+    }
+
+    function closeSelectBlockchain() {
+        let elem = document.querySelector('.connect-wallet-modal');
+        elem.classList.toggle('show-modal');
+    }
+
     const style = {
         color: 'red'
+    }
+
+    const style2 = {
+        background: 'rgb(255,220,184)',
+        background: '-moz-linear-gradient(90deg, rgba(255,220,184,1) 0%, rgba(255,158,156,1) 35%)',
+        background: '-webkit-linear-gradient(90deg, rgba(255,220,184,1) 0%, rgba(255,158,156,1) 35%)',
+        background: 'linear-gradient(90deg, rgba(255,220,184,1) 0%, rgba(255,158,156,1) 35%)',
+        filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffdcb8",endColorstr="#ff9e9c",GradientType=1)'
+    }
+
+    const style3 = {
+        background: 'rgb(183,255,233)',
+        background: '-moz-linear-gradient(90deg, rgba(183,255,233,1) 0%, rgba(232,199,255,1) 35%, rgba(250,238,255,1) 96%)',
+        background: '-webkit-linear-gradient(90deg, rgba(183,255,233,1) 0%, rgba(232,199,255,1) 35%, rgba(250,238,255,1) 96%)',
+        background: 'linear-gradient(90deg, rgba(183,255,233,1) 0%, rgba(232,199,255,1) 35%, rgba(250,238,255,1) 96%)',
+        filter: 'progid:DXImageTransform.Microsoft.gradient(startColorstr="#b7ffe9",endColorstr="#faeeff",GradientType=1)'
     }
 
     return(
@@ -45,7 +83,7 @@ export default function Main() {
                         <label>COINS</label>
                     </div>
                 </div>                
-                <ConnectWallet />
+                <ConnectWallet onClick={openSelectBlockchain} />
                     {/* <div className="connect-wallet">                    
                         <Wallet fill="red" stroke="green" />
                         <label>CONNECT WALLET</label>
@@ -104,7 +142,7 @@ export default function Main() {
                         <img src={shibacoin} />
                         <label className='coin-fullname'>SHIBA INU</label>
                         <label className='coin-shortname'>SHIB</label>
-                        <div className="score">
+                        <div className="score" style={style2}>
                             <div className="line2" />
                             <img className='score-img' src={shibacoin} />
                             <label>$0.00005164</label>
@@ -124,7 +162,7 @@ export default function Main() {
                         <img src={samoyedcoin} />
                         <label className='coin-fullname'>Samoyedcoin</label>
                         <label className='coin-shortname'>Samo</label>
-                        <div className="score">
+                        <div className="score" style={style2}>
                             <div className="line3" />
                             <img className='score-img' src={samoyedcoin} />
                             <label style={style}>$0.07505</label>
@@ -144,7 +182,7 @@ export default function Main() {
                         <img src={soldoge} />
                         <label className='coin-fullname'>Soldoge</label>
                         <label className='coin-shortname'>Sdoge</label>
-                        <div className="score">
+                        <div className="score" style={style3}>
                             <div className="line4" />
                             <img className='score-img' src={soldoge} />
                             <label>$0.0003595</label>
@@ -181,6 +219,63 @@ export default function Main() {
                     </div>
                 </div>
             </div>
+            <div className="connect-wallet-modal">
+                    <div className="connect-wallet-content">
+                        <div className="connect-wallet-header">
+                            <label>Preference</label>
+                            <span className="close-button">
+                                <img src={close} onClick={closeSelectBlockchain}/>
+                            </span>
+                        </div>
+                        <div className="underline" />
+                        <div className='connect-wallet-body'>
+                            <h2>SELECT BLOCKCHAIN</h2>
+                            <div>
+                                <div>
+                                    <img src={solana} onClick={closeSelectApplication}/>
+                                    <label>Solana</label>
+
+                                </div>
+                                <div>
+                                    <img src={binance} />
+                                    <label>coming soon</label>
+                                </div>
+                                <div>
+                                    <img src={poligon} />
+                                    <label>coming soon</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="select-application-modal">
+                    <div className="select-application-content">
+                        <div className="select-application-header">
+                            <label>Preference</label>
+                            <span className="close-button"><img src={close} onClick={closeSelectApplication} /></span>
+                        </div>
+                        <div className="underline" />
+                        <div className='select-application-body'>
+                            <h2>SELECT APPLICATION</h2>
+                            <div>
+                                <div>
+                                    <img src={phantom} />
+                                    <label>Phantom</label>
+
+                                </div>
+                                <div>
+                                    <img src={solflare} />
+                                    <label>coming soon</label>
+                                </div>
+                                <div>
+                                    <img src={mathWallet} />
+                                    <label>coming soon</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </div>
     );
 }
