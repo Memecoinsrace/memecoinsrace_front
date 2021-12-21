@@ -10,7 +10,7 @@ body {
 }
 
 .sidebar {
-  height: 100%;
+  height: 95vh;
   border-radius: 30px 0 0 30px;
   display: flex;
   background-color: #fff;
@@ -61,11 +61,37 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
-
+    padding: 20px 40px;
+    width: 35%;
+    border-radius: 2em;
+    transition: all 500ms ease;
     a {
+      margin-left: 10px;
+      font-size: 17px;
+    }
+  }
+
+  .item-container:hover {
+    background: #f3f0ff;
+    a {
+      color: #551fff;
     }
   }
 }
 
-.active {
+.active-item {
+  background: #f3f0ff;
+  a {
+    transition: transform 0.25s;
+    color: #551fff;
+  }
+}
+
+.logo-nav {
+  height: auto;
+  width: 65%;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 0px;
+  margin-bottom: 80px;
 }

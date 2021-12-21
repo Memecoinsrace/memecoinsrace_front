@@ -36,48 +36,84 @@ export default class Sidebar extends React.Component {
         underlines[i].style.transform =
           "translate3d(0, " + index * 100 + "%,0)";
       }
+
+      let q = document.querySelectorAll(".active-item");
+
+      for (let i of q) {
+        i.classList.remove("active-item");
+      }
+
+      switch (index) {
+        case 0:
+          document
+            .querySelector("#overview-item")
+            .classList.toggle("active-item");
+          break;
+        case 1:
+          document
+            .querySelector("#howitworks-item")
+            .classList.toggle("active-item");
+          break;
+        case 2:
+          document.querySelector("#bets-item").classList.toggle("active-item");
+          break;
+        case 3:
+          document.querySelector("#docs-item").classList.toggle("active-item");
+          break;
+        case 4:
+          document
+            .querySelector("#donats-item")
+            .classList.toggle("active-item");
+          break;
+        case 5:
+          document.querySelector("#stake-item").classList.toggle("active-item");
+          break;
+        default:
+          break;
+      }
     }
 
     return (
       <div className="sidebar">
+        <img className="logo-nav" src={logo} />
         <nav>
           <div className="underline">
             <img src={menuSVG} />
           </div>
           <div className="nav-item" onClick={() => ul(0)}>
-            <div className="item-container">
+            <div id="overview-item" className="item-container active-item">
               <img src={overviewIcon} />
-              <a>Home</a>
+              <a>Overview</a>
             </div>
           </div>
           <div className="nav-item" onClick={() => ul(1)}>
-            <div className="item-container">
+            <div id="howitworks-item" className="item-container">
               <img src={questionIcon} />
-              <a>Videos</a>
+              <a>How it works</a>
             </div>
           </div>
           <div className="nav-item" onClick={() => ul(2)}>
-            <div className="item-container">
+            <div id="bets-item" className="item-container">
               <img src={stakeIcon} />
-              <a>Playlists</a>
+              <a>Bets</a>
             </div>
           </div>
           <div className="nav-item" onClick={() => ul(3)}>
-            <div className="item-container">
+            <div id="docs-item" className="item-container">
               <img src={bookIcon} />
-              <a>Community</a>
+              <a>Docs</a>
             </div>
           </div>
           <div className="nav-item" onClick={() => ul(4)}>
-            <div className="item-container">
+            <div id="donats-item" className="item-container">
               <img src={rocketIcon} />
-              <a>Channels</a>
+              <a>Donats</a>
             </div>
           </div>
           <div className="nav-item" onClick={() => ul(5)}>
-            <div className="item-container">
+            <div id="stake-item" className="item-container">
               <img src={peegIcon} />
-              <a>About</a>
+              <a>Stake</a>
             </div>
           </div>
         </nav>
