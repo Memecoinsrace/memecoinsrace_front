@@ -200,7 +200,6 @@
       // }
 
       .announcement-description {
-        z-index: 1;
         margin-top: -40px;
         height: auto;
         width: 100%;
@@ -488,7 +487,7 @@
   visibility: visible !important;
   transform: scale(1) !important;
   transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s !important;
-  z-index: 2;
+  z-index: 10;
 }
 
 .connect-wallet-modal {

@@ -30,7 +30,6 @@ nav {
   display: flex;
   flex-direction: column;
   position: absolute;
-  z-index: 0;
   top: 0;
   right: 0;
   height: 7em;
@@ -49,7 +48,6 @@ nav {
 
 .nav-item {
   height: 7em;
-  z-index: 10;
   width: 100%;
   text-align: center;
   cursor: pointer;

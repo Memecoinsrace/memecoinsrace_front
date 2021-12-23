@@ -12,7 +12,6 @@
     "react-scripts": "4.0.3",
     "web-vitals": "^1.1.2"
   },
-  "homepage": "memecoinsrace.com",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
