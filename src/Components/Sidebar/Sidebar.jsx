@@ -1,5 +1,9 @@
 import React from "react";
 import "./Sidebar.scss";
+import twitter from "../../SVG/Social/twitter.svg";
+import telegram from "../../SVG/Social/telegram.svg";
+import discord from "../../SVG/Social/discord.svg";
+import medium from "../../SVG/Social/medium.svg";
 import menuSVG from "../../SVG/menu-svg.svg";
 import logo from "../../SVG/Logo_MCR.svg";
 import overviewIcon from "../../SVG/overview.svg";
@@ -117,6 +121,19 @@ export default class Sidebar extends React.Component {
             </div>
           </div>
         </nav>
+        <div className="social-group">
+          <div className="social-icons">
+            <img src={twitter} />
+            <img src={telegram} />
+            <img src={discord} />
+            <img src={medium} />
+          </div>
+          <div className="social-footer">
+            <label>Copyright © 2021</label>
+            <label>|</label>
+            <label>All rights reserved</label>
+          </div>
+        </div>
       </div>
     );
   }
