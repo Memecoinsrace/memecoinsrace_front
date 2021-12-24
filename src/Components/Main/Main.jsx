@@ -246,7 +246,6 @@ export default function Main() {
               <img src={close} onClick={closeSelectBlockchain} />
             </span>
           </div>
-          <div className="underline" />
           <div className="connect-wallet-body">
             <h2>SELECT BLOCKCHAIN</h2>
             <div>
@@ -275,7 +274,6 @@ export default function Main() {
               <img src={close} onClick={closeSelectApplication} />
             </span>
           </div>
-          <div className="underline" />
           <div className="select-application-body">
             <h2>SELECT APPLICATION</h2>
             <div>
