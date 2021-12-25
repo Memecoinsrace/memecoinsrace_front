@@ -12,9 +12,11 @@ import shibacoin from "../../PNG/icon-SHIBAINU@2x.png";
 import samoyedcoin from "../../PNG/icon-samoyedcoin@2x.png";
 import soldoge from "../../PNG/icon-soldoge@2x.png";
 import boneFinish from "../../SVG/bone-finish.svg";
+import { ReactComponent as Dollar } from "../../SVG/dollar.svg";
 import dollar from "../../PNG/dollar@2x.png";
-import finishLine from "../../PNG/finish_line_big.png";
+import finishLine from "../../SVG/finish_line_big.svg";
 import { ReactComponent as ConnectWallet } from "../../SVG/connectWallet.svg";
+import wallet from "../../SVG/wallet.svg";
 import bone from "../../SVG/bone.svg";
 import fish from "../../SVG/fish.svg";
 import banana from "../../SVG/banana.svg";
@@ -39,7 +41,10 @@ export default function Main() {
   }
 
   const style = {
-    color: "red",
+    marginTop: "auto",
+    marginBottom: "auto",
+    color: "#EA3943",
+    font: "normal normal bold 20px/24px Montserrat",
   };
 
   const style2 = {
@@ -92,11 +97,11 @@ export default function Main() {
             <label>COINS</label>
           </div>
         </div>
-        <ConnectWallet onClick={openSelectBlockchain} />
-        {/* <div className="connect-wallet">                    
-                        <Wallet fill="red" stroke="green" />
-                        <label>CONNECT WALLET</label>
-                    </div> */}
+        {/* <ConnectWallet onClick={openSelectBlockchain} /> */}
+        <div className="connect-wallet" onClick={openSelectBlockchain}>
+          <img src={wallet} />
+          <label>CONNECT WALLET</label>
+        </div>
       </div>
       <div className="coins-sort">
         <div>
@@ -141,12 +146,16 @@ export default function Main() {
           <div className="row-coin">
             <label className="coin-number">1</label>
             <img src={dogecoin} />
-            <label className="coin-fullname">Dogecoin</label>
-            <label className="coin-shortname">DOGE</label>
+            <div className="coin-info-group">
+              <div className="coin-name-group">
+                <label className="coin-fullname">Dogecoin</label>
+                <label className="coin-shortname">DOGE</label>
+              </div>
+              <label className="coin-price">$0.2214</label>
+            </div>
             <div className="score">
               <div className="line" />
               <img className="score-img" src={dogecoin} />
-              <label>$0.2214</label>
               <div className="finish-section">
                 <img src={boneFinish} />
                 <div className="coefficient">
@@ -161,12 +170,16 @@ export default function Main() {
           <div className="row-coin">
             <label className="coin-number">2</label>
             <img src={shibacoin} />
-            <label className="coin-fullname">SHIBA INU</label>
-            <label className="coin-shortname">SHIB</label>
+            <div className="coin-info-group">
+              <div className="coin-name-group">
+                <label className="coin-fullname">SHIBA INU</label>
+                <label className="coin-shortname">SHIB</label>
+              </div>
+              <label className="coin-price">$0.00005164</label>
+            </div>
             <div className="score" style={style2}>
               <div className="line2" />
               <img className="score-img" src={shibacoin} />
-              <label>$0.00005164</label>
               <div className="finish-section">
                 <img src={boneFinish} />
                 <div className="coefficient">
@@ -181,12 +194,16 @@ export default function Main() {
           <div className="row-coin">
             <label className="coin-number">3</label>
             <img src={samoyedcoin} />
-            <label className="coin-fullname">Samoyedcoin</label>
-            <label className="coin-shortname">Samo</label>
+            <div className="coin-info-group">
+              <div className="coin-name-group">
+                <label className="coin-fullname">Samoyedcoin</label>
+                <label className="coin-shortname">Samo</label>
+              </div>
+              <label style={style}>$0.07505</label>
+            </div>
             <div className="score" style={style2}>
               <div className="line3" />
               <img className="score-img" src={samoyedcoin} />
-              <label style={style}>$0.07505</label>
               <div className="finish-section">
                 <img src={boneFinish} />
                 <div className="coefficient">
@@ -199,14 +216,18 @@ export default function Main() {
             </div>
           </div>
           <div className="row-coin">
-            <label className="coin-number">3</label>
+            <label className="coin-number">4</label>
             <img src={soldoge} />
-            <label className="coin-fullname">Soldoge</label>
-            <label className="coin-shortname">Sdoge</label>
+            <div className="coin-info-group">
+              <div className="coin-name-group">
+                <label className="coin-fullname">Soldoge</label>
+                <label className="coin-shortname">Sdoge</label>
+              </div>
+              <label className="coin-price">$0.0003595</label>
+            </div>
             <div className="score" style={style3}>
               <div className="line4" />
               <img className="score-img" src={soldoge} />
-              <label>$0.0003595</label>
               <div className="finish-section">
                 <img src={boneFinish} />
                 <div className="coefficient">
@@ -226,6 +247,7 @@ export default function Main() {
             <div className="change-race-btn">CHANGE RACE</div>
             <div className="value-circle">
               <img src={dollar} />
+              {/* <Dollar /> */}
             </div>
             <div className="announcement-description">
               <label>

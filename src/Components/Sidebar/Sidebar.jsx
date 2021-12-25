@@ -123,10 +123,18 @@ export default class Sidebar extends React.Component {
         </nav>
         <div className="social-group">
           <div className="social-icons">
-            <img src={twitter} />
-            <img src={telegram} />
-            <img src={discord} />
-            <img src={medium} />
+            <a href="https://twitter.com/memecoinsrace" target="_blank">
+              <img src={twitter}></img>
+            </a>
+            <a href="https://t.me/memecoinsrace" target="_blank">
+              <img src={telegram} />
+            </a>
+            <a href="https://discord.gg/7ZGjcK8P" target="_blank">
+              <img src={discord} />
+            </a>
+            <a target="_blank">
+              <img src={medium} />
+            </a>
           </div>
           <div className="social-footer">
             <label>Copyright © 2021</label>

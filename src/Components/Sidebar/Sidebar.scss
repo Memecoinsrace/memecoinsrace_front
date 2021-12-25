@@ -10,7 +10,7 @@ body {
 }
 
 .sidebar {
-  height: 95vh;
+  height: 100%;
   border-radius: 30px 0 0 30px;
   display: flex;
   background-color: #fff;
@@ -26,6 +26,7 @@ nav {
   background-color: transparent;
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .underline {
@@ -58,16 +59,20 @@ nav {
   justify-content: center;
 
   .item-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: 0.5fr 1fr;
     align-items: center;
-    justify-content: center;
     padding: 15px 35px;
-    width: 35%;
+    width: 50%;
     border-radius: 2em;
     transition: all 500ms ease;
+
     a {
-      margin-left: 10px;
+      font-family: "Montserrat";
+      color: #c2c9d5;
+      margin-right: auto;
       font-size: 15px;
+      transition: all 500ms ease;
     }
   }
 
@@ -77,23 +82,23 @@ nav {
       color: #551fff;
     }
   }
-}
 
-.active-item {
-  background: #f3f0ff;
-  a {
-    transition: transform 0.25s;
-    color: #551fff;
+  .item-container.active-item {
+    background: #f3f0ff;
+    a {
+      color: #551fff;
+    }
   }
 }
 
 .logo-nav {
   height: auto;
-  width: 65%;
+  width: 75%;
   margin-right: auto;
   margin-left: auto;
-  margin-top: 25%;
-  margin-bottom: 15%;
+  margin-top: 10%;
+  margin-bottom: 35%;
+  cursor: pointer;
 }
 
 .social-group {
@@ -116,10 +121,13 @@ nav {
     justify-content: center;
     margin-bottom: 5px;
     cursor: pointer;
-    img {
-      height: 70%;
-      width: 70%;
-      margin: auto;
+    text-align: center;
+    a {
+      img {
+        height: 60%;
+        width: 60%;
+        margin: auto;
+      }
     }
   }
 
