@@ -7,20 +7,21 @@
 }
 
 body {
-  background-color: #E0E4FF;
-  font-family: 'Montserrat', sans-serif;
+  background-color: #e0e4ff;
+  font-family: "Montserrat", sans-serif;
+  overflow: hidden;
 }
 
 body::-webkit-scrollbar {
-  width: 12px;               /* width of the entire scrollbar */
+  width: 12px; /* width of the entire scrollbar */
 }
 
 body::-webkit-scrollbar-track {
-  background: #E0E4FF;        /* color of the tracking area */
+  background: #e0e4ff; /* color of the tracking area */
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: #CB26FE;    /* color of the scroll thumb */
-  border-radius: 20px;       /* roundness of the scroll thumb */
-  border: 3px solid #E0E4FF;  /* creates padding around scroll thumb */
+  background-color: #cb26fe; /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+  border: 3px solid #e0e4ff; /* creates padding around scroll thumb */
 }

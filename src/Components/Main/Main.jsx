@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Main.scss";
 import phantom from "../../SVG/Phantom.svg";
 import solflare from "../../SVG/solflare.svg";
@@ -23,8 +23,50 @@ import banana from "../../SVG/banana.svg";
 import arrowDown from "../../SVG/arrow_down.svg";
 import arrowHeight from "../../SVG/arrow_height.svg";
 import arrowHeight2 from "../../SVG/arrow_height-2.svg";
+import * as solanaWeb3 from "@solana/web3.js";
 
 export default function Main() {
+  useEffect(() => {
+    // Update the document title using the browser API
+    let key = localStorage.getItem("phantomPublicKey");
+    // alert(key);
+    if (key !== null) {
+      // alert(key);
+      document.querySelector(".connect-wallet").style.background = "#4BC716";
+      document.querySelector(".cw-label").innerHTML = key;
+    }
+  });
+
+  async function ConnectPhantom() {
+    try {
+      if ("solana" in window) {
+        let provider = window.solana;
+
+        if (provider.isPhantom) {
+          const resp = await window.solana.connect();
+
+          document.querySelector(".connect-wallet").style.background =
+            "#4BC716";
+          document.querySelector(".cw-label").innerHTML =
+            resp.publicKey.toString();
+          document
+            .querySelector(".select-application-modal")
+            .classList.toggle("show-modal");
+          document
+            .querySelector(".connect-wallet-modal")
+            .classList.toggle("show-modal");
+
+          localStorage.setItem("phantomPublicKey", resp.publicKey.toString());
+        }
+      } else {
+        alert("Solana provider is not found");
+      }
+    } catch (ex) {
+      // alert(ex.toString());
+      alert("Something went wrong");
+    }
+  }
+
   function openSelectBlockchain() {
     let elem = document.querySelector(".connect-wallet-modal");
     elem.classList.toggle("show-modal");
@@ -100,7 +142,7 @@ export default function Main() {
         {/* <ConnectWallet onClick={openSelectBlockchain} /> */}
         <div className="connect-wallet" onClick={openSelectBlockchain}>
           <img src={wallet} />
-          <label>CONNECT WALLET</label>
+          <label className="cw-label">CONNECT WALLET</label>
         </div>
       </div>
       <div className="coins-sort">
@@ -299,7 +341,7 @@ export default function Main() {
           <div className="select-application-body">
             <h2>SELECT APPLICATION</h2>
             <div>
-              <div>
+              <div onClick={ConnectPhantom}>
                 <img src={phantom} />
                 <label>Phantom</label>
               </div>

@@ -77,8 +77,17 @@
   height: 10%;
   padding: 10px 15px;
   border-radius: 30px;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  overflow-wrap: break-word;
+  width: 13%;
+  transition: all 500ms ease;
 
   label {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    cursor: pointer;
     margin-left: 5px;
     font: normal normal bold 15px/18px Montserrat;
     color: white;
@@ -690,5 +699,20 @@
         }
       }
     }
+  }
+}
+
+@media only screen and (max-width: 1024px),
+  only screen and (max-device-width: 1024px) {
+  .sidebar {
+    .logo-nav {
+    }
+  }
+
+  body {
+    width: 100%;
+  }
+  .row-coin {
+    grid-template-columns: 0.5fr 0.7fr 2.3fr 6fr;
   }
 }
