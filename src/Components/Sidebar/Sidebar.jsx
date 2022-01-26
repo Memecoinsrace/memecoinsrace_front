@@ -52,11 +52,15 @@ export default class Sidebar extends React.Component {
           document
             .querySelector("#overview-item")
             .classList.toggle("active-item");
+          document.querySelector(".overview").style.maxHeight = "100%";
+          document.querySelector(".how-it-works").style.maxHeight = "0";
           break;
         case 1:
           document
             .querySelector("#howitworks-item")
             .classList.toggle("active-item");
+          document.querySelector(".overview").style.maxHeight = "0";
+          document.querySelector(".how-it-works").style.maxHeight = "100%";
           break;
         case 2:
           document.querySelector("#bets-item").classList.toggle("active-item");

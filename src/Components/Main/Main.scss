@@ -1,10 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 .main {
-  height: auto;
+  height: 95vh;
   width: 100%;
   border-radius: 0px 30px 30px 0px;
   background-color: #f8f9fc;
+  transition: all 0.5s ease-in;
+
+  .overview {
+    height: auto;
+    width: 100%;
+    border-radius: 0px 30px 30px 0px;
+    background-color: #f8f9fc;
+    max-height: 100%;
+    transition: max-height 0.5s ease-out;
+    overflow: hidden;
+  }
 
   .head {
     display: flex;
@@ -702,17 +713,100 @@
   }
 }
 
-@media only screen and (max-width: 1024px),
-  only screen and (max-device-width: 1024px) {
-  .sidebar {
-    .logo-nav {
+@media only screen and (max-width: 1280px),
+  only screen and (max-device-width: 1280px) {
+    .categories .active-category label {
+      font-size: 1.5em;
     }
-  }
 
-  body {
-    width: 100%;
-  }
-  .row-coin {
-    grid-template-columns: 0.5fr 0.7fr 2.3fr 6fr;
-  }
+    .categories div label {
+      font-size: 1.5em;
+    }
+
+    .connect-wallet {
+      height: 30px;
+      width: 140px;
+    }
+
+    .connect-wallet img {
+      height: 80%;
+    }
+
+    .connect-wallet label {
+      font-size: 0.7em;
+    }
+
+    .row-coin .coin-number {
+      font-size: 1em;
+    }
+
+    .row-coin img {
+      height: 50px;
+      width: 50px;
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+
+    .row-coin .coin-info-group .coin-name-group .coin-fullname {
+      font-size: 1em;
+    }
+
+    .row-coin .coin-info-group .coin-name-group .coin-shortname {
+      font-size: 1em;
+    }
+
+    .row-coin .coin-info-group .coin-price {
+      font-size: 1em;
+    }
+
+    .coins-sort {
+      padding: 10px;
+    }
+
+    .row-coin {
+      height: 40px;
+      grid-template-columns: 40px 60px 200px 450px;
+    }
+
+    .coins-sort div label {
+      font-size: 1em;
+    }
+
+    .race-group .race-aside .announcement label {
+      font-size: 1em;
+      padding-top: 10px;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    .race-group .race-aside .announcement .change-race-btn {
+      font-size: 0.6em;
+    }
+
+    .race-group .race-aside .announcement .announcement-description label {
+      font-size: 0.6em;
+    }
+
+    .race-group .race-aside .announcement img {
+      width: 100%;
+    }
+
+    .race-group .race-aside .announcement .current-bets-btn {
+      font-size: 0.6em;
+    }
+
+    .nav-item .item-container a {
+      font-size: 0.8em;
+    }
+
+    .nav-item .item-container {
+      padding: 10px 25px;
+    }
+
+    .nav-item .item-container img {
+      height: 70%;
+    }
+
+    .underline {
+    }
 }

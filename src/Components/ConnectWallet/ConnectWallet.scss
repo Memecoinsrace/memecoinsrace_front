@@ -1,0 +1,28 @@
+.connect-wallet {
+    background-color: #e70dff;
+    margin-top: 2%;
+    margin-right: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 10%;
+    padding: 10px 15px;
+    border-radius: 30px;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    overflow-wrap: break-word;
+    width: 13%;
+    transition: all 500ms ease;
+  
+    label {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      cursor: pointer;
+      margin-left: 5px;
+      font: normal normal bold 15px/18px Montserrat;
+      color: white;
+    }
+  }
