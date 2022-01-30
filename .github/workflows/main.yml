@@ -1,4 +1,4 @@
-name: Semantic release 
+name: Front CI
 
 on:
   push:
@@ -23,10 +23,6 @@ jobs:
         run: npm run build 
       - name: Arch build
         run: tar -czvf build.tar.gz /build
-      - name: Semantic release
-        env:
-          GITHUB_TOKEN: ${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}
-        run: npx semantic-release
       - name: test
         run: echo $GITHUB_REF_NAME
   release:
@@ -45,5 +41,4 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         files: |
-          memecoinsrace_collector
-          memecoinsrace_api
+          build.tar.gz
