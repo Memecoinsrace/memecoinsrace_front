@@ -20,7 +20,7 @@ jobs:
       - name: Install dependencies
         run: npm install 
       - name: Build app
-        run: npm run build 
+        run: CI=false npm run build 
       - name: Arch build
         run: tar -czvf build.tar.gz /build
       - name: test
