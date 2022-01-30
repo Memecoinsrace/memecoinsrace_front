@@ -2,22 +2,48 @@ name: Semantic release
 
 on:
   push:
-    branches:
-      - main
+    branches: [ master ]
+    tags:
+      - 'v*'
+  pull_request:
+    branches: [ master ]
+    
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2.5
         with:
-          node-version: 12
+          node-version: 17
       - name: Install dependencies
         run: npm install 
       - name: Build app
         run: npm run build 
+      - name: Arch build
+        run: tar -czvf build.tar.gz /build
       - name: Semantic release
         env:
           GITHUB_TOKEN: ${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}
         run: npx semantic-release
+      - name: test
+        run: echo $GITHUB_REF_NAME
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get build
+      uses: actions/download-artifact@master
+      with:
+        name: build.tar.gz
+        path: .
+    - name: Save
+      uses: softprops/action-gh-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        files: |
+          memecoinsrace_collector
+          memecoinsrace_api
