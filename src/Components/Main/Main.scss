@@ -114,6 +114,25 @@
   padding: 20px;
   border-radius: 0.5em;
 
+  .current-bets-btn {
+    cursor: pointer;
+    background-color: #0d90ff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 25px;
+    // box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
+    opacity: 1;
+    margin-left: auto;
+    border: 1px solid white;
+    font: normal normal bold 16px/19px Montserrat;
+  }
+
+  .current-bets-btn:hover {
+    background-color: white;
+    border: 1px solid #0d90ff;
+    color: #0d90ff;
+  }
+
   div {
     cursor: pointer;
     display: flex;
@@ -159,7 +178,7 @@
 
   .race-table {
     height: auto;
-    width: 85%;
+    width: 100%;
   }
 
   .race-aside {
@@ -224,25 +243,12 @@
           word-wrap: break-word;
         }
       }
-
-      .current-bets-btn {
-        cursor: pointer;
-        background-color: #0d90ff;
-        margin-right: 20px;
-        margin-left: 20px;
-        color: white;
-        padding: 15px 10px;
-        border-radius: 25px;
-        box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.5);
-        margin-bottom: 20px;
-        font: normal normal bold 16px/19px Montserrat;
-      }
     }
   }
 }
 
 .row-coin {
-  width: 90%;
+  width: 93%;
   height: auto;
   margin-left: 40px;
   display: grid;
@@ -320,12 +326,18 @@
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f6fdff",endColorstr="#fcf4d5",GradientType=1);
     border-radius: 10px;
     box-shadow: inset 2px 2px 7px rgba(0, 0, 0, 0.15);
-    display: flex;
-    flex-direction: row;
+    // display: flex;
+    // flex-direction: row;
+    display: grid;
+    grid-template-columns: 8fr 3fr;
+
+    .score-group {
+      display: flex;
+      flex-direction: row;
+    }
 
     .line {
       height: 20px;
-      width: 40%;
       margin-top: auto;
       margin-bottom: auto;
       margin-left: 20px;
@@ -349,90 +361,6 @@
       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#deba28",endColorstr="#ffd217",GradientType=1);
     }
 
-    .line2 {
-      height: 20px;
-      width: 35%;
-      margin-top: auto;
-      margin-bottom: auto;
-      margin-left: 20px;
-      border-radius: 7px;
-      background: rgb(255, 164, 9);
-      background: -moz-linear-gradient(
-        90deg,
-        rgba(255, 164, 9, 1) 0%,
-        rgba(240, 5, 0, 1) 35%
-      );
-      background: -webkit-linear-gradient(
-        90deg,
-        rgba(255, 164, 9, 1) 0%,
-        rgba(240, 5, 0, 1) 35%
-      );
-      background: linear-gradient(
-        90deg,
-        rgba(255, 164, 9, 1) 0%,
-        rgba(240, 5, 0, 1) 35%
-      );
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffa409",endColorstr="#f00500",GradientType=1);
-    }
-
-    .line3 {
-      height: 20px;
-      width: 36%;
-      margin-top: auto;
-      margin-bottom: auto;
-      margin-left: 20px;
-      border-radius: 7px;
-      background: rgb(184, 64, 240);
-      background: -moz-linear-gradient(
-        90deg,
-        rgba(184, 64, 240, 1) 0%,
-        rgba(109, 142, 208, 1) 35%,
-        rgba(30, 223, 175, 1) 95%
-      );
-      background: -webkit-linear-gradient(
-        90deg,
-        rgba(184, 64, 240, 1) 0%,
-        rgba(109, 142, 208, 1) 35%,
-        rgba(30, 223, 175, 1) 95%
-      );
-      background: linear-gradient(
-        90deg,
-        rgba(184, 64, 240, 1) 0%,
-        rgba(109, 142, 208, 1) 35%,
-        rgba(30, 223, 175, 1) 95%
-      );
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#b840f0",endColorstr="#1edfaf",GradientType=1);
-    }
-
-    .line4 {
-      height: 20px;
-      width: 10%;
-      margin-top: auto;
-      margin-bottom: auto;
-      margin-left: 20px;
-      border-radius: 7px;
-      background: rgb(199, 96, 234);
-      background: -moz-linear-gradient(
-        90deg,
-        rgba(199, 96, 234, 1) 0%,
-        rgba(137, 160, 216, 1) 35%,
-        rgba(55, 245, 193, 1) 95%
-      );
-      background: -webkit-linear-gradient(
-        90deg,
-        rgba(199, 96, 234, 1) 0%,
-        rgba(137, 160, 216, 1) 35%,
-        rgba(55, 245, 193, 1) 95%
-      );
-      background: linear-gradient(
-        90deg,
-        rgba(199, 96, 234, 1) 0%,
-        rgba(137, 160, 216, 1) 35%,
-        rgba(55, 245, 193, 1) 95%
-      );
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#c760ea",endColorstr="#37f5c1",GradientType=1);
-    }
-
     .score-img {
       height: 30px;
       width: 30px;
@@ -444,12 +372,12 @@
 
     .finish-section {
       display: inline-flex;
-      justify-content: space-between;
+      // justify-content: space-between;
       flex-direction: row;
       // grid-template-columns: 0.1fr 0.5fr 0.5fr;
       margin-left: auto;
       margin-right: 10px;
-      width: 40%;
+      width: 100%;
       text-align: center;
 
       img {
@@ -460,7 +388,7 @@
 
       .coefficient {
         height: 50%;
-        width: 5vw;
+        width: 3.5vw;
         border: 1px solid #e70dff;
         background-color: transparent;
         border-radius: 5px;
@@ -490,7 +418,7 @@
       .bet-btn {
         cursor: pointer;
         height: 60%;
-        width: 5vw;
+        width: 4vw;
         background-color: #e70dff;
         border-radius: 30px;
         margin: auto;
@@ -761,6 +689,19 @@
 
     .coins-sort {
       padding: 10px;
+
+      .current-bets-btn {
+        cursor: pointer;
+        background-color: #0d90ff;
+        margin-right: 20px;
+        margin-left: 20px;
+        color: white;
+        padding: 15px 10px;
+        border-radius: 25px;
+        box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.5);
+        margin-bottom: 20px;
+        font: normal normal bold 16px/19px Montserrat;
+      }
     }
 
     .row-coin {

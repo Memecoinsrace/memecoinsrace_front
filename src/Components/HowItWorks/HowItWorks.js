@@ -2,12 +2,17 @@ import react from "react";
 import ConnectWallet from "../ConnectWallet/ConnectWallet";
 import "./HowItWorks.scss";
 
-export default function HowItWorks() {
+export default function HowItWorks(props) {
   return (
     <div className="how-it-works">
       <div className="how-it-works-header">
         <h2>HOW IT WORKS</h2>
-        <ConnectWallet />
+        <ConnectWallet
+          DisconnectPhantom={props.DisconnectPhantom}
+          backColor={props.backColor}
+          inner={props.inner}
+          closeBtn={props.closeBtn}
+        />
       </div>
       <div className="how-it-works-body">
         <p>

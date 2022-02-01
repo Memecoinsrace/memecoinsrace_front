@@ -1,0 +1,15 @@
+.bets {
+    height: 100%;
+    width: 100%;
+    border-radius: 0px 30px 30px 0px;
+    max-height: 0;
+    transition: max-height 0.5s ease-in;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    label {
+        font: normal normal bold 35px/43px Montserrat;
+    }
+}
