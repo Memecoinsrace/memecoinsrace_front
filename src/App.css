@@ -16,17 +16,3 @@ body {
   font-family: "Montserrat", sans-serif;
   overflow: hidden;
 }
-
-body::-webkit-scrollbar {
-  width: 12px; /* width of the entire scrollbar */
-}
-
-body::-webkit-scrollbar-track {
-  background: #e0e4ff; /* color of the tracking area */
-}
-
-body::-webkit-scrollbar-thumb {
-  background-color: #cb26fe; /* color of the scroll thumb */
-  border-radius: 20px; /* roundness of the scroll thumb */
-  border: 3px solid #e0e4ff; /* creates padding around scroll thumb */
-}

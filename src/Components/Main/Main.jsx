@@ -11,6 +11,12 @@ import dogecoin from "../../PNG/icon-dogecoin@2x.png";
 import shibacoin from "../../PNG/icon-SHIBAINU@2x.png";
 import samoyedcoin from "../../PNG/icon-samoyedcoin@2x.png";
 import soldoge from "../../PNG/icon-soldoge@2x.png";
+import elon from "../../PNG/icon-DogelonMars@2x.png";
+import woof from "../../PNG/icon-woof@2x.png";
+import hoge from "../../PNG/icon-hoge@2x.png";
+import kishu from "../../PNG/icon-kishu@2x.png";
+import shibx from "../../PNG/icon-shibavax@2x.png";
+import samu from "../../PNG/icon-SAMU@2x.png";
 import boneFinish from "../../SVG/bone-finish.svg";
 import ConnectWallet from "../ConnectWallet/ConnectWallet";
 import bone from "../../SVG/bone.svg";
@@ -22,14 +28,27 @@ import arrowHeight2 from "../../SVG/arrow_height-2.svg";
 import axios from "axios";
 import HowItWorks from "../HowItWorks/HowItWorks";
 import Bets from "../Bets/Bets";
+import { sendAndConfirmTransaction } from "@solana/web3.js";
 
 export default class Main extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: [],
-      maxPrice: null,
+      data: {
+        dogsCoins: {
+          items: [],
+          maxPrice: null,
+        },
+        apesCoins: {
+          items: [],
+          maxPrice: null,
+        },
+        catsCoins: {
+          items: [],
+          maxPrice: null,
+        },
+      },
       connectWallet: {
         backColor: "rgb(231, 13, 255)",
         inner: "CONNECT WALLET",
@@ -57,8 +76,20 @@ export default class Main extends React.Component {
     });
   }
 
+  // ScoreBack() {
+  //   switch (key) {
+  //     case value:
+
+  //       break;
+
+  //     default:
+  //       break;
+  //   }
+  // }
+
   ScoreWidth(currentPrice) {
-    let lineWidth = (currentPrice / this.state.maxPrice) * 100 + 10;
+    let lineWidth =
+      (currentPrice / this.state.data.dogsCoins.maxPrice) * 100 + 10;
     return <div className="line" style={{ width: lineWidth + "%" }} />;
   }
 
@@ -72,8 +103,20 @@ export default class Main extends React.Component {
         return <img className="score-img" alt="" src={dogecoin} />;
       case "SAMO":
         return <img className="score-img" alt="" src={samoyedcoin} />;
+      case "ELON":
+        return <img className="score-img" alt="" src={elon} />;
+      case "WOOF":
+        return <img className="score-img" alt="" src={woof} />;
+      case "HOGE":
+        return <img className="score-img" alt="" src={hoge} />;
+      case "KISHU":
+        return <img className="score-img" alt="" src={kishu} />;
+      case "SHIBX":
+        return <img className="score-img" alt="" src={shibx} />;
+      case "SAMU":
+        return <img className="score-img" alt="" src={samu} />;
       default:
-        break;
+        return <img className="score-img" alt="" src={dogecoin} />;
     }
   }
 
@@ -87,8 +130,20 @@ export default class Main extends React.Component {
         return <img alt="" src={dogecoin} />;
       case "SAMO":
         return <img alt="" src={samoyedcoin} />;
+      case "ELON":
+        return <img className="score-img" alt="" src={elon} />;
+      case "WOOF":
+        return <img className="score-img" alt="" src={woof} />;
+      case "HOGE":
+        return <img className="score-img" alt="" src={hoge} />;
+      case "KISHU":
+        return <img className="score-img" alt="" src={kishu} />;
+      case "SHIBX":
+        return <img className="score-img" alt="" src={shibx} />;
+      case "SAMU":
+        return <img className="score-img" alt="" src={samu} />;
       default:
-        break;
+        return <img alt="" src={soldoge} />;
     }
   }
 
@@ -101,25 +156,65 @@ export default class Main extends React.Component {
         url: "https://api.memecoinsrace.com/rates",
       }).then(function (response) {
         self.setState({
-          data: response.data.rates,
+          data: {
+            dogsCoins: {
+              items: [],
+              maxPrice: null,
+            },
+          },
         });
 
-        // for (let i = 0; i < self.state.data.length; i++) {
-        //   const price = self.state.data[i].rate;
-        //   self.state.prices.push(price);
-        //   self.setState(self.state.prices);
-        // }
+        const fullData = response.data.rates;
 
-        // console.log(self.state.prices);
+        console.log("full data => ", fullData);
 
         let prices = [];
-        for (let i = 0; i < self.state.data.length; i++) {
-          const price = self.state.data[i].rate;
-          prices.push(price);
+
+        for (let i = 0; i < fullData.length; i++) {
+          const element = fullData[i];
+
+          if (
+            element.symbol === "DOGE" ||
+            element.symbol === "SAMO" ||
+            element.symbol === "SDOGE" ||
+            element.symbol === "SHIB" ||
+            element.symbol === "ELON" ||
+            element.symbol === "WOOF" ||
+            element.symbol === "HOGE" ||
+            element.symbol === "KISHU" ||
+            element.symbol === "SHIBX" ||
+            element.symbol === "SAMU"
+          ) {
+            if (element.symbol === "ELON" || element.symbol === "KISHU") {
+              element.rate = element.rate.toFixed(10);
+            }
+
+            // self.state.data.dogsCoins.items.push(fullData[i]);
+            // self.setState(self.state.data);
+
+            self.setState({
+              data: {
+                dogsCoins: {
+                  items: self.state.data.dogsCoins.items.concat(fullData[i]),
+                },
+              },
+            });
+            const price = fullData[i].rate;
+            prices.push(price);
+          }
         }
+
+        let dogs = self.state.data.dogsCoins.items;
+
         let QmaxPrice = Math.max(...prices);
+        self.state.data.dogsCoins.maxPrice = QmaxPrice;
         self.setState({
-          maxPrice: QmaxPrice,
+          data: {
+            dogsCoins: {
+              items: dogs,
+              maxPrice: QmaxPrice,
+            },
+          },
         });
       });
     } catch (error) {
@@ -263,11 +358,16 @@ export default class Main extends React.Component {
                 <img alt="" src={arrowHeight2} />
               </span>
             </div>
-            <div className="current-bets-btn">CURRENT BETS</div>
+            <div
+              className="current-bets-btn"
+              onClick={async () => await this.getData()}
+            >
+              CURRENT BETS
+            </div>
           </div>
           <div className="race-group">
             <div className="race-table">
-              {this.state.data
+              {this.state.data.dogsCoins.items
                 .sort((a, b) => (a.rate > b.rate ? -1 : 1))
                 .map((coin, index) => {
                   return (
@@ -282,7 +382,7 @@ export default class Main extends React.Component {
                           </label>
                         </div>
                         <label className="coin-price">
-                          ${coin.rate.toString().substr(0, 8)}
+                          ${coin.rate.toString().substr(0, 12)}
                         </label>
                       </div>
                       <div className="score">
