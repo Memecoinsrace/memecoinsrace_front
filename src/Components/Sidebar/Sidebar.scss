@@ -67,14 +67,13 @@ nav {
     padding: 15px 35px;
     width: 50%;
     border-radius: 2em;
-    transition: all 500ms ease;
+    transition: all 0.5s ease-in;
 
     a {
       font-family: "Montserrat";
       color: #c2c9d5;
       margin-right: auto;
       font-size: 15px;
-      transition: all 500ms ease;
       text-decoration: none;
     }
   }

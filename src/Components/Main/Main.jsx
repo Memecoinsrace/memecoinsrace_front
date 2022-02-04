@@ -28,7 +28,14 @@ import arrowHeight2 from "../../SVG/arrow_height-2.svg";
 import axios from "axios";
 import HowItWorks from "../HowItWorks/HowItWorks";
 import Bets from "../Bets/Bets";
-import { sendAndConfirmTransaction } from "@solana/web3.js";
+import {
+  CarouselProvider,
+  Slider,
+  Slide,
+  ButtonBack,
+  ButtonNext,
+} from "pure-react-carousel";
+import "pure-react-carousel/dist/react-carousel.es.css";
 
 export default class Main extends React.Component {
   constructor(props) {
@@ -54,6 +61,7 @@ export default class Main extends React.Component {
         inner: "CONNECT WALLET",
         closeBtn: "none",
       },
+      currentSlide: 0,
     };
     this.ConnectPhantom = this.ConnectPhantom.bind(this);
     this.DisconnectPhantom = this.DisconnectPhantom.bind(this);
@@ -63,6 +71,44 @@ export default class Main extends React.Component {
     this.CoinImage = this.CoinImage.bind(this);
     this.ScoreImage = this.ScoreImage.bind(this);
     this.ScoreWidth = this.ScoreWidth.bind(this);
+    this.selectCategory = this.selectCategory.bind(this);
+  }
+
+  selectCategory(num) {
+    document.getElementById("dogsCategory").classList.remove("active-category");
+
+    document.getElementById("apesCategory").classList.remove("active-category");
+
+    document.getElementById("catsCategory").classList.remove("active-category");
+
+    switch (num) {
+      case 0:
+        document
+          .getElementById("dogsCategory")
+          .classList.add("active-category");
+        this.setState({
+          currentSlide: 0,
+        });
+        break;
+      case 1:
+        document
+          .getElementById("catsCategory")
+          .classList.add("active-category");
+        this.setState({
+          currentSlide: 1,
+        });
+        break;
+      case 2:
+        document
+          .getElementById("apesCategory")
+          .classList.add("active-category");
+        this.setState({
+          currentSlide: 2,
+        });
+        break;
+      default:
+        break;
+    }
   }
 
   DisconnectPhantom() {
@@ -76,16 +122,32 @@ export default class Main extends React.Component {
     });
   }
 
-  // ScoreBack() {
-  //   switch (key) {
-  //     case value:
-
-  //       break;
-
-  //     default:
-  //       break;
-  //   }
-  // }
+  ScoreBack(symbol) {
+    switch (symbol) {
+      case "DOGE":
+        return "transparent linear-gradient(270deg, #FFE640 0%, #F0F8FF 100%) 0% 0% no-repeat padding-box";
+      case "SAMO":
+        return "transparent linear-gradient(270deg, #A6FFEA 0%, #DDBEFF 100%) 0% 0% no-repeat padding-box";
+      case "WOOF":
+        return "transparent linear-gradient(270deg, #A6FFEA 0%, #DDBEFF 100%) 0% 0% no-repeat padding-box";
+      case "SHIBX":
+        return "transparent linear-gradient(270deg, #FF6D6E 0%, #F1EFF8 100%) 0% 0% no-repeat padding-box";
+      case "SAMU":
+        return "transparent linear-gradient(270deg, #A6FFEA 0%, #DDBEFF 100%) 0% 0% no-repeat padding-box";
+      case "HOGE":
+        return "transparent linear-gradient(270deg, #A0A9C7 0%, #EEF0FF 100%) 0% 0% no-repeat padding-box";
+      case "SDOGE":
+        return "transparent linear-gradient(270deg, #A6FFEA 0%, #DDBEFF 100%) 0% 0% no-repeat padding-box";
+      case "SHIB":
+        return "transparent linear-gradient(270deg, #A0A9C7 0%, #EEF0FF 100%) 0% 0% no-repeat padding-box";
+      case "ELON":
+        return "transparent linear-gradient(270deg, #A0A9C7 0%, #EEF0FF 100%) 0% 0% no-repeat padding-box";
+      case "KISHU":
+        return "transparent linear-gradient(270deg, #A0A9C7 0%, #EEF0FF 100%) 0% 0% no-repeat padding-box";
+      default:
+        break;
+    }
+  }
 
   ScoreWidth(currentPrice) {
     let lineWidth =
@@ -116,7 +178,7 @@ export default class Main extends React.Component {
       case "SAMU":
         return <img className="score-img" alt="" src={samu} />;
       default:
-        return <img className="score-img" alt="" src={dogecoin} />;
+        return;
     }
   }
 
@@ -143,7 +205,7 @@ export default class Main extends React.Component {
       case "SAMU":
         return <img className="score-img" alt="" src={samu} />;
       default:
-        return <img alt="" src={soldoge} />;
+        return;
     }
   }
 
@@ -163,6 +225,7 @@ export default class Main extends React.Component {
             },
           },
         });
+        console.log("data cleared");
 
         const fullData = response.data.rates;
 
@@ -292,21 +355,25 @@ export default class Main extends React.Component {
         <div className="overview">
           <div className="head">
             <div className="categories">
-              <div className="active-category">
+              <div
+                id="dogsCategory"
+                className="active-category"
+                onClick={() => this.selectCategory(0)}
+              >
                 <span>
                   <img alt="" src={bone} />
                 </span>
                 <label>DOGS</label>
                 <label>COINS</label>
               </div>
-              <div>
+              <div id="catsCategory" onClick={() => this.selectCategory(1)}>
                 <span>
                   <img alt="" src={fish} />
                 </span>
                 <label>CATS</label>
                 <label>COINS</label>
               </div>
-              <div>
+              <div id="apesCategory" onClick={() => this.selectCategory(2)}>
                 <span>
                   <img alt="" src={banana} />
                 </span>
@@ -365,48 +432,67 @@ export default class Main extends React.Component {
               CURRENT BETS
             </div>
           </div>
-          <div className="race-group">
-            <div className="race-table">
-              {this.state.data.dogsCoins.items
-                .sort((a, b) => (a.rate > b.rate ? -1 : 1))
-                .map((coin, index) => {
-                  return (
-                    <div className="row-coin" key={coin.id}>
-                      <label className="coin-number">{index + 1}</label>
-                      {this.CoinImage(coin.symbol)}
-                      <div className="coin-info-group">
-                        <div className="coin-name-group">
-                          <label className="coin-fullname">{coin.name}</label>
-                          <label className="coin-shortname">
-                            {coin.symbol}
-                          </label>
-                        </div>
-                        <label className="coin-price">
-                          ${coin.rate.toString().substr(0, 12)}
-                        </label>
-                      </div>
-                      <div className="score">
-                        <div className="score-group">
-                          {this.ScoreWidth(coin.rate)}
-                          {this.ScoreImage(coin.symbol)}
-                        </div>
-                        {/* <div className="line" /> */}
-                        {/* <img className="score-img" src={dogecoin} /> */}
-                        <div className="finish-section">
-                          <img alt="" src={boneFinish} />
-                          <div className="coefficient">
-                            <label>x 0.15</label>
+          <CarouselProvider
+            naturalSlideWidth={100}
+            naturalSlideHeight={90}
+            totalSlides={3}
+            dragEnabled={false}
+            currentSlide={this.state.currentSlide}
+          >
+            <Slider>
+              <Slide index={0}>
+                {" "}
+                <div className="race-table">
+                  {this.state.data.dogsCoins.items
+                    .sort((a, b) => (a.rate > b.rate ? -1 : 1))
+                    .map((coin, index) => {
+                      return (
+                        <div className="row-coin" key={coin.id}>
+                          <label className="coin-number">{index + 1}</label>
+                          {this.CoinImage(coin.symbol)}
+                          <div className="coin-info-group">
+                            <div className="coin-name-group">
+                              <label className="coin-fullname">
+                                {coin.name}
+                              </label>
+                              <label className="coin-shortname">
+                                {coin.symbol}
+                              </label>
+                            </div>
+                            <label className="coin-price">
+                              ${coin.rate.toString().substr(0, 12)}
+                            </label>
                           </div>
-                          <div className="bet-btn">
-                            <label>BET</label>
+                          <div
+                            className="score"
+                            style={{ background: this.ScoreBack(coin.symbol) }}
+                          >
+                            <div className="score-group">
+                              {this.ScoreWidth(coin.rate)}
+                              {this.ScoreImage(coin.symbol)}
+                            </div>
+                            {/* <div className="line" /> */}
+                            {/* <img className="score-img" src={dogecoin} /> */}
+                            <div className="finish-section">
+                              <img alt="" src={boneFinish} />
+                              <div className="coefficient">
+                                <label>x 0.15</label>
+                              </div>
+                              <div className="bet-btn">
+                                <label>BET</label>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  );
-                })}
-            </div>
-            {/* <div className="race-aside">
+                      );
+                    })}
+                </div>
+              </Slide>
+              <Slide index={1}>I am the second Slide.</Slide>
+              <Slide index={2}>I am the third Slide.</Slide>
+            </Slider>
+          </CarouselProvider>
+          {/* <div className="race-aside">
               <div className="announcement">
                 <label>THIS RACE</label>
                 <img src={finishLine} />
@@ -424,7 +510,6 @@ export default class Main extends React.Component {
                 <div className="current-bets-btn">CURRENT BETS</div>
               </div>
             </div> */}
-          </div>
           <div className="connect-wallet-modal">
             <div className="connect-wallet-content">
               <div className="connect-wallet-header">
