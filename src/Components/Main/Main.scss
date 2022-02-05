@@ -248,27 +248,8 @@
     height: 100%;
     width: 100%;
     margin-left: 20px;
-    // background: rgb(246, 253, 255);
-    // background: -moz-linear-gradient(
-    //   90deg,
-    //   rgba(246, 253, 255, 1) 0%,
-    //   rgba(252, 244, 213, 1) 35%
-    // );
-    // background: -webkit-linear-gradient(
-    //   90deg,
-    //   rgba(246, 253, 255, 1) 0%,
-    //   rgba(252, 244, 213, 1) 35%
-    // );
-    // background: linear-gradient(
-    //   90deg,
-    //   rgba(246, 253, 255, 1) 0%,
-    //   rgba(252, 244, 213, 1) 35%
-    // );
-    // filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f6fdff",endColorstr="#fcf4d5",GradientType=1);
     border-radius: 10px;
     box-shadow: inset 2px 2px 7px rgba(0, 0, 0, 0.15);
-    // display: flex;
-    // flex-direction: row;
     display: grid;
     grid-template-columns: 8fr 3fr;
 

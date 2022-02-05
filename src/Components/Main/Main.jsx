@@ -17,11 +17,18 @@ import hoge from "../../PNG/icon-hoge@2x.png";
 import kishu from "../../PNG/icon-kishu@2x.png";
 import shibx from "../../PNG/icon-shibavax@2x.png";
 import samu from "../../PNG/icon-SAMU@2x.png";
+import cato from "../../PNG/icon-cato@2x.png";
+import hima from "../../PNG/icon-HIMA@2x.png";
+import banana from "../../PNG/icon-apeswap@2x.png";
+import ape from "../../PNG/icon-APE-X@2x.png";
+import apex from "../../PNG/icon-APE@2x.png";
+import solape from "../../PNG/icon-SOLAPE@2x.png";
+import gdt from "../../PNG/icon-GDT@2x.png";
 import boneFinish from "../../SVG/bone-finish.svg";
 import ConnectWallet from "../ConnectWallet/ConnectWallet";
 import bone from "../../SVG/bone.svg";
 import fish from "../../SVG/fish.svg";
-import banana from "../../SVG/banana.svg";
+import banan from "../../SVG/banana.svg";
 import arrowDown from "../../SVG/arrow_down.svg";
 import arrowHeight from "../../SVG/arrow_height.svg";
 import arrowHeight2 from "../../SVG/arrow_height-2.svg";
@@ -42,19 +49,17 @@ export default class Main extends React.Component {
     super(props);
 
     this.state = {
-      data: {
-        dogsCoins: {
-          items: [],
-          maxPrice: null,
-        },
-        apesCoins: {
-          items: [],
-          maxPrice: null,
-        },
-        catsCoins: {
-          items: [],
-          maxPrice: null,
-        },
+      dogsCoins: {
+        items: [],
+        maxPrice: null,
+      },
+      apesCoins: {
+        items: [],
+        maxPrice: null,
+      },
+      catsCoins: {
+        items: [],
+        maxPrice: null,
       },
       connectWallet: {
         backColor: "rgb(231, 13, 255)",
@@ -144,15 +149,48 @@ export default class Main extends React.Component {
         return "transparent linear-gradient(270deg, #A0A9C7 0%, #EEF0FF 100%) 0% 0% no-repeat padding-box";
       case "KISHU":
         return "transparent linear-gradient(270deg, #A0A9C7 0%, #EEF0FF 100%) 0% 0% no-repeat padding-box";
+      case "CATE":
+        return "transparent linear-gradient(270deg, #A0A9C7 0%, #EEF0FF 100%) 0% 0% no-repeat padding-box";
+      case "CATO":
+        return "transparent linear-gradient(270deg, #FFE640 0%, #F0F8FF 100%) 0% 0% no-repeat padding-box";
+      case "HIMA":
+        return "transparent linear-gradient(270deg, #A6FFEA 0%, #DDBEFF 100%) 0% 0% no-repeat padding-box";
+      case "MEOW":
+        return "transparent linear-gradient(270deg, #A6FFEA 0%, #DDBEFF 100%) 0% 0% no-repeat padding-box";
+      case "KITTY":
+        return "transparent linear-gradient(270deg, #A6FFEA 0%, #DDBEFF 100%) 0% 0% no-repeat padding-box";
+      case "BANANA":
+        return "transparent linear-gradient(270deg, #FFE640 0%, #F0F8FF 100%) 0% 0% no-repeat padding-box";
+      case "APE-X":
+        return "transparent linear-gradient(270deg, #A6FFEA 0%, #DDBEFF 100%) 0% 0% no-repeat padding-box";
+      case "APEX":
+        return "transparent linear-gradient(270deg, #FF6D6E 0%, #F1EFF8 100%) 0% 0% no-repeat padding-box";
+      case "SOLAPE":
+        return "transparent linear-gradient(270deg, #A6FFEA 0%, #DDBEFF 100%) 0% 0% no-repeat padding-box";
+      case "GDT":
+        return "transparent linear-gradient(270deg, #FFE640 0%, #F0F8FF 100%) 0% 0% no-repeat padding-box";
       default:
         break;
     }
   }
 
-  ScoreWidth(currentPrice) {
-    let lineWidth =
-      (currentPrice / this.state.data.dogsCoins.maxPrice) * 100 + 10;
-    return <div className="line" style={{ width: lineWidth + "%" }} />;
+  ScoreWidth(currentPrice, type) {
+    switch (type) {
+      case "dogs":
+        let dogsLineWidth =
+          (currentPrice / this.state.dogsCoins.maxPrice) * 100 + 10;
+        return <div className="line" style={{ width: dogsLineWidth + "%" }} />;
+      case "cats":
+        let catsLineWidth =
+          (currentPrice / this.state.catsCoins.maxPrice) * 100 + 10;
+        return <div className="line" style={{ width: catsLineWidth + "%" }} />;
+      case "apes":
+        let apesLineWidth =
+          (currentPrice / this.state.catsCoins.maxPrice) * 100 + 10;
+        return <div className="line" style={{ width: apesLineWidth + "%" }} />;
+      default:
+        break;
+    }
   }
 
   ScoreImage(coinName) {
@@ -177,6 +215,20 @@ export default class Main extends React.Component {
         return <img className="score-img" alt="" src={shibx} />;
       case "SAMU":
         return <img className="score-img" alt="" src={samu} />;
+      case "CATO":
+        return <img className="score-img" alt="" src={cato} />;
+      case "HIMA":
+        return <img className="score-img" alt="" src={hima} />;
+      case "BANANA":
+        return <img className="score-img" alt="" src={banana} />;
+      case "APE-X":
+        return <img className="score-img" alt="" src={ape} />;
+      case "APEX":
+        return <img className="score-img" alt="" src={apex} />;
+      case "SOLAPE":
+        return <img className="score-img" alt="" src={solape} />;
+      case "GDT":
+        return <img className="score-img" alt="" src={gdt} />;
       default:
         return;
     }
@@ -193,17 +245,31 @@ export default class Main extends React.Component {
       case "SAMO":
         return <img alt="" src={samoyedcoin} />;
       case "ELON":
-        return <img className="score-img" alt="" src={elon} />;
+        return <img alt="" src={elon} />;
       case "WOOF":
-        return <img className="score-img" alt="" src={woof} />;
+        return <img alt="" src={woof} />;
       case "HOGE":
-        return <img className="score-img" alt="" src={hoge} />;
+        return <img alt="" src={hoge} />;
       case "KISHU":
-        return <img className="score-img" alt="" src={kishu} />;
+        return <img alt="" src={kishu} />;
       case "SHIBX":
-        return <img className="score-img" alt="" src={shibx} />;
+        return <img alt="" src={shibx} />;
       case "SAMU":
-        return <img className="score-img" alt="" src={samu} />;
+        return <img alt="" src={samu} />;
+      case "CATO":
+        return <img alt="" src={cato} />;
+      case "HIMA":
+        return <img alt="" src={hima} />;
+      case "BANANA":
+        return <img alt="" src={banana} />;
+      case "APE-X":
+        return <img alt="" src={ape} />;
+      case "APEX":
+        return <img alt="" src={apex} />;
+      case "SOLAPE":
+        return <img alt="" src={solape} />;
+      case "GDT":
+        return <img alt="" src={gdt} />;
       default:
         return;
     }
@@ -217,21 +283,13 @@ export default class Main extends React.Component {
         method: "get",
         url: "https://api.memecoinsrace.com/rates",
       }).then(function (response) {
-        self.setState({
-          data: {
-            dogsCoins: {
-              items: [],
-              maxPrice: null,
-            },
-          },
-        });
-        console.log("data cleared");
-
         const fullData = response.data.rates;
 
         console.log("full data => ", fullData);
 
-        let prices = [];
+        let dogsPrices = [];
+        let catsPrices = [];
+        let apesPrices = [];
 
         for (let i = 0; i < fullData.length; i++) {
           const element = fullData[i];
@@ -252,33 +310,84 @@ export default class Main extends React.Component {
               element.rate = element.rate.toFixed(10);
             }
 
-            // self.state.data.dogsCoins.items.push(fullData[i]);
-            // self.setState(self.state.data);
-
             self.setState({
-              data: {
-                dogsCoins: {
-                  items: self.state.data.dogsCoins.items.concat(fullData[i]),
-                },
+              dogsCoins: {
+                items: self.state.dogsCoins.items.concat(fullData[i]),
               },
             });
             const price = fullData[i].rate;
-            prices.push(price);
+            dogsPrices.push(price);
+          }
+
+          if (
+            element.symbol === "CATE" ||
+            element.symbol === "CATO" ||
+            element.symbol === "HIMA" ||
+            element.symbol === "MEOW" ||
+            element.symbol === "KITTY"
+          ) {
+            self.setState({
+              catsCoins: {
+                items: self.state.catsCoins.items.concat(fullData[i]),
+              },
+            });
+            //console.log("CATS COINS => ", element);
+            const price = fullData[i].rate;
+            catsPrices.push(price);
+          }
+
+          if (
+            element.symbol === "BANANA" ||
+            element.symbol === "APE-X" ||
+            element.symbol === "APEX" ||
+            element.symbol === "SOLAPE" ||
+            element.symbol === "GDT"
+          ) {
+            if (element.symbol === "APE-X") {
+              element.rate = element.rate.toFixed(10);
+            }
+
+            self.setState({
+              apesCoins: {
+                items: self.state.apesCoins.items.concat(fullData[i]),
+              },
+            });
+
+            const price = fullData[i].rate;
+            apesPrices.push(price);
           }
         }
 
-        let dogs = self.state.data.dogsCoins.items;
+        let dogs = self.state.dogsCoins.items;
+        let cats = self.state.catsCoins.items;
+        let apes = self.state.apesCoins.items;
 
-        let QmaxPrice = Math.max(...prices);
-        self.state.data.dogsCoins.maxPrice = QmaxPrice;
+        let dogsMaxPrice = Math.max(...dogsPrices);
+        let catsMaxPrice = Math.max(...catsPrices);
+        let apesMaxPrice = Math.max(...apesPrices);
+
+        self.state.dogsCoins.maxPrice = dogsMaxPrice;
+        self.state.catsCoins.maxPrice = catsMaxPrice;
+        self.state.apesCoins.maxPrice = apesMaxPrice;
+
         self.setState({
-          data: {
-            dogsCoins: {
-              items: dogs,
-              maxPrice: QmaxPrice,
-            },
+          dogsCoins: {
+            items: dogs,
+            maxPrice: dogsMaxPrice,
+          },
+          catsCoins: {
+            items: cats,
+            maxPrice: catsMaxPrice,
+          },
+          apesCoins: {
+            items: apes,
+            maxPrice: apesMaxPrice,
           },
         });
+
+        console.log(self.state.dogsCoins.items);
+        console.log(self.state.catsCoins.items);
+        console.log(self.state.apesCoins.items);
       });
     } catch (error) {
       console.log("ERROR => " + error);
@@ -375,7 +484,7 @@ export default class Main extends React.Component {
               </div>
               <div id="apesCategory" onClick={() => this.selectCategory(2)}>
                 <span>
-                  <img alt="" src={banana} />
+                  <img alt="" src={banan} />
                 </span>
                 <label>APES</label>
                 <label>COINS</label>
@@ -438,12 +547,12 @@ export default class Main extends React.Component {
             totalSlides={3}
             dragEnabled={false}
             currentSlide={this.state.currentSlide}
+            orientation="vertical"
           >
             <Slider>
               <Slide index={0}>
-                {" "}
                 <div className="race-table">
-                  {this.state.data.dogsCoins.items
+                  {this.state.dogsCoins.items
                     .sort((a, b) => (a.rate > b.rate ? -1 : 1))
                     .map((coin, index) => {
                       return (
@@ -468,11 +577,9 @@ export default class Main extends React.Component {
                             style={{ background: this.ScoreBack(coin.symbol) }}
                           >
                             <div className="score-group">
-                              {this.ScoreWidth(coin.rate)}
+                              {this.ScoreWidth(coin.rate, "dogs")}
                               {this.ScoreImage(coin.symbol)}
                             </div>
-                            {/* <div className="line" /> */}
-                            {/* <img className="score-img" src={dogecoin} /> */}
                             <div className="finish-section">
                               <img alt="" src={boneFinish} />
                               <div className="coefficient">
@@ -488,8 +595,96 @@ export default class Main extends React.Component {
                     })}
                 </div>
               </Slide>
-              <Slide index={1}>I am the second Slide.</Slide>
-              <Slide index={2}>I am the third Slide.</Slide>
+              <Slide index={1}>
+                <div className="race-table">
+                  {this.state.catsCoins.items
+                    .sort((a, b) => (a.rate > b.rate ? -1 : 1))
+                    .map((coin, index) => {
+                      return (
+                        <div className="row-coin" key={coin.id}>
+                          <label className="coin-number">{index + 1}</label>
+                          {this.CoinImage(coin.symbol)}
+                          <div className="coin-info-group">
+                            <div className="coin-name-group">
+                              <label className="coin-fullname">
+                                {coin.name}
+                              </label>
+                              <label className="coin-shortname">
+                                {coin.symbol}
+                              </label>
+                            </div>
+                            <label className="coin-price">
+                              ${coin.rate.toString().substr(0, 12)}
+                            </label>
+                          </div>
+                          <div
+                            className="score"
+                            style={{ background: this.ScoreBack(coin.symbol) }}
+                          >
+                            <div className="score-group">
+                              {this.ScoreWidth(coin.rate, "cats")}
+                              {this.ScoreImage(coin.symbol)}
+                            </div>
+                            <div className="finish-section">
+                              <img alt="" src={boneFinish} />
+                              <div className="coefficient">
+                                <label>x 0.15</label>
+                              </div>
+                              <div className="bet-btn">
+                                <label>BET</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                </div>
+              </Slide>
+              <Slide index={2}>
+                <div className="race-table">
+                  {this.state.apesCoins.items
+                    .sort((a, b) => (a.rate > b.rate ? -1 : 1))
+                    .map((coin, index) => {
+                      return (
+                        <div className="row-coin" key={coin.id}>
+                          <label className="coin-number">{index + 1}</label>
+                          {this.CoinImage(coin.symbol)}
+                          <div className="coin-info-group">
+                            <div className="coin-name-group">
+                              <label className="coin-fullname">
+                                {coin.name}
+                              </label>
+                              <label className="coin-shortname">
+                                {coin.symbol}
+                              </label>
+                            </div>
+                            <label className="coin-price">
+                              ${coin.rate.toString().substr(0, 12)}
+                            </label>
+                          </div>
+                          <div
+                            className="score"
+                            style={{ background: this.ScoreBack(coin.symbol) }}
+                          >
+                            <div className="score-group">
+                              {this.ScoreWidth(coin.rate, "cats")}
+                              {this.ScoreImage(coin.symbol)}
+                            </div>
+                            <div className="finish-section">
+                              <img alt="" src={boneFinish} />
+                              <div className="coefficient">
+                                <label>x 0.15</label>
+                              </div>
+                              <div className="bet-btn">
+                                <label>BET</label>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                </div>
+              </Slide>
             </Slider>
           </CarouselProvider>
           {/* <div className="race-aside">
