@@ -6,7 +6,7 @@ export default function HowItWorks(props) {
   return (
     <div className="how-it-works">
       <div className="how-it-works-header">
-        <h2>HOW IT WORKS</h2>
+        <p>HOW IT WORKS</p>
         <ConnectWallet
           DisconnectPhantom={props.DisconnectPhantom}
           backColor={props.backColor}
