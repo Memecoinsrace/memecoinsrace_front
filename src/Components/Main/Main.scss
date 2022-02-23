@@ -301,7 +301,6 @@
   .score {
     height: 100%;
     width: 100%;
-    margin-left: 20px;
     border-radius: 10px;
     box-shadow: inset 2px 2px 7px rgba(0, 0, 0, 0.15);
     display: grid;
@@ -318,23 +317,23 @@
       margin-bottom: auto;
       margin-left: 20px;
       border-radius: 7px;
-      background: rgb(222, 186, 40);
-      background: -moz-linear-gradient(
-        90deg,
-        rgba(222, 186, 40, 1) 0%,
-        rgba(255, 210, 23, 1) 35%
-      );
-      background: -webkit-linear-gradient(
-        90deg,
-        rgba(222, 186, 40, 1) 0%,
-        rgba(255, 210, 23, 1) 35%
-      );
-      background: linear-gradient(
-        90deg,
-        rgba(222, 186, 40, 1) 0%,
-        rgba(255, 210, 23, 1) 35%
-      );
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#deba28",endColorstr="#ffd217",GradientType=1);
+      // background: rgb(222, 186, 40);
+      // background: -moz-linear-gradient(
+      //   90deg,
+      //   rgba(222, 186, 40, 1) 0%,
+      //   rgba(255, 210, 23, 1) 35%
+      // );
+      // background: -webkit-linear-gradient(
+      //   90deg,
+      //   rgba(222, 186, 40, 1) 0%,
+      //   rgba(255, 210, 23, 1) 35%
+      // );
+      // background: linear-gradient(
+      //   90deg,
+      //   rgba(222, 186, 40, 1) 0%,
+      //   rgba(255, 210, 23, 1) 35%
+      // );
+      // filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#deba28",endColorstr="#ffd217",GradientType=1);
     }
 
     .score-img {
@@ -632,100 +631,311 @@
   }
 }
 
-@media only screen and (max-width: 1280px),
-  only screen and (max-device-width: 1280px) {
-    .categories .active-category label {
-      font-size: 1.5em;
+// @media only screen and (max-width: 1280px),
+//   only screen and (max-device-width: 1280px) {
+//     .categories .active-category label {
+//       font-size: 1.5em;
+//     }
+
+//     .categories div label {
+//       font-size: 1.5em;
+//     }
+
+//     .connect-wallet {
+//       height: 30px;
+//       width: 140px;
+//     }
+
+//     .connect-wallet img {
+//       height: 80%;
+//     }
+
+//     .connect-wallet label {
+//       font-size: 0.7em;
+//     }
+
+//     .row-coin .coin-number {
+//       font-size: 1em;
+//     }
+
+//     .row-coin img {
+//       height: 50px;
+//       width: 50px;
+//       margin-top: auto;
+//       margin-bottom: auto;
+//     }
+
+//     .row-coin .coin-info-group .coin-name-group .coin-fullname {
+//       font-size: 1em;
+//     }
+
+//     .row-coin .coin-info-group .coin-name-group .coin-shortname {
+//       font-size: 1em;
+//     }
+
+//     .row-coin .coin-info-group .coin-price {
+//       font-size: 1em;
+//     }
+
+//     .coins-sort {
+//       padding: 10px;
+//     }
+
+//     .row-coin {
+//       height: 40px;
+//       grid-template-columns: 40px 60px 200px 450px;
+//     }
+
+//     .coins-sort div label {
+//       font-size: 1em;
+//     }
+
+//     .race-group .race-aside .announcement label {
+//       font-size: 1em;
+//       padding-top: 10px;
+//       padding-left: 10px;
+//       padding-right: 10px;
+//     }
+
+//     .race-group .race-aside .announcement .change-race-btn {
+//       font-size: 0.6em;
+//     }
+
+//     .race-group .race-aside .announcement .announcement-description label {
+//       font-size: 0.6em;
+//     }
+
+//     .race-group .race-aside .announcement img {
+//       width: 100%;
+//     }
+
+//     .race-group .race-aside .announcement .current-bets-btn {
+//       font-size: 0.6em;
+//     }
+
+//     .nav-item .item-container a {
+//       font-size: 0.8em;
+//     }
+
+//     .nav-item .item-container {
+//       padding: 10px 25px;
+//     }
+
+//     .nav-item .item-container img {
+//       height: 70%;
+//     }
+
+//     .underline {
+//     }
+// }
+
+@media all and (min-width: 1280px) and (max-width: 1600px) {
+
+  .main .head .current-bets-btn {
+    margin-left: auto;
+    font: normal normal bold 14px/17px Montserrat;
+    padding: 20px 15px!important;
+    width: 60%;
+    margin-right: 30px;
+    margin-top: 28px;
+  }
+
+  .main .head .connect-wallet {
+    padding: 10px 15px!important;
+    margin-top: 28px;
+    label {
+      font: normal normal bold 14px/17px Montserrat!important;
+      padding: 10px 7px!important;
+      padding-left: 0px!important;
+    }
+  }
+
+  .categories .active-category label {
+    font: normal normal bold 30px/38px Montserrat;
+  }
+
+  .categories div label {
+    font: normal normal normal 30px/38px Montserrat;
+  }
+
+  .slide-wrapper {
+    height: 90%!important;
+  }
+}
+
+
+@media all and (min-width: 1024px) and (max-width: 1280px) {
+  
+  .logo-nav {
+    margin-top: 20%;
+  }
+  .nav-item .item-container {
+    padding: 10px 20px;
+
+    img {
+      height: 50%;
     }
 
-    .categories div label {
-      font-size: 1.5em;
+    a {
+      font-size: 12px; 
+    }
+  }
+
+  .main .head {
+    grid-template-columns: 5fr 0.7fr 0.7fr;
+  }
+
+  .main .overview {
+    row-gap: 5px;
+  }
+  .main .head .current-bets-btn {
+    margin-left: auto;
+    font: normal normal bold 10px/12px Montserrat;
+    padding: 17px 0px!important;
+    width: 100%;
+    margin-right: 0px;
+    margin-top: 33px;
+  }
+
+  .main .head .connect-wallet {
+    padding: 10px!important;
+    margin-top: 32px;
+    width: 25%;
+    margin-right: 40px;
+    margin-left: auto;
+
+    img {
+      width: 90%;
     }
 
-    .connect-wallet {
-      height: 30px;
-      width: 140px;
+    label {
+      display: none;
+      font: normal normal bold 10px/13px Montserrat!important;
+      padding: 10px 7px!important;
+      padding-left: 0px!important;
     }
+  }
 
-    .connect-wallet img {
+  .categories .active-category label {
+    font: normal normal bold 25px/33px Montserrat;
+  }
+
+  .categories div label {
+    font: normal normal bold 25px/33px Montserrat;
+  }
+
+  .slide-wrapper {
+    height: 85%!important;
+  }
+
+  .coins-sort div label {
+    font: normal normal bold 15px/19px Montserrat;
+  }
+
+  .coins-sort {
+    padding: 10px;
+  }
+
+  .row-coin {
+    height: 30px;
+    width: 90%;    
+    margin-left: auto;
+    margin-right: auto;
+    grid-template-columns: 0.2fr 0.8fr 2.5fr 5fr;
+    padding-right: 20px;
+  }
+
+  .row-coin img {
+    height: 40px;
+    width: 40px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  .row-coin .coin-info-group .coin-name-group .coin-fullname {
+    font: normal normal bold 16px/20px Montserrat;
+  }
+
+  .row-coin .coin-info-group .coin-name-group .coin-shortname {
+    font: normal normal bold 16px/20px Montserrat;
+  }
+
+  .row-coin .coin-info-group .coin-price {
+    font: normal normal bold 16px/20px Montserrat;
+  }
+
+  .row-coin .score .line {
+    height: 15px;
+  }
+
+  .row-coin .score .score-img {
+    height: 20px;
+    width: 20px;
+  }
+
+  .row-coin .score .finish-section .coefficient label {
+    font: normal normal 600 12px/15px Montserrat;
+  }
+
+  .row-coin .score .finish-section .bet-btn label {
+    font: normal normal 600 12px/15px Montserrat
+  }
+
+  .social-group .social-footer label {
+    font-size: 8px;
+  }
+}
+
+@media all and (min-width: 768px) and (max-width: 1024px) {
+  .nav-item .item-container {
+    a {
+      display: none;
+    }
+    
+    img {
       height: 80%;
     }
+  }
+}
 
-    .connect-wallet label {
-      font-size: 0.7em;
-    }
+@media all and (min-width: 480px) and (max-width: 768px) { }
 
-    .row-coin .coin-number {
-      font-size: 1em;
-    }
+@media all and (max-width: 480px) { }
 
-    .row-coin img {
-      height: 50px;
-      width: 50px;
-      margin-top: auto;
-      margin-bottom: auto;
-    }
 
-    .row-coin .coin-info-group .coin-name-group .coin-fullname {
-      font-size: 1em;
-    }
+/* Portrait */
+@media screen and (orientation:portrait) { /* Portrait styles here */ }
+/* Landscape */
+@media screen and (orientation:landscape) { /* Landscape styles here */ }
 
-    .row-coin .coin-info-group .coin-name-group .coin-shortname {
-      font-size: 1em;
-    }
 
-    .row-coin .coin-info-group .coin-price {
-      font-size: 1em;
-    }
+/* CSS for iPhone, iPad, and Retina Displays */
 
-    .coins-sort {
-      padding: 10px;
-    }
+/* Non-Retina */
+@media screen and (-webkit-max-device-pixel-ratio: 1) {
+}
 
-    .row-coin {
-      height: 40px;
-      grid-template-columns: 40px 60px 200px 450px;
-    }
+/* Retina */
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+only screen and (-o-min-device-pixel-ratio: 3/2),
+only screen and (min--moz-device-pixel-ratio: 1.5),
+only screen and (min-device-pixel-ratio: 1.5) {
+}
 
-    .coins-sort div label {
-      font-size: 1em;
-    }
+/* iPhone Portrait */
+@media screen and (max-device-width: 480px) and (orientation:portrait) {
+} 
 
-    .race-group .race-aside .announcement label {
-      font-size: 1em;
-      padding-top: 10px;
-      padding-left: 10px;
-      padding-right: 10px;
-    }
+/* iPhone Landscape */
+@media screen and (max-device-width: 480px) and (orientation:landscape) {
+}
 
-    .race-group .race-aside .announcement .change-race-btn {
-      font-size: 0.6em;
-    }
+/* iPad Portrait */
+@media screen and (min-device-width: 481px) and (orientation:portrait) {
+}
 
-    .race-group .race-aside .announcement .announcement-description label {
-      font-size: 0.6em;
-    }
-
-    .race-group .race-aside .announcement img {
-      width: 100%;
-    }
-
-    .race-group .race-aside .announcement .current-bets-btn {
-      font-size: 0.6em;
-    }
-
-    .nav-item .item-container a {
-      font-size: 0.8em;
-    }
-
-    .nav-item .item-container {
-      padding: 10px 25px;
-    }
-
-    .nav-item .item-container img {
-      height: 70%;
-    }
-
-    .underline {
-    }
+/* iPad Landscape */
+@media screen and (min-device-width: 481px) and (orientation:landscape) {
 }

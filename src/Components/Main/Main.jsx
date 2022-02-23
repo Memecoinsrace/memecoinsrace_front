@@ -73,9 +73,9 @@ export default class Main extends React.Component {
     this.closeSelectApplication = this.closeSelectApplication.bind(this);
     this.closeSelectBlockchain = this.closeSelectBlockchain.bind(this);
     this.getData = this.getData.bind(this);
-    this.CoinImage = this.CoinImage.bind(this);
-    this.ScoreImage = this.ScoreImage.bind(this);
-    this.ScoreWidth = this.ScoreWidth.bind(this);
+    this.coinImage = this.coinImage.bind(this);
+    this.scoreImage = this.scoreImage.bind(this);
+    this.scoreWidth = this.scoreWidth.bind(this);
     this.selectCategory = this.selectCategory.bind(this);
   }
 
@@ -174,26 +174,252 @@ export default class Main extends React.Component {
     }
   }
 
-  ScoreWidth(currentPrice, type) {
-    switch (type) {
-      case "dogs":
-        let dogsLineWidth =
-          (currentPrice / this.state.dogsCoins.maxPrice) * 100 + 10;
-        return <div className="line" style={{ width: dogsLineWidth + "%" }} />;
-      case "cats":
-        let catsLineWidth =
-          (currentPrice / this.state.catsCoins.maxPrice) * 100 + 10;
-        return <div className="line" style={{ width: catsLineWidth + "%" }} />;
-      case "apes":
-        let apesLineWidth =
-          (currentPrice / this.state.catsCoins.maxPrice) * 100 + 10;
-        return <div className="line" style={{ width: apesLineWidth + "%" }} />;
+  scoreWidth(currentPrice, symbol) {
+    // switch (symbol) {
+    //   case "DOGE":
+    //     let dogsLineWidth =
+    //       (currentPrice / this.state.dogsCoins.maxPrice) * 100 + 10;
+    //     return (
+    //       <div
+    //         className="line"
+    //         style={{
+    //           width: dogsLineWidth + "%",
+    //           background:
+    //             "transparent linear-gradient(270deg, #FFF5CA 0%, #F6BE06 100%) 0% 0% no-repeat padding-box",
+    //         }}
+    //       />
+    //     );
+    //   case
+    //   case "cats":
+    //     let catsLineWidth =
+    //       (currentPrice / this.state.catsCoins.maxPrice) * 100 + 10;
+    //     return <div className="line" style={{ width: catsLineWidth + "%" }} />;
+    //   case "apes":
+    //     let apesLineWidth =
+    //       (currentPrice / this.state.catsCoins.maxPrice) * 100 + 10;
+    //     return <div className="line" style={{ width: apesLineWidth + "%" }} />;
+    //   default:
+    //     break;
+    // }
+
+    let dogsLineWidth =
+      (currentPrice / this.state.dogsCoins.maxPrice) * 100 + 10;
+
+    let catsLineWidth =
+      (currentPrice / this.state.catsCoins.maxPrice) * 100 + 10;
+
+    let apesLineWidth =
+      (currentPrice / this.state.catsCoins.maxPrice) * 100 + 10;
+
+    switch (symbol) {
+      case "DOGE":
+        return (
+          <div
+            className="line"
+            style={{
+              width: dogsLineWidth + "%",
+              background:
+                "transparent linear-gradient(270deg, #FFF5CA 0%, #F6BE06 100%) 0% 0% no-repeat padding-box",
+            }}
+          />
+        );
+      case "SAMO":
+        return (
+          <div
+            className="line"
+            style={{
+              width: dogsLineWidth + "%",
+              background:
+                "transparent linear-gradient(265deg, #CD2EF9 0%, #1FDDAF 100%) 0% 0% no-repeat padding-box",
+            }}
+          />
+        );
+      case "WOOF":
+        return (
+          <div
+            className="line"
+            style={{
+              width: dogsLineWidth + "%",
+              background:
+                "transparent linear-gradient(265deg, #CD2EF9 0%, #1FDDAF 100%) 0% 0% no-repeat padding-box",
+            }}
+          />
+        );
+      case "SHIBX":
+        return (
+          <div
+            className="line"
+            style={{
+              width: dogsLineWidth + "%",
+              background:
+                "transparent linear-gradient(270deg, #FFFFFF 0%, #FF5052 100%) 0% 0% no-repeat padding-box",
+            }}
+          />
+        );
+      case "SAMU":
+        return (
+          <div
+            className="line"
+            style={{
+              width: dogsLineWidth + "%",
+              background:
+                "transparent linear-gradient(265deg, #CD2EF9 0%, #1FDDAF 100%) 0% 0% no-repeat padding-box",
+            }}
+          />
+        );
+      case "HOGE":
+        return (
+          <div
+            className="line"
+            style={{
+              width: dogsLineWidth + "%",
+              background:
+                "transparent linear-gradient(270deg, #D7E5FC 0%, #CFCFCF 100%) 0% 0% no-repeat padding-box",
+            }}
+          />
+        );
+      case "SDOGE":
+        return (
+          <div
+            className="line"
+            style={{
+              width: dogsLineWidth + "%",
+              background:
+                "transparent linear-gradient(265deg, #CD2EF9 0%, #1FDDAF 100%) 0% 0% no-repeat padding-box",
+            }}
+          />
+        );
+      case "SHIB":
+        return (
+          <div
+            className="line"
+            style={{
+              width: dogsLineWidth + "%",
+              background:
+                "transparent linear-gradient(270deg, #D7E5FC 0%, #CFCFCF 100%) 0% 0% no-repeat padding-box",
+            }}
+          />
+        );
+      case "ELON":
+        return (
+          <div
+            className="line"
+            style={{
+              width: dogsLineWidth + "%",
+              background:
+                "transparent linear-gradient(270deg, #D7E5FC 0%, #CFCFCF 100%) 0% 0% no-repeat padding-box",
+            }}
+          />
+        );
+      case "KISHU":
+        return (
+          <div
+            className="line"
+            style={{
+              width: dogsLineWidth + "%",
+              background:
+                "transparent linear-gradient(270deg, #D7E5FC 0%, #CFCFCF 100%) 0% 0% no-repeat padding-box",
+            }}
+          />
+        );
+      // case "CATE":
+      //   return (
+      //     <div
+      //       className="line"
+      //       style={{
+      //         width: catsLineWidth + "%",
+      //         background:
+      //           "transparent linear-gradient(270deg, #FFF5CA 0%, #F6BE06 100%) 0% 0% no-repeat padding-box",
+      //       }}
+      //     />
+      //   );
+      case "CATO":
+        return (
+          <div
+            className="line"
+            style={{
+              width: catsLineWidth + "%",
+              background:
+                "transparent linear-gradient(270deg, #FFF5CA 0%, #F6BE06 100%) 0% 0% no-repeat padding-box",
+            }}
+          />
+        );
+      case "HIMA":
+        return (
+          <div
+            className="line"
+            style={{
+              width: catsLineWidth + "%",
+              background:
+                "transparent linear-gradient(265deg, #CD2EF9 0%, #1FDDAF 100%) 0% 0% no-repeat padding-box",
+            }}
+          />
+        );
+      // case "MEOW":
+      //   return "transparent linear-gradient(270deg, #A6FFEA 0%, #DDBEFF 100%) 0% 0% no-repeat padding-box";
+      // case "KITTY":
+      //   return "transparent linear-gradient(270deg, #A6FFEA 0%, #DDBEFF 100%) 0% 0% no-repeat padding-box";
+      case "BANANA":
+        return (
+          <div
+            className="line"
+            style={{
+              width: catsLineWidth + "%",
+              background:
+                "transparent linear-gradient(270deg, #FFF5CA 0%, #F6BE06 100%) 0% 0% no-repeat padding-box",
+            }}
+          />
+        );
+      case "APE-X":
+        return (
+          <div
+            className="line"
+            style={{
+              width: catsLineWidth + "%",
+              background:
+                "transparent linear-gradient(265deg, #CD2EF9 0%, #1FDDAF 100%) 0% 0% no-repeat padding-box",
+            }}
+          />
+        );
+      case "APEX":
+        return (
+          <div
+            className="line"
+            style={{
+              width: catsLineWidth + "%",
+              background:
+                "transparent linear-gradient(270deg, #FFFFFF 0%, #FF5052 100%) 0% 0% no-repeat padding-box",
+            }}
+          />
+        );
+      case "SOLAPE":
+        return (
+          <div
+            className="line"
+            style={{
+              width: catsLineWidth + "%",
+              background:
+                "transparent linear-gradient(265deg, #CD2EF9 0%, #1FDDAF 100%) 0% 0% no-repeat padding-box",
+            }}
+          />
+        );
+      case "GDT":
+        return (
+          <div
+            className="line"
+            style={{
+              width: catsLineWidth + "%",
+              background:
+                "transparent linear-gradient(270deg, #FFF5CA 0%, #F6BE06 100%) 0% 0% no-repeat padding-box",
+            }}
+          />
+        );
       default:
         break;
     }
   }
 
-  ScoreImage(coinName) {
+  scoreImage(coinName) {
     switch (coinName) {
       case "SDOGE":
         return <img className="score-img" alt="" src={soldoge} />;
@@ -234,7 +460,7 @@ export default class Main extends React.Component {
     }
   }
 
-  CoinImage(coinName) {
+  coinImage(coinName) {
     switch (coinName) {
       case "SDOGE":
         return <img alt="" src={soldoge} />;
@@ -554,7 +780,7 @@ export default class Main extends React.Component {
                     return (
                       <div className="row-coin" key={coin.id}>
                         <label className="coin-number">{index + 1}</label>
-                        {this.CoinImage(coin.symbol)}
+                        {this.coinImage(coin.symbol)}
                         <div className="coin-info-group">
                           <div className="coin-name-group">
                             <label className="coin-fullname">{coin.name}</label>
@@ -571,8 +797,8 @@ export default class Main extends React.Component {
                           style={{ background: this.ScoreBack(coin.symbol) }}
                         >
                           <div className="score-group">
-                            {this.ScoreWidth(coin.rate, "dogs")}
-                            {this.ScoreImage(coin.symbol)}
+                            {this.scoreWidth(coin.rate, coin.symbol)}
+                            {this.scoreImage(coin.symbol)}
                           </div>
                           <div className="finish-section">
                             <img alt="" src={boneFinish} />
@@ -595,7 +821,7 @@ export default class Main extends React.Component {
                     return (
                       <div className="row-coin" key={coin.id}>
                         <label className="coin-number">{index + 1}</label>
-                        {this.CoinImage(coin.symbol)}
+                        {this.coinImage(coin.symbol)}
                         <div className="coin-info-group">
                           <div className="coin-name-group">
                             <label className="coin-fullname">{coin.name}</label>
@@ -612,8 +838,8 @@ export default class Main extends React.Component {
                           style={{ background: this.ScoreBack(coin.symbol) }}
                         >
                           <div className="score-group">
-                            {this.ScoreWidth(coin.rate, "cats")}
-                            {this.ScoreImage(coin.symbol)}
+                            {this.scoreWidth(coin.rate, coin.symbol)}
+                            {this.scoreImage(coin.symbol)}
                           </div>
                           <div className="finish-section">
                             <img alt="" src={boneFinish} />
@@ -636,7 +862,7 @@ export default class Main extends React.Component {
                     return (
                       <div className="row-coin" key={coin.id}>
                         <label className="coin-number">{index + 1}</label>
-                        {this.CoinImage(coin.symbol)}
+                        {this.coinImage(coin.symbol)}
                         <div className="coin-info-group">
                           <div className="coin-name-group">
                             <label className="coin-fullname">{coin.name}</label>
@@ -653,8 +879,8 @@ export default class Main extends React.Component {
                           style={{ background: this.ScoreBack(coin.symbol) }}
                         >
                           <div className="score-group">
-                            {this.ScoreWidth(coin.rate, "cats")}
-                            {this.ScoreImage(coin.symbol)}
+                            {this.scoreWidth(coin.rate, coin.symbol)}
+                            {this.scoreImage(coin.symbol)}
                           </div>
                           <div className="finish-section">
                             <img alt="" src={boneFinish} />
@@ -689,7 +915,7 @@ export default class Main extends React.Component {
                       return (
                         <div className="row-coin" key={coin.id}>
                           <label className="coin-number">{index + 1}</label>
-                          {this.CoinImage(coin.symbol)}
+                          {this.coinImage(coin.symbol)}
                           <div className="coin-info-group">
                             <div className="coin-name-group">
                               <label className="coin-fullname">
@@ -708,8 +934,8 @@ export default class Main extends React.Component {
                             style={{ background: this.ScoreBack(coin.symbol) }}
                           >
                             <div className="score-group">
-                              {this.ScoreWidth(coin.rate, "dogs")}
-                              {this.ScoreImage(coin.symbol)}
+                              {this.scoreWidth(coin.rate, "dogs")}
+                              {this.scoreImage(coin.symbol)}
                             </div>
                             <div className="finish-section">
                               <img alt="" src={boneFinish} />
@@ -734,7 +960,7 @@ export default class Main extends React.Component {
                       return (
                         <div className="row-coin" key={coin.id}>
                           <label className="coin-number">{index + 1}</label>
-                          {this.CoinImage(coin.symbol)}
+                          {this.coinImage(coin.symbol)}
                           <div className="coin-info-group">
                             <div className="coin-name-group">
                               <label className="coin-fullname">
@@ -753,8 +979,8 @@ export default class Main extends React.Component {
                             style={{ background: this.ScoreBack(coin.symbol) }}
                           >
                             <div className="score-group">
-                              {this.ScoreWidth(coin.rate, "cats")}
-                              {this.ScoreImage(coin.symbol)}
+                              {this.scoreWidth(coin.rate, "cats")}
+                              {this.scoreImage(coin.symbol)}
                             </div>
                             <div className="finish-section">
                               <img alt="" src={boneFinish} />
@@ -779,7 +1005,7 @@ export default class Main extends React.Component {
                       return (
                         <div className="row-coin" key={coin.id}>
                           <label className="coin-number">{index + 1}</label>
-                          {this.CoinImage(coin.symbol)}
+                          {this.coinImage(coin.symbol)}
                           <div className="coin-info-group">
                             <div className="coin-name-group">
                               <label className="coin-fullname">
@@ -798,8 +1024,8 @@ export default class Main extends React.Component {
                             style={{ background: this.ScoreBack(coin.symbol) }}
                           >
                             <div className="score-group">
-                              {this.ScoreWidth(coin.rate, "cats")}
-                              {this.ScoreImage(coin.symbol)}
+                              {this.scoreWidth(coin.rate, "cats")}
+                              {this.scoreImage(coin.symbol)}
                             </div>
                             <div className="finish-section">
                               <img alt="" src={boneFinish} />
