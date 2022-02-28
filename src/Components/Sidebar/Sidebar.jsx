@@ -4,7 +4,7 @@ import twitter from "../../SVG/Social/twitter.svg";
 import telegram from "../../SVG/Social/telegram.svg";
 import discord from "../../SVG/Social/discord.svg";
 import medium from "../../SVG/Social/medium.svg";
-import menuSVG from "../../SVG/menu-svg.svg";
+import { ReactComponent as MenuSVG } from "../../SVG/menu-svg.svg";
 import logo from "../../SVG/Logo_MCR.svg";
 import overviewIcon from "../../SVG/overview.svg";
 import questionIcon from "../../SVG/question.svg";
@@ -81,7 +81,7 @@ export default class Sidebar extends React.Component {
         <img className="logo-nav" src={logo} />
         <nav>
           <div className="underline">
-            <img src={menuSVG} />
+            <MenuSVG />
           </div>
           <div className="nav-item" onClick={() => ul(0)}>
             <div id="overview-item" className="item-container active-item">

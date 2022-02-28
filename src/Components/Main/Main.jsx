@@ -67,6 +67,7 @@ export default class Main extends React.Component {
         closeBtn: "none",
       },
       slideWrapper: 0,
+      categoriesValue: "0",
     };
     this.ConnectPhantom = this.ConnectPhantom.bind(this);
     this.DisconnectPhantom = this.DisconnectPhantom.bind(this);
@@ -77,6 +78,11 @@ export default class Main extends React.Component {
     this.scoreImage = this.scoreImage.bind(this);
     this.scoreWidth = this.scoreWidth.bind(this);
     this.selectCategory = this.selectCategory.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  handleInputChange(event) {
+    this.setState({ value: event.target.value });
   }
 
   async selectCategory(num) {
@@ -722,6 +728,17 @@ export default class Main extends React.Component {
                 <label>COINS</label>
               </div>
             </div>
+            <div className="categories-mini">
+              <select
+                name="categories-mini"
+                value={this.state.categoriesValue}
+                onChange={this.handleInputChange}
+              >
+                <option value="0">DOGS COINS</option>
+                <option value="1">CATS COINS</option>
+                <option value="2">APES COINS</option>
+              </select>
+            </div>
             <div className="current-bets-btn">CURRENT BETS</div>
             <ConnectWallet
               DisconnectPhantom={this.DisconnectPhantom}
@@ -730,7 +747,7 @@ export default class Main extends React.Component {
               closeBtn={this.state.connectWallet.closeBtn}
             />
           </div>
-          <div className="coins-sort">
+          {/* <div className="coins-sort">
             <div>
               <label>1 day</label>
               <span>
@@ -767,18 +784,18 @@ export default class Main extends React.Component {
                 <img alt="" src={arrowHeight2} />
               </span>
             </div>
-          </div>
-          <div id="slideshow">
-            <div
-              class="slide-wrapper"
-              style={{ marginLeft: this.state.slideWrapper + "%" }}
-            >
-              <div class="slide">
-                {this.state.dogsCoins.items
-                  .sort((a, b) => (a.rate > b.rate ? -1 : 1))
-                  .map((coin, index) => {
-                    return (
-                      <div className="row-coin" key={coin.id}>
+          </div> */}
+          <div
+            class="slide-wrapper"
+            style={{ marginLeft: this.state.slideWrapper + "%" }}
+          >
+            <div class="slide">
+              {this.state.dogsCoins.items
+                .sort((a, b) => (a.rate > b.rate ? -1 : 1))
+                .map((coin, index) => {
+                  return (
+                    <div className="row-coin" key={coin.id}>
+                      <div className="row-coin-head">
                         <label className="coin-number">{index + 1}</label>
                         {this.coinImage(coin.symbol)}
                         <div className="coin-info-group">
@@ -792,6 +809,8 @@ export default class Main extends React.Component {
                             ${coin.rate.toString().substr(0, 12)}
                           </label>
                         </div>
+                      </div>
+                      <div className="row-coin-body">
                         <div
                           className="score"
                           style={{ background: this.ScoreBack(coin.symbol) }}
@@ -811,15 +830,17 @@ export default class Main extends React.Component {
                           </div>
                         </div>
                       </div>
-                    );
-                  })}
-              </div>
-              <div class="slide">
-                {this.state.catsCoins.items
-                  .sort((a, b) => (a.rate > b.rate ? -1 : 1))
-                  .map((coin, index) => {
-                    return (
-                      <div className="row-coin" key={coin.id}>
+                    </div>
+                  );
+                })}
+            </div>
+            <div class="slide">
+              {this.state.catsCoins.items
+                .sort((a, b) => (a.rate > b.rate ? -1 : 1))
+                .map((coin, index) => {
+                  return (
+                    <div className="row-coin" key={coin.id}>
+                      <div className="row-coin-head">
                         <label className="coin-number">{index + 1}</label>
                         {this.coinImage(coin.symbol)}
                         <div className="coin-info-group">
@@ -833,6 +854,8 @@ export default class Main extends React.Component {
                             ${coin.rate.toString().substr(0, 12)}
                           </label>
                         </div>
+                      </div>
+                      <div className="row-coin-body">
                         <div
                           className="score"
                           style={{ background: this.ScoreBack(coin.symbol) }}
@@ -852,15 +875,17 @@ export default class Main extends React.Component {
                           </div>
                         </div>
                       </div>
-                    );
-                  })}
-              </div>
-              <div class="slide">
-                {this.state.apesCoins.items
-                  .sort((a, b) => (a.rate > b.rate ? -1 : 1))
-                  .map((coin, index) => {
-                    return (
-                      <div className="row-coin" key={coin.id}>
+                    </div>
+                  );
+                })}
+            </div>
+            <div class="slide">
+              {this.state.apesCoins.items
+                .sort((a, b) => (a.rate > b.rate ? -1 : 1))
+                .map((coin, index) => {
+                  return (
+                    <div className="row-coin" key={coin.id}>
+                      <div className="row-coin-head">
                         <label className="coin-number">{index + 1}</label>
                         {this.coinImage(coin.symbol)}
                         <div className="coin-info-group">
@@ -874,6 +899,8 @@ export default class Main extends React.Component {
                             ${coin.rate.toString().substr(0, 12)}
                           </label>
                         </div>
+                      </div>
+                      <div className="row-coin-body">
                         <div
                           className="score"
                           style={{ background: this.ScoreBack(coin.symbol) }}
@@ -893,175 +920,11 @@ export default class Main extends React.Component {
                           </div>
                         </div>
                       </div>
-                    );
-                  })}
-              </div>
+                    </div>
+                  );
+                })}
             </div>
           </div>
-          {/* <CarouselProvider
-            naturalSlideWidth={100}
-            naturalSlideHeight={100}
-            totalSlides={3}
-            dragEnabled={false}
-            currentSlide={this.state.currentSlide}
-            orientation="horizontal"
-          >
-            <Slider>
-              <Slide index={0}>
-                <div className="race-table">
-                  {this.state.dogsCoins.items
-                    .sort((a, b) => (a.rate > b.rate ? -1 : 1))
-                    .map((coin, index) => {
-                      return (
-                        <div className="row-coin" key={coin.id}>
-                          <label className="coin-number">{index + 1}</label>
-                          {this.coinImage(coin.symbol)}
-                          <div className="coin-info-group">
-                            <div className="coin-name-group">
-                              <label className="coin-fullname">
-                                {coin.name}
-                              </label>
-                              <label className="coin-shortname">
-                                {coin.symbol}
-                              </label>
-                            </div>
-                            <label className="coin-price">
-                              ${coin.rate.toString().substr(0, 12)}
-                            </label>
-                          </div>
-                          <div
-                            className="score"
-                            style={{ background: this.ScoreBack(coin.symbol) }}
-                          >
-                            <div className="score-group">
-                              {this.scoreWidth(coin.rate, "dogs")}
-                              {this.scoreImage(coin.symbol)}
-                            </div>
-                            <div className="finish-section">
-                              <img alt="" src={boneFinish} />
-                              <div className="coefficient">
-                                <label>x 0.15</label>
-                              </div>
-                              <div className="bet-btn">
-                                <label>BET</label>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                </div>
-              </Slide>
-              <Slide index={1}>
-                <div className="race-table">
-                  {this.state.catsCoins.items
-                    .sort((a, b) => (a.rate > b.rate ? -1 : 1))
-                    .map((coin, index) => {
-                      return (
-                        <div className="row-coin" key={coin.id}>
-                          <label className="coin-number">{index + 1}</label>
-                          {this.coinImage(coin.symbol)}
-                          <div className="coin-info-group">
-                            <div className="coin-name-group">
-                              <label className="coin-fullname">
-                                {coin.name}
-                              </label>
-                              <label className="coin-shortname">
-                                {coin.symbol}
-                              </label>
-                            </div>
-                            <label className="coin-price">
-                              ${coin.rate.toString().substr(0, 12)}
-                            </label>
-                          </div>
-                          <div
-                            className="score"
-                            style={{ background: this.ScoreBack(coin.symbol) }}
-                          >
-                            <div className="score-group">
-                              {this.scoreWidth(coin.rate, "cats")}
-                              {this.scoreImage(coin.symbol)}
-                            </div>
-                            <div className="finish-section">
-                              <img alt="" src={boneFinish} />
-                              <div className="coefficient">
-                                <label>x 0.15</label>
-                              </div>
-                              <div className="bet-btn">
-                                <label>BET</label>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                </div>
-              </Slide>
-              <Slide index={2}>
-                <div className="race-table">
-                  {this.state.apesCoins.items
-                    .sort((a, b) => (a.rate > b.rate ? -1 : 1))
-                    .map((coin, index) => {
-                      return (
-                        <div className="row-coin" key={coin.id}>
-                          <label className="coin-number">{index + 1}</label>
-                          {this.coinImage(coin.symbol)}
-                          <div className="coin-info-group">
-                            <div className="coin-name-group">
-                              <label className="coin-fullname">
-                                {coin.name}
-                              </label>
-                              <label className="coin-shortname">
-                                {coin.symbol}
-                              </label>
-                            </div>
-                            <label className="coin-price">
-                              ${coin.rate.toString().substr(0, 12)}
-                            </label>
-                          </div>
-                          <div
-                            className="score"
-                            style={{ background: this.ScoreBack(coin.symbol) }}
-                          >
-                            <div className="score-group">
-                              {this.scoreWidth(coin.rate, "cats")}
-                              {this.scoreImage(coin.symbol)}
-                            </div>
-                            <div className="finish-section">
-                              <img alt="" src={boneFinish} />
-                              <div className="coefficient">
-                                <label>x 0.15</label>
-                              </div>
-                              <div className="bet-btn">
-                                <label>BET</label>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      );
-                    })}
-                </div>
-              </Slide>
-            </Slider>
-          </CarouselProvider> */}
-          {/* <div className="race-aside">
-              <div className="announcement">
-                <label>THIS RACE</label>
-                <img src={finishLine} />
-                <div className="change-race-btn">CHANGE RACE</div>
-                <div className="value-circle">
-                  <img src={dollar} />
-                </div>
-                <div className="announcement-description">
-                  <label>
-                    This race is about what meme-coin gets $1 value first! We
-                    update coin prices every hour. You can bet on which coin
-                    rushes forward next hour, day or week!
-                  </label>
-                </div>
-                <div className="current-bets-btn">CURRENT BETS</div>
-              </div>
-            </div> */}
           <div className="connect-wallet-modal">
             <div className="connect-wallet-content">
               <div className="connect-wallet-header">
