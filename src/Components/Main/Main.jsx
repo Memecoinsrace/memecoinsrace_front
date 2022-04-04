@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Main.scss";
 import phantom from "../../SVG/Phantom.svg";
 import solflare from "../../SVG/solflare.svg";
@@ -44,48 +44,71 @@ import {
 } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
 
-export default class Main extends React.Component {
-  constructor(props) {
-    super(props);
+export default function Main() {
+  const [dogsCoins, setDogsCoins] = useState({
+    items: [],
+    maxPrice: null,
+  });
+  const [catsCoins, setCatsCoins] = useState({
+    items: [],
+    maxPrice: null,
+  });
+  const [apesCoins, setApesCoins] = useState({
+    items: [],
+    maxPrice: null,
+  });
 
-    this.state = {
-      dogsCoins: {
-        items: [],
-        maxPrice: null,
-      },
-      apesCoins: {
-        items: [],
-        maxPrice: null,
-      },
-      catsCoins: {
-        items: [],
-        maxPrice: null,
-      },
-      connectWallet: {
-        backColor: "rgb(231, 13, 255)",
-        inner: "CONNECT WALLET",
-        closeBtn: "none",
-      },
-      slideWrapper: 0,
-      categoriesValue: "0",
-    };
-    this.ConnectPhantom = this.ConnectPhantom.bind(this);
-    this.DisconnectPhantom = this.DisconnectPhantom.bind(this);
-    this.closeSelectApplication = this.closeSelectApplication.bind(this);
-    this.closeSelectBlockchain = this.closeSelectBlockchain.bind(this);
-    this.getData = this.getData.bind(this);
-    this.coinImage = this.coinImage.bind(this);
-    this.scoreImage = this.scoreImage.bind(this);
-    this.scoreWidth = this.scoreWidth.bind(this);
-    this.selectCategory = this.selectCategory.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
+  // const [dogsMaxPrice, setDogsMaxPrice] = useState();
+  // const [catsMaxPrice, setCatsMaxPrice] = useState();
+  // const [apesMaxPrice, setApesMaxPrice] = useState();
+
+  const [connectWallet, setConnectWallet] = useState({
+    backColor: "rgb(231, 13, 255)",
+    inner: "CONNECT WALLET",
+    closeBtn: "none",
+  });
+
+  const [slideWrapper, setSlideWrapper] = useState(0);
+
+  const [categoriesValue, setCategoriesValue] = useState("0");
+
+  // this.state = {
+  //   dogsCoins: {
+  //     items: [],
+  //     maxPrice: null,
+  //   },
+  //   apesCoins: {
+  //     items: [],
+  //     maxPrice: null,
+  //   },
+  //   catsCoins: {
+  //     items: [],
+  //     maxPrice: null,
+  //   },
+  //   connectWallet: {
+  //     backColor: "rgb(231, 13, 255)",
+  //     inner: "CONNECT WALLET",
+  //     closeBtn: "none",
+  //   },
+  //   slideWrapper: 0,
+  //   categoriesValue: "0",
+  // };
+  // this.ConnectPhantom = this.ConnectPhantom.bind(this);
+  // this.DisconnectPhantom = this.DisconnectPhantom.bind(this);
+  // this.closeSelectApplication = this.closeSelectApplication.bind(this);
+  // this.closeSelectBlockchain = this.closeSelectBlockchain.bind(this);
+  // this.getData = this.getData.bind(this);
+  // this.coinImage = this.coinImage.bind(this);
+  // this.scoreImage = this.scoreImage.bind(this);
+  // this.scoreWidth = this.scoreWidth.bind(this);
+  // this.selectCategory = this.selectCategory.bind(this);
+  // this.handleInputChange = this.handleInputChange.bind(this);
+
+  function handleInputChange(event) {
+    // this.setState({ value: event.target.value });
   }
 
-  handleInputChange(event) {
-    this.setState({ value: event.target.value });
-  }
-
-  async selectCategory(num) {
+  const selectCategory = async (num) => {
     document.getElementById("dogsCategory").classList.remove("active-category");
 
     document.getElementById("apesCategory").classList.remove("active-category");
@@ -97,43 +120,38 @@ export default class Main extends React.Component {
         document
           .getElementById("dogsCategory")
           .classList.add("active-category");
-        await this.setState({
-          slideWrapper: 0,
-        });
+        await setSlideWrapper(0);
         break;
       case 1:
         document
           .getElementById("catsCategory")
           .classList.add("active-category");
-        await this.setState({
-          slideWrapper: -100,
-        });
+        await setSlideWrapper(-100);
         break;
       case 2:
         document
           .getElementById("apesCategory")
           .classList.add("active-category");
-        await this.setState({
-          slideWrapper: -200,
-        });
+        await setSlideWrapper(-200);
         break;
       default:
         break;
     }
-  }
+  };
 
-  DisconnectPhantom() {
+  function DisconnectPhantom() {
     localStorage.removeItem("phantomPublicKey");
-    this.setState({
-      connectWallet: {
+    setConnectWallet((prev) => {
+      return {
+        ...prev,
         backColor: "#e70dff",
         inner: "CONNECT WALLET",
         closeBtn: "none",
-      },
+      };
     });
   }
 
-  ScoreBack(symbol) {
+  const ScoreBack = (symbol) => {
     switch (symbol) {
       case "DOGE":
         return "transparent linear-gradient(270deg, #FFE640 0%, #F0F8FF 100%) 0% 0% no-repeat padding-box";
@@ -178,44 +196,14 @@ export default class Main extends React.Component {
       default:
         break;
     }
-  }
+  };
 
-  scoreWidth(currentPrice, symbol) {
-    // switch (symbol) {
-    //   case "DOGE":
-    //     let dogsLineWidth =
-    //       (currentPrice / this.state.dogsCoins.maxPrice) * 100 + 10;
-    //     return (
-    //       <div
-    //         className="line"
-    //         style={{
-    //           width: dogsLineWidth + "%",
-    //           background:
-    //             "transparent linear-gradient(270deg, #FFF5CA 0%, #F6BE06 100%) 0% 0% no-repeat padding-box",
-    //         }}
-    //       />
-    //     );
-    //   case
-    //   case "cats":
-    //     let catsLineWidth =
-    //       (currentPrice / this.state.catsCoins.maxPrice) * 100 + 10;
-    //     return <div className="line" style={{ width: catsLineWidth + "%" }} />;
-    //   case "apes":
-    //     let apesLineWidth =
-    //       (currentPrice / this.state.catsCoins.maxPrice) * 100 + 10;
-    //     return <div className="line" style={{ width: apesLineWidth + "%" }} />;
-    //   default:
-    //     break;
-    // }
+  const scoreWidth = (currentPrice, symbol) => {
+    let dogsLineWidth = (currentPrice / dogsCoins.maxPrice) * 100 + 10;
 
-    let dogsLineWidth =
-      (currentPrice / this.state.dogsCoins.maxPrice) * 100 + 10;
+    let catsLineWidth = (currentPrice / catsCoins.maxPrice) * 100 + 10;
 
-    let catsLineWidth =
-      (currentPrice / this.state.catsCoins.maxPrice) * 100 + 10;
-
-    let apesLineWidth =
-      (currentPrice / this.state.catsCoins.maxPrice) * 100 + 10;
+    let apesLineWidth = (currentPrice / catsCoins.maxPrice) * 100 + 10;
 
     switch (symbol) {
       case "DOGE":
@@ -423,9 +411,9 @@ export default class Main extends React.Component {
       default:
         break;
     }
-  }
+  };
 
-  scoreImage(coinName) {
+  const scoreImage = (coinName) => {
     switch (coinName) {
       case "SDOGE":
         return <img className="score-img" alt="" src={soldoge} />;
@@ -464,9 +452,9 @@ export default class Main extends React.Component {
       default:
         return;
     }
-  }
+  };
 
-  coinImage(coinName) {
+  const coinImage = (coinName) => {
     switch (coinName) {
       case "SDOGE":
         return <img alt="" src={soldoge} />;
@@ -505,11 +493,9 @@ export default class Main extends React.Component {
       default:
         return;
     }
-  }
+  };
 
-  getData = async () => {
-    var self = this;
-
+  const getData = async () => {
     try {
       axios({
         method: "get",
@@ -522,6 +508,10 @@ export default class Main extends React.Component {
         let dogsPrices = [];
         let catsPrices = [];
         let apesPrices = [];
+
+        let gc = [];
+        let cc = [];
+        let ac = [];
 
         for (let i = 0; i < fullData.length; i++) {
           const element = fullData[i];
@@ -542,11 +532,7 @@ export default class Main extends React.Component {
               element.rate = element.rate.toFixed(10);
             }
 
-            self.setState({
-              dogsCoins: {
-                items: self.state.dogsCoins.items.concat(fullData[i]),
-              },
-            });
+            gc.push(fullData[i]);
             const price = fullData[i].rate;
             dogsPrices.push(price);
           }
@@ -558,12 +544,14 @@ export default class Main extends React.Component {
             element.symbol === "MEOW" ||
             element.symbol === "KITTY"
           ) {
-            self.setState({
-              catsCoins: {
-                items: self.state.catsCoins.items.concat(fullData[i]),
-              },
-            });
-            //console.log("CATS COINS => ", element);
+            // setCatsCoins((prev) => {
+            //   return {
+            //     ...prev,
+            //     items: catsCoins.concat(fullData[i]),
+            //   };
+            // });
+
+            cc.push(fullData[i]);
             const price = fullData[i].rate;
             catsPrices.push(price);
           }
@@ -579,75 +567,74 @@ export default class Main extends React.Component {
               element.rate = element.rate.toFixed(10);
             }
 
-            self.setState({
-              apesCoins: {
-                items: self.state.apesCoins.items.concat(fullData[i]),
-              },
-            });
+            // setApesCoins((prev) => {
+            //   return {
+            //     ...prev,
+            //     items: apesCoins.concat(fullData[i]),
+            //   };
+            // });
 
+            ac.push(fullData[i]);
             const price = fullData[i].rate;
             apesPrices.push(price);
           }
         }
 
-        let dogs = self.state.dogsCoins.items;
-        let cats = self.state.catsCoins.items;
-        let apes = self.state.apesCoins.items;
-
         let dogsMaxPrice = Math.max(...dogsPrices);
         let catsMaxPrice = Math.max(...catsPrices);
         let apesMaxPrice = Math.max(...apesPrices);
 
-        self.state.dogsCoins.maxPrice = dogsMaxPrice;
-        self.state.catsCoins.maxPrice = catsMaxPrice;
-        self.state.apesCoins.maxPrice = apesMaxPrice;
-
-        self.setState({
-          dogsCoins: {
-            items: dogs,
+        setDogsCoins((prev) => {
+          return {
+            ...prev,
+            items: gc,
             maxPrice: dogsMaxPrice,
-          },
-          catsCoins: {
-            items: cats,
-            maxPrice: catsMaxPrice,
-          },
-          apesCoins: {
-            items: apes,
-            maxPrice: apesMaxPrice,
-          },
+          };
         });
-
-        console.log(self.state.dogsCoins.items);
-        console.log(self.state.catsCoins.items);
-        console.log(self.state.apesCoins.items);
+        setCatsCoins((prev) => {
+          return {
+            ...prev,
+            items: cc,
+            maxPrice: catsMaxPrice,
+          };
+        });
+        setApesCoins((prev) => {
+          return {
+            ...prev,
+            items: ac,
+            maxPrice: apesMaxPrice,
+          };
+        });
       });
     } catch (error) {
       console.log("ERROR => " + error);
     }
   };
 
-  componentDidMount = async () => {
-    await this.getData();
+  useEffect(() => {
+    getData();
     if (localStorage.getItem("phantomPublicKey") === null) {
-      this.setState({
-        connectWallet: {
+      setConnectWallet((prev) => {
+        return {
+          ...prev,
           backColor: "#e70dff",
           inner: "CONNECT WALLET",
           closeBtn: "none",
-        },
+        };
       });
     } else {
-      this.setState({
-        connectWallet: {
+      setConnectWallet((prev) => {
+        return {
+          ...prev,
+          backColor: "#4BC716",
           inner: localStorage.getItem("phantomPublicKey"),
           closeBtn: "block",
-          backColor: "#4BC716",
-        },
+        };
       });
     }
-  };
+  }, []);
 
-  async ConnectPhantom() {
+  const ConnectPhantom = async () => {
     try {
       if ("solana" in window) {
         let provider = window.solana;
@@ -662,12 +649,13 @@ export default class Main extends React.Component {
             .querySelector(".connect-wallet-modal")
             .classList.toggle("show-modal");
 
-          this.setState({
-            connectWallet: {
+          setConnectWallet((prev) => {
+            return {
+              ...prev,
+              backColor: "#4BC716",
               inner: resp.publicKey.toString(),
               closeBtn: "block",
-              backColor: "#4BC716",
-            },
+            };
           });
 
           localStorage.setItem("phantomPublicKey", resp.publicKey.toString());
@@ -678,76 +666,71 @@ export default class Main extends React.Component {
     } catch (ex) {
       alert(ex);
     }
-  }
+  };
 
-  closeSelectApplication() {
+  const closeSelectApplication = () => {
     let elem = document.querySelector(".select-application-modal");
     elem.classList.toggle("show-modal");
-  }
+  };
 
-  closeSelectBlockchain() {
+  const closeSelectBlockchain = () => {
     let elem = document.querySelector(".connect-wallet-modal");
     elem.classList.toggle("show-modal");
-  }
+  };
 
-  render() {
-    return (
-      <div className="main">
-        <div className="overview">
-          <div className="head">
-            <div className="categories">
-              <div
-                id="dogsCategory"
-                className="active-category"
-                onClick={async () => await this.selectCategory(0)}
-              >
-                <span>
-                  <img alt="" src={bone} />
-                </span>
-                <label>DOGS</label>
-                <label>COINS</label>
-              </div>
-              <div
-                id="catsCategory"
-                onClick={async () => await this.selectCategory(1)}
-              >
-                <span>
-                  <img alt="" src={fish} />
-                </span>
-                <label>CATS</label>
-                <label>COINS</label>
-              </div>
-              <div
-                id="apesCategory"
-                onClick={async () => await this.selectCategory(2)}
-              >
-                <span>
-                  <img alt="" src={banan} />
-                </span>
-                <label>APES</label>
-                <label>COINS</label>
-              </div>
+  return (
+    <div className="main">
+      <div className="overview">
+        <div className="head">
+          <div className="categories">
+            <div
+              id="dogsCategory"
+              className="active-category"
+              onClick={() => selectCategory(0)}
+            >
+              <span>
+                <img alt="" src={bone} />
+              </span>
+              <label>DOGS</label>
+              <label>COINS</label>
             </div>
-            <div className="categories-mini">
-              <select
-                name="categories-mini"
-                value={this.state.categoriesValue}
-                onChange={this.handleInputChange}
-              >
-                <option value="0">DOGS COINS</option>
-                <option value="1">CATS COINS</option>
-                <option value="2">APES COINS</option>
-              </select>
+            <div id="catsCategory" onClick={() => selectCategory(1)}>
+              <span>
+                <img alt="" src={fish} />
+              </span>
+              <label>CATS</label>
+              <label>COINS</label>
             </div>
-            <div className="current-bets-btn">CURRENT BETS</div>
-            <ConnectWallet
-              DisconnectPhantom={this.DisconnectPhantom}
-              backColor={this.state.connectWallet.backColor}
-              inner={this.state.connectWallet.inner}
-              closeBtn={this.state.connectWallet.closeBtn}
-            />
+            <div id="apesCategory" onClick={() => selectCategory(2)}>
+              <span>
+                <img alt="" src={banan} />
+              </span>
+              <label>APES</label>
+              <label>COINS</label>
+            </div>
           </div>
-          {/* <div className="coins-sort">
+          <div className="categories-mini">
+            <select
+              name="categories-mini"
+              value={categoriesValue}
+              onChange={handleInputChange}
+            >
+              <option value="0">DOGS COINS</option>
+              <option value="1">CATS COINS</option>
+              <option value="2">APES COINS</option>
+            </select>
+          </div>
+          <div className="current-bets-btn" onClick={() => getData()}>
+            CURRENT BETS
+          </div>
+          <ConnectWallet
+            DisconnectPhantom={DisconnectPhantom}
+            backColor={connectWallet.backColor}
+            inner={connectWallet.inner}
+            closeBtn={connectWallet.closeBtn}
+          />
+        </div>
+        {/* <div className="coins-sort">
             <div>
               <label>1 day</label>
               <span>
@@ -785,222 +768,206 @@ export default class Main extends React.Component {
               </span>
             </div>
           </div> */}
-          <div
-            class="slide-wrapper"
-            style={{ marginLeft: this.state.slideWrapper + "%" }}
-          >
-            <div class="slide">
-              {this.state.dogsCoins.items
-                .sort((a, b) => (a.rate > b.rate ? -1 : 1))
-                .map((coin, index) => {
-                  return (
-                    <div className="row-coin" key={coin.id}>
-                      <div className="row-coin-head">
-                        <label className="coin-number">{index + 1}</label>
-                        {this.coinImage(coin.symbol)}
-                        <div className="coin-info-group">
-                          <div className="coin-name-group">
-                            <label className="coin-fullname">{coin.name}</label>
-                            <label className="coin-shortname">
-                              {coin.symbol}
-                            </label>
-                          </div>
-                          <label className="coin-price">
-                            ${coin.rate.toString().substr(0, 12)}
+        <div class="slide-wrapper" style={{ marginLeft: slideWrapper + "%" }}>
+          <div class="slide">
+            {dogsCoins.items
+              .sort((a, b) => (a.rate > b.rate ? -1 : 1))
+              .map((coin, index) => {
+                return (
+                  <div className="row-coin" key={coin.id}>
+                    <div className="row-coin-head">
+                      <label className="coin-number">{index + 1}</label>
+                      {coinImage(coin.symbol)}
+                      <div className="coin-info-group">
+                        <div className="coin-name-group">
+                          <label className="coin-fullname">{coin.name}</label>
+                          <label className="coin-shortname">
+                            {coin.symbol}
                           </label>
                         </div>
+                        <label className="coin-price">
+                          ${coin.rate.toString().substr(0, 12)}
+                        </label>
                       </div>
-                      <div className="row-coin-body">
-                        <div
-                          className="score"
-                          style={{ background: this.ScoreBack(coin.symbol) }}
-                        >
-                          <div className="score-group">
-                            {this.scoreWidth(coin.rate, coin.symbol)}
-                            {this.scoreImage(coin.symbol)}
+                    </div>
+                    <div className="row-coin-body">
+                      <div
+                        className="score"
+                        style={{ background: ScoreBack(coin.symbol) }}
+                      >
+                        <div className="score-group">
+                          {scoreWidth(coin.rate, coin.symbol)}
+                          {scoreImage(coin.symbol)}
+                        </div>
+                        <div className="finish-section">
+                          <img alt="" src={boneFinish} />
+                          <div className="coefficient">
+                            <label>x 0.15</label>
                           </div>
-                          <div className="finish-section">
-                            <img alt="" src={boneFinish} />
-                            <div className="coefficient">
-                              <label>x 0.15</label>
-                            </div>
-                            <div className="bet-btn">
-                              <label>BET</label>
-                            </div>
+                          <div className="bet-btn">
+                            <label>BET</label>
                           </div>
                         </div>
                       </div>
                     </div>
-                  );
-                })}
-            </div>
-            <div class="slide">
-              {this.state.catsCoins.items
-                .sort((a, b) => (a.rate > b.rate ? -1 : 1))
-                .map((coin, index) => {
-                  return (
-                    <div className="row-coin" key={coin.id}>
-                      <div className="row-coin-head">
-                        <label className="coin-number">{index + 1}</label>
-                        {this.coinImage(coin.symbol)}
-                        <div className="coin-info-group">
-                          <div className="coin-name-group">
-                            <label className="coin-fullname">{coin.name}</label>
-                            <label className="coin-shortname">
-                              {coin.symbol}
-                            </label>
-                          </div>
-                          <label className="coin-price">
-                            ${coin.rate.toString().substr(0, 12)}
-                          </label>
-                        </div>
-                      </div>
-                      <div className="row-coin-body">
-                        <div
-                          className="score"
-                          style={{ background: this.ScoreBack(coin.symbol) }}
-                        >
-                          <div className="score-group">
-                            {this.scoreWidth(coin.rate, coin.symbol)}
-                            {this.scoreImage(coin.symbol)}
-                          </div>
-                          <div className="finish-section">
-                            <img alt="" src={boneFinish} />
-                            <div className="coefficient">
-                              <label>x 0.15</label>
-                            </div>
-                            <div className="bet-btn">
-                              <label>BET</label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-            </div>
-            <div class="slide">
-              {this.state.apesCoins.items
-                .sort((a, b) => (a.rate > b.rate ? -1 : 1))
-                .map((coin, index) => {
-                  return (
-                    <div className="row-coin" key={coin.id}>
-                      <div className="row-coin-head">
-                        <label className="coin-number">{index + 1}</label>
-                        {this.coinImage(coin.symbol)}
-                        <div className="coin-info-group">
-                          <div className="coin-name-group">
-                            <label className="coin-fullname">{coin.name}</label>
-                            <label className="coin-shortname">
-                              {coin.symbol}
-                            </label>
-                          </div>
-                          <label className="coin-price">
-                            ${coin.rate.toString().substr(0, 12)}
-                          </label>
-                        </div>
-                      </div>
-                      <div className="row-coin-body">
-                        <div
-                          className="score"
-                          style={{ background: this.ScoreBack(coin.symbol) }}
-                        >
-                          <div className="score-group">
-                            {this.scoreWidth(coin.rate, coin.symbol)}
-                            {this.scoreImage(coin.symbol)}
-                          </div>
-                          <div className="finish-section">
-                            <img alt="" src={boneFinish} />
-                            <div className="coefficient">
-                              <label>x 0.15</label>
-                            </div>
-                            <div className="bet-btn">
-                              <label>BET</label>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-            </div>
+                  </div>
+                );
+              })}
           </div>
-          <div className="connect-wallet-modal">
-            <div className="connect-wallet-content">
-              <div className="connect-wallet-header">
-                <label>Preference</label>
-                <span className="close-button">
-                  <img
-                    alt=""
-                    src={close}
-                    onClick={this.closeSelectBlockchain}
-                  />
-                </span>
-              </div>
-              <div className="connect-wallet-body">
-                <h2>SELECT BLOCKCHAIN</h2>
+          <div class="slide">
+            {catsCoins.items
+              .sort((a, b) => (a.rate > b.rate ? -1 : 1))
+              .map((coin, index) => {
+                return (
+                  <div className="row-coin" key={coin.id}>
+                    <div className="row-coin-head">
+                      <label className="coin-number">{index + 1}</label>
+                      {coinImage(coin.symbol)}
+                      <div className="coin-info-group">
+                        <div className="coin-name-group">
+                          <label className="coin-fullname">{coin.name}</label>
+                          <label className="coin-shortname">
+                            {coin.symbol}
+                          </label>
+                        </div>
+                        <label className="coin-price">
+                          ${coin.rate.toString().substr(0, 12)}
+                        </label>
+                      </div>
+                    </div>
+                    <div className="row-coin-body">
+                      <div
+                        className="score"
+                        style={{ background: ScoreBack(coin.symbol) }}
+                      >
+                        <div className="score-group">
+                          {scoreWidth(coin.rate, coin.symbol)}
+                          {scoreImage(coin.symbol)}
+                        </div>
+                        <div className="finish-section">
+                          <img alt="" src={boneFinish} />
+                          <div className="coefficient">
+                            <label>x 0.15</label>
+                          </div>
+                          <div className="bet-btn">
+                            <label>BET</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+          <div class="slide">
+            {apesCoins.items
+              .sort((a, b) => (a.rate > b.rate ? -1 : 1))
+              .map((coin, index) => {
+                return (
+                  <div className="row-coin" key={coin.id}>
+                    <div className="row-coin-head">
+                      <label className="coin-number">{index + 1}</label>
+                      {coinImage(coin.symbol)}
+                      <div className="coin-info-group">
+                        <div className="coin-name-group">
+                          <label className="coin-fullname">{coin.name}</label>
+                          <label className="coin-shortname">
+                            {coin.symbol}
+                          </label>
+                        </div>
+                        <label className="coin-price">
+                          ${coin.rate.toString().substr(0, 12)}
+                        </label>
+                      </div>
+                    </div>
+                    <div className="row-coin-body">
+                      <div
+                        className="score"
+                        style={{ background: ScoreBack(coin.symbol) }}
+                      >
+                        <div className="score-group">
+                          {scoreWidth(coin.rate, coin.symbol)}
+                          {scoreImage(coin.symbol)}
+                        </div>
+                        <div className="finish-section">
+                          <img alt="" src={boneFinish} />
+                          <div className="coefficient">
+                            <label>x 0.15</label>
+                          </div>
+                          <div className="bet-btn">
+                            <label>BET</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
+        </div>
+        <div className="connect-wallet-modal">
+          <div className="connect-wallet-content">
+            <div className="connect-wallet-header">
+              <label>Preference</label>
+              <span className="close-button">
+                <img alt="" src={close} onClick={closeSelectBlockchain} />
+              </span>
+            </div>
+            <div className="connect-wallet-body">
+              <h2>SELECT BLOCKCHAIN</h2>
+              <div>
                 <div>
-                  <div>
-                    <img
-                      alt=""
-                      src={solana}
-                      onClick={this.closeSelectApplication}
-                    />
-                    <label>Solana</label>
-                  </div>
-                  <div>
-                    <img alt="" src={binance} />
-                    <label>coming soon</label>
-                  </div>
-                  <div>
-                    <img alt="" src={poligon} />
-                    <label>coming soon</label>
-                  </div>
+                  <img alt="" src={solana} onClick={closeSelectApplication} />
+                  <label>Solana</label>
                 </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="select-application-modal">
-            <div className="select-application-content">
-              <div className="select-application-header">
-                <label>Preference</label>
-                <span className="close-button">
-                  <img
-                    alt=""
-                    src={close}
-                    onClick={this.closeSelectApplication}
-                  />
-                </span>
-              </div>
-              <div className="select-application-body">
-                <h2>SELECT APPLICATION</h2>
                 <div>
-                  <div onClick={this.ConnectPhantom}>
-                    <img alt="" src={phantom} />
-                    <label>Phantom</label>
-                  </div>
-                  <div>
-                    <img alt="" src={solflare} />
-                    <label>coming soon</label>
-                  </div>
-                  <div>
-                    <img alt="" src={mathWallet} />
-                    <label>coming soon</label>
-                  </div>
+                  <img alt="" src={binance} />
+                  <label>coming soon</label>
+                </div>
+                <div>
+                  <img alt="" src={poligon} />
+                  <label>coming soon</label>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <HowItWorks
-          DisconnectPhantom={this.DisconnectPhantom}
-          backColor={this.state.connectWallet.backColor}
-          inner={this.state.connectWallet.inner}
-          closeBtn={this.state.connectWallet.closeBtn}
-        />
-        <Bets />
+
+        <div className="select-application-modal">
+          <div className="select-application-content">
+            <div className="select-application-header">
+              <label>Preference</label>
+              <span className="close-button">
+                <img alt="" src={close} onClick={closeSelectApplication} />
+              </span>
+            </div>
+            <div className="select-application-body">
+              <h2>SELECT APPLICATION</h2>
+              <div>
+                <div onClick={ConnectPhantom}>
+                  <img alt="" src={phantom} />
+                  <label>Phantom</label>
+                </div>
+                <div>
+                  <img alt="" src={solflare} />
+                  <label>coming soon</label>
+                </div>
+                <div>
+                  <img alt="" src={mathWallet} />
+                  <label>coming soon</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    );
-  }
+      <HowItWorks
+        DisconnectPhantom={DisconnectPhantom}
+        backColor={connectWallet.backColor}
+        inner={connectWallet.inner}
+        closeBtn={connectWallet.closeBtn}
+      />
+      <Bets />
+    </div>
+  );
 }

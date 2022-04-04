@@ -132,7 +132,7 @@ export default class Sidebar extends React.Component {
             <a href="https://t.me/memecoinsrace" target="_blank">
               <img src={telegram} />
             </a>
-            <a href="https://discord.gg/7ZGjcK8P" target="_blank">
+            <a href="https://discord.gg/FK3ehszEsV" target="_blank">
               <img src={discord} />
             </a>
             <a href="https://medium.com/@memecoinsrace" target="_blank">
