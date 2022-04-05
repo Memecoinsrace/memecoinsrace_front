@@ -58,10 +58,6 @@ export default function Main() {
     maxPrice: null,
   });
 
-  // const [dogsMaxPrice, setDogsMaxPrice] = useState();
-  // const [catsMaxPrice, setCatsMaxPrice] = useState();
-  // const [apesMaxPrice, setApesMaxPrice] = useState();
-
   const [connectWallet, setConnectWallet] = useState({
     backColor: "rgb(231, 13, 255)",
     inner: "CONNECT WALLET",
@@ -71,38 +67,6 @@ export default function Main() {
   const [slideWrapper, setSlideWrapper] = useState(0);
 
   const [categoriesValue, setCategoriesValue] = useState("0");
-
-  // this.state = {
-  //   dogsCoins: {
-  //     items: [],
-  //     maxPrice: null,
-  //   },
-  //   apesCoins: {
-  //     items: [],
-  //     maxPrice: null,
-  //   },
-  //   catsCoins: {
-  //     items: [],
-  //     maxPrice: null,
-  //   },
-  //   connectWallet: {
-  //     backColor: "rgb(231, 13, 255)",
-  //     inner: "CONNECT WALLET",
-  //     closeBtn: "none",
-  //   },
-  //   slideWrapper: 0,
-  //   categoriesValue: "0",
-  // };
-  // this.ConnectPhantom = this.ConnectPhantom.bind(this);
-  // this.DisconnectPhantom = this.DisconnectPhantom.bind(this);
-  // this.closeSelectApplication = this.closeSelectApplication.bind(this);
-  // this.closeSelectBlockchain = this.closeSelectBlockchain.bind(this);
-  // this.getData = this.getData.bind(this);
-  // this.coinImage = this.coinImage.bind(this);
-  // this.scoreImage = this.scoreImage.bind(this);
-  // this.scoreWidth = this.scoreWidth.bind(this);
-  // this.selectCategory = this.selectCategory.bind(this);
-  // this.handleInputChange = this.handleInputChange.bind(this);
 
   function handleInputChange(event) {
     // this.setState({ value: event.target.value });
@@ -496,11 +460,11 @@ export default function Main() {
   };
 
   const getData = async () => {
-    try {
-      axios({
-        method: "get",
-        url: "https://api.memecoinsrace.com/rates",
-      }).then(function (response) {
+    axios({
+      method: "get",
+      url: "https://api.memecoinsrace.com/rates",
+    })
+      .then(function (response) {
         const fullData = response.data.rates;
 
         console.log("full data => ", fullData);
@@ -544,13 +508,6 @@ export default function Main() {
             element.symbol === "MEOW" ||
             element.symbol === "KITTY"
           ) {
-            // setCatsCoins((prev) => {
-            //   return {
-            //     ...prev,
-            //     items: catsCoins.concat(fullData[i]),
-            //   };
-            // });
-
             cc.push(fullData[i]);
             const price = fullData[i].rate;
             catsPrices.push(price);
@@ -566,13 +523,6 @@ export default function Main() {
             if (element.symbol === "APE-X") {
               element.rate = element.rate.toFixed(10);
             }
-
-            // setApesCoins((prev) => {
-            //   return {
-            //     ...prev,
-            //     items: apesCoins.concat(fullData[i]),
-            //   };
-            // });
 
             ac.push(fullData[i]);
             const price = fullData[i].rate;
@@ -605,10 +555,10 @@ export default function Main() {
             maxPrice: apesMaxPrice,
           };
         });
+      })
+      .catch(function (error) {
+        console.log("Error => " + error);
       });
-    } catch (error) {
-      console.log("ERROR => " + error);
-    }
   };
 
   useEffect(() => {
@@ -961,12 +911,14 @@ export default function Main() {
           </div>
         </div>
       </div>
+
       <HowItWorks
         DisconnectPhantom={DisconnectPhantom}
         backColor={connectWallet.backColor}
         inner={connectWallet.inner}
         closeBtn={connectWallet.closeBtn}
       />
+
       <Bets />
     </div>
   );
