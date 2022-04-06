@@ -1,0 +1,14 @@
+[features]
+seeds = false
+[programs.localnet]
+bet_program = "3hiTKYS4bVHgZbkr8sexTzp62tkxS4bufcMNJfgEtVfK"
+
+[registry]
+url = "https://anchor.projectserum.com"
+
+[provider]
+cluster = "devnet"
+wallet = ""
+
+[scripts]
+test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
