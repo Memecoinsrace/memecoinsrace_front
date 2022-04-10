@@ -1,0 +1,189 @@
+.bet-modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.1);
+    transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+
+    .bet-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        height: 420px;
+        transform: translate(-50%, -50%);
+        background: #F8F9FA;
+        width: 420px;
+        border-radius: 30px;
+
+        .bet-header {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            height: 40px;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid lightgray;
+            background-color: white;
+            border-radius: 30px 30px 0px 0px;
+
+
+            label {
+                opacity: 0.5;
+              }
+        
+              span {
+                img {
+                  height: 25px;
+                  width: 25px;
+                  cursor: pointer;
+                }
+              }
+        }
+
+        .bet-body {
+            display: flex;
+            flex-direction: column;
+
+            h2 {
+              text-transform: uppercase;
+              margin-left: auto;
+              margin-right: auto;
+              font: normal normal bold 30px/37px Montserrat;
+            }
+
+            .count-group {
+              width: 80%;
+              min-height: 3.5rem;
+              background: transparent;
+              margin-left: auto;
+              margin-right: auto;
+              border: 1px solid #6C1AEB;
+              border-radius: 10px;
+              display: grid;
+              grid-template-columns: 3fr 1fr;
+
+              input[type="number"] {
+                height: 90%;
+                border-radius: 10px;
+                border: none;
+                margin-top: auto;
+                margin-bottom: auto;
+                // font: normal normal bold 30px/37px Montserrat;
+                font-family: 'Montserrat';
+                font-size: 30px;
+                font-weight: bold;
+                width: 100%;
+                letter-spacing: 0px;
+                color: #6C1AEB;
+                padding-left: 20px;
+              }
+
+              input[type="number"]:focus {
+                outline: none;
+              }
+
+              img {
+                margin: auto;
+                // width: 40%;
+                height: 60%;
+              }
+            }
+
+            .coins-group {
+              min-height: 3rem;
+              width: 80%;
+              margin-left: auto;
+              margin-right: auto;
+              margin-top: 1rem;
+              display: grid;
+              grid-template-columns: 1fr 1.2fr;
+
+              label {
+                font-family: 'Montserrat';
+                font-size: 15px;
+                margin-top: auto;
+                margin-bottom: auto;
+                font-weight: 700;
+                text-transform: uppercase;
+              }
+
+              select {
+                background: #FFFFFF 0% 0% no-repeat padding-box;
+                border: 1px solid #000000;
+                border-radius: 10px;
+                text-align: center;
+                font-family: 'Montserrat';
+                font-size: 15px;
+              }
+
+              select:focus {
+                outline: none;
+              }
+            }
+
+            .timer-header {
+              margin: 1rem auto;
+              font-family: 'Montserrat';
+              text-transform: uppercase;
+              font-size: 1.1rem;
+              font-weight: 600;
+            }
+
+            .timer {
+              margin-left: auto;
+              margin-right: auto;
+              margin-bottom: 1rem;
+              font-size: 2.5rem;
+              font-weight: 700;
+              font-family: 'Montserrat';
+            }
+
+            .actions-group {
+              width: 80%;
+              min-height: 3.5rem;
+              margin-left: auto;
+              margin-right: auto;
+              display: grid;
+              grid-template-columns: 1fr 1fr 1fr;
+
+              button {
+                height: 80%;
+                width: 80%;
+                margin: auto;
+                border-radius: 20px;
+                border: none;
+                cursor: pointer;
+                text-transform: uppercase;
+                font-family: 'Montserrat';
+                color: white;
+                font-weight: 600;
+                outline: none;
+                transition: all 0.5s ease-in-out;
+              }
+
+              button:nth-child(1) {
+                background: #0D90FF;
+              }
+              button:nth-child(2) {
+                background: #4BC716;
+              }
+              button:nth-child(3) {
+                background: #E70DFF;
+              }
+              
+              button:focus {
+                outline: none;
+              }
+
+              button:hover {
+                opacity: 0.8;
+              }
+            }
+        }
+    }
+}

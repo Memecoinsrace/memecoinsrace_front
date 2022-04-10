@@ -35,6 +35,7 @@ import arrowHeight2 from "../../SVG/arrow_height-2.svg";
 import axios from "axios";
 import HowItWorks from "../HowItWorks/HowItWorks";
 import Bets from "../Bets/Bets";
+import Bet from "../Modals/Bet/Bet";
 import {
   CarouselProvider,
   Slider,
@@ -754,7 +755,14 @@ export default function Main() {
                           <div className="coefficient">
                             <label>x 0.15</label>
                           </div>
-                          <div className="bet-btn">
+                          <div
+                            className="bet-btn"
+                            onClick={() =>
+                              document
+                                .querySelector(".bet-modal")
+                                .classList.add("show-modal")
+                            }
+                          >
                             <label>BET</label>
                           </div>
                         </div>
@@ -919,6 +927,7 @@ export default function Main() {
         closeBtn={connectWallet.closeBtn}
       />
 
+      <Bet />
       <Bets />
     </div>
   );
