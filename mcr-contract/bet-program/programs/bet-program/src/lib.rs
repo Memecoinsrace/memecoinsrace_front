@@ -13,19 +13,19 @@ use std::str::FromStr;
 
 use chainlink_solana as chainlink;
 
-declare_id!("3hiTKYS4bVHgZbkr8sexTzp62tkxS4bufcMNJfgEtVfK");
+declare_id!("3hiTKYS4bVHgZbkr8sexTzp62tkxS4bufcMNJfgEtVfK"); // адрес смарта
 
    
 #[account]
 pub struct EscrowAccount {
-    pub value: i128,
-    pub decimals: u32,
-    pub bet_amount: u64,
-    pub bet_on_result: u64,
-    pub pair_name: Pubkey,
-    pub better_account: Pubkey,
-    pub active: bool,
-    pub user_wins: bool,
+    pub value: i128, // цена
+    pub decimals: u32, // для представления цены
+    pub bet_amount: u64, // величина ставки
+    pub bet_on_result: u64, // значение ставки (выше, ниже, равно)
+    pub pair_name: Pubkey, // монета
+    pub better_account: Pubkey, // аккаунт пользователя
+    pub active: bool, // в работе или нет смарт
+    pub user_wins: bool, // результат ставки 
 }
 
 
