@@ -4,10 +4,20 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
+import {
+  useWallet,
+  WalletProvider,
+  ConnectionProvider,
+} from "@solana/wallet-adapter-react";
+
+const wallets = {};
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <ConnectionProvider endpoint="https://api.devnet.solana.com">
+    <WalletProvider wallets={wallets} autoConnect>
+      <App />
+    </WalletProvider>
+  </ConnectionProvider>,
   document.getElementById("root")
 );
 

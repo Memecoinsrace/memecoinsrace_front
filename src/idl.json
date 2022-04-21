@@ -1,0 +1,191 @@
+{
+    "version": "0.1.0",
+    "name": "anchor_bet",
+    "instructions": [
+      {
+        "name": "execute",
+        "accounts": [
+          {
+            "name": "escrowAccount",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "user",
+            "isMut": true,
+            "isSigner": true
+          },
+          {
+            "name": "treasuryAccount",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "userDepositTokenAccount",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "chainlinkFeed",
+            "isMut": false,
+            "isSigner": false
+          },
+          {
+            "name": "chainlinkProgram",
+            "isMut": false,
+            "isSigner": false
+          },
+          {
+            "name": "systemProgram",
+            "isMut": false,
+            "isSigner": false
+          },
+          {
+            "name": "tokenProgram",
+            "isMut": false,
+            "isSigner": false
+          }
+        ],
+        "args": [
+          {
+            "name": "betAmount",
+            "type": "u64"
+          },
+          {
+            "name": "betOnResult",
+            "type": "u64"
+          }
+        ]
+      },
+      {
+        "name": "checkBet",
+        "accounts": [
+          {
+            "name": "escrowAccount",
+            "isMut": true,
+            "isSigner": true
+          },
+          {
+            "name": "chainlinkFeed",
+            "isMut": false,
+            "isSigner": false
+          },
+          {
+            "name": "chainlinkProgram",
+            "isMut": false,
+            "isSigner": false
+          },
+          {
+            "name": "treasuryAccount",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "treasuryAuthority",
+            "isMut": false,
+            "isSigner": false
+          },
+          {
+            "name": "userDepositTokenAccount",
+            "isMut": true,
+            "isSigner": false
+          },
+          {
+            "name": "tokenProgram",
+            "isMut": false,
+            "isSigner": false
+          }
+        ],
+        "args": []
+      }
+    ],
+    "accounts": [
+      {
+        "name": "EscrowAccount",
+        "type": {
+          "kind": "struct",
+          "fields": [
+            {
+              "name": "value",
+              "type": "i128"
+            },
+            {
+              "name": "decimals",
+              "type": "u32"
+            },
+            {
+              "name": "betAmount",
+              "type": "u64"
+            },
+            {
+              "name": "betOnResult",
+              "type": "u64"
+            },
+            {
+              "name": "pairName",
+              "type": "publicKey"
+            },
+            {
+              "name": "betterAccount",
+              "type": "publicKey"
+            },
+            {
+              "name": "active",
+              "type": "bool"
+            },
+            {
+              "name": "userWins",
+              "type": "bool"
+            }
+          ]
+        }
+      }
+    ],
+    "errors": [
+      {
+        "code": 6000,
+        "name": "DataTooLarge",
+        "msg": "Program may only take a bet les 100000"
+      },
+      {
+        "code": 6001,
+        "name": "DataTooSmall",
+        "msg": "Program may only take a bet more 100"
+      },
+      {
+        "code": 6002,
+        "name": "InsuficientUserFunds",
+        "msg": "User dont have enouph funds for the bet"
+      },
+      {
+        "code": 6003,
+        "name": "InsuficientTreasury",
+        "msg": "User bet is too high for the Treasury"
+      },
+      {
+        "code": 6004,
+        "name": "WrongBetOnResult",
+        "msg": "Error in bet on result provided for escrow"
+      },
+      {
+        "code": 6005,
+        "name": "WrongBetOnResultInEscrow",
+        "msg": "Error in reading suspended bet on result"
+      },
+      {
+        "code": 6006,
+        "name": "WrongBetterAccount",
+        "msg": "Token account for refund is wrong"
+      },
+      {
+        "code": 6007,
+        "name": "WrongPairName",
+        "msg": "User is checking another account, not an escrow one"
+      },
+      {
+        "code": 6008,
+        "name": "EscrowIsClosed",
+        "msg": "Provided escrow account is closed"
+      }
+    ]
+  }
