@@ -34,35 +34,25 @@ import HowItWorks from "../HowItWorks/HowItWorks";
 import Bets from "../Bets/Bets";
 import Bet from "../Modals/Bet/Bet";
 
-import { Connection, PublicKey } from "@solana/web3.js";
-import { Program, Provider, web3 } from "@project-serum/anchor";
+import { Connection, PublicKey, clusterApiUrl } from "@solana/web3.js";
+import { Program, AnchorProvider, web3 } from "@project-serum/anchor";
 import idl from "../../idl.json";
 
-import { getPhantomWallet } from "@solana/wallet-adapter-wallets";
-import {
-  useWallet,
-  WalletProvider,
-  ConnectionProvider,
-} from "@solana/wallet-adapter-react";
-import {
-  WalletModalProvider,
-  WalletMultiButton,
-} from "@solana/wallet-adapter-react-ui";
+import { PhantomWalletAdapter } from "@solana/wallet-adapter-wallets";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+require("@solana/wallet-adapter-react-ui/styles.css");
 
-const wallets = [
-  /* view list of available wallets at https://github.com/solana-labs/wallet-adapter#wallets */
-  getPhantomWallet(),
-];
+const wallets = [new PhantomWalletAdapter()];
 
 const { SystemProgram, Keypair } = web3;
-
 const baseAccount = Keypair.generate();
-const opts = { preflightCommitment: "processed" };
-const programID = new PublicKey(idl.metadata.address);
+const opts = {
+  preflightCommitment: "processed",
+};
+const programID = new PublicKey("ApkhVUsEgqYgHuCo3paK4dF9hnvPrYEjxHnk9dkcezAb");
 
 export default function Main() {
-  const [value, setValue] = useState(null);
-  const [connected, setConnected] = useState(false);
   const wallet = useWallet();
 
   const [dogsCoins, setDogsCoins] = useState({
@@ -87,6 +77,20 @@ export default function Main() {
   const [slideWrapper, setSlideWrapper] = useState(0);
 
   const [categoriesValue, setCategoriesValue] = useState("0");
+
+  async function getProvider() {
+    /* create the provider and return it to the caller */
+    /* network set to local network for now */
+    const network = clusterApiUrl("devnet");
+    const connection = new Connection(network, opts.preflightCommitment);
+
+    const provider = new AnchorProvider(
+      connection,
+      wallet,
+      opts.preflightCommitment
+    );
+    return provider;
+  }
 
   function handleInputChange(event) {
     // this.setState({ value: event.target.value });
@@ -603,21 +607,7 @@ export default function Main() {
         };
       });
     }
-
-    window.solana.on("connect", () => setConnected(true));
-    return () => window.solana.disconnect();
   }, []);
-
-  // new
-  async function getProvider() {
-    /* create the provider and return it to the caller */
-    /* network set to local network for now */
-    const network = "https://api.devnet.solana.com";
-    const connection = new Connection(network, opts.preflightCommitment);
-
-    const provider = new Provider(connection, wallet, opts.preflightCommitment);
-    return provider;
-  }
 
   const ConnectPhantom = async () => {
     try {
