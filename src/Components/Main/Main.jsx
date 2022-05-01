@@ -34,26 +34,67 @@ import HowItWorks from "../HowItWorks/HowItWorks";
 import Bets from "../Bets/Bets";
 import Bet from "../Modals/Bet/Bet";
 
+import * as anchor from "@project-serum/anchor";
 import { Connection, PublicKey, clusterApiUrl } from "@solana/web3.js";
-import { Program, AnchorProvider, web3 } from "@project-serum/anchor";
+//import { Program, Provider, web3 } from "@project-serum/anchor";
+import { TOKEN_PROGRAM_ID, Token } from "@solana/spl-token";
 import idl from "../../idl.json";
+import kp from "../../BetUser.json";
 
 import { PhantomWalletAdapter } from "@solana/wallet-adapter-wallets";
-import { useWallet } from "@solana/wallet-adapter-react";
+import { useWallet, useAnchorWallet } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
+
+import Countdown from "react-countdown";
+
 require("@solana/wallet-adapter-react-ui/styles.css");
 
+console.log("idl", idl);
+console.log("kp", kp);
+
+const arr = Object.values(kp);
+const secret = new Uint8Array(arr);
+const tempUserAccount = anchor.web3.Keypair.fromSecretKey(secret);
+//const tempUserAccount = anchor.web3.Keypair.generate();
+
+console.log("pk", tempUserAccount.publicKey.toString());
 const wallets = [new PhantomWalletAdapter()];
 
-const { SystemProgram, Keypair } = web3;
-const baseAccount = Keypair.generate();
+const { SystemProgram, Keypair } = anchor.web3;
+
+//create an account to store the price and bett data
+const escrowAccount = anchor.web3.Keypair.generate();
+
+//initialize a value in UI
+let bet_amount = null;
+
+//initialize in UI 0,1,2,
+let bet_on_result = null;
+
+////Some hardcoded values
+//Hardcoded
+const TREASURY_ACCOUNT_PDA = "2Q5FCcUhvBVgJv6dCwNRdgAvEtxZVPUwxmxTKY9GHfZc";
+const treasuryPubkey = new PublicKey(TREASURY_ACCOUNT_PDA);
+
+const TREASURY_AUTHORITY_PDA = "8NdpuYnWHxYYCifxxe9cXidrTb6VPfJmm9txLYirqQBY";
+
+//Token account with the minted tokens for bet (firstly hardcoded)
+const USER_DEPOSIT_TOKEN_ACCOUNT =
+  "FaVQBqKVUaSBsNWuGAz2goL3x59mrVtoSaFhjDwAeTFK";
+const depositPubkey = new PublicKey(USER_DEPOSIT_TOKEN_ACCOUNT);
+//Coin name. Take it from UI list
+const CHAINLINK_FEED = "EdWr4ww1Dq82vPe8GFjjcVPo2Qno3Nhn6baCgM3dCy28";
+//Hardcoded PublicKey for chainlink programm
+const CHAINLINK_PROGRAM_ID = "CaH12fwNTKJAG8PxEvo9R96Zc2j8qNHZaFj8ZW49yZNT";
+const DIVISOR = 100000000;
+
 const opts = {
   preflightCommitment: "processed",
 };
 const programID = new PublicKey("ApkhVUsEgqYgHuCo3paK4dF9hnvPrYEjxHnk9dkcezAb");
 
 export default function Main() {
-  const wallet = useWallet();
+  const wallet = useAnchorWallet();
 
   const [dogsCoins, setDogsCoins] = useState({
     items: [],
@@ -64,6 +105,10 @@ export default function Main() {
     maxPrice: null,
   });
   const [apesCoins, setApesCoins] = useState({
+    items: [],
+    maxPrice: null,
+  });
+  const [testCoins, setTestCoins] = useState({
     items: [],
     maxPrice: null,
   });
@@ -83,13 +128,234 @@ export default function Main() {
     /* network set to local network for now */
     const network = clusterApiUrl("devnet");
     const connection = new Connection(network, opts.preflightCommitment);
-
-    const provider = new AnchorProvider(
+    console.log("find1");
+    console.log("Wallet => ", wallet);
+    const provider = new anchor.Provider(
       connection,
       wallet,
       opts.preflightCommitment
     );
+    console.log("find2", provider);
     return provider;
+  }
+
+  async function makeTheBet() {
+    const provider = await getProvider();
+    /* create the program interface combining the idl, program ID, and provider */
+    const program = new anchor.Program(idl, programID, provider);
+    //try {
+    /* interact with the program via rpc */
+
+    //const tx = program.transaction.execute(
+    let tx1 = await program.rpc.execute(
+      new anchor.BN(100), //bet amount
+      new anchor.BN(0), //bet_on_name 0/1/2 rise/equal/decrease
+      {
+        accounts: {
+          //coinInfo: "FJpv98TrcWURFaGXVRnzwQ7gfdF2ZWzKYeRo6Y3Jim9Z",
+          escrowAccount: escrowAccount.publicKey, //generated escrow
+          user: tempUserAccount.publicKey, //better main account
+          treasuryAccount: TREASURY_ACCOUNT_PDA, //escrow treasury
+          userDepositTokenAccount: USER_DEPOSIT_TOKEN_ACCOUNT, //user account with tokens
+          chainlinkFeed: CHAINLINK_FEED, //CoinName
+          chainlinkProgram: CHAINLINK_PROGRAM_ID, //Chainlink program
+          systemProgram: anchor.web3.SystemProgram.programId, //System program
+          tokenProgram: TOKEN_PROGRAM_ID,
+        },
+        instructions: [
+          await program.account.escrowAccount.createInstruction(escrowAccount),
+        ],
+        options: { commitment: "confirmed" },
+        signers: [escrowAccount, tempUserAccount],
+      }
+    );
+    //Signing created transaction with cmd wallet
+    /*tx.feePayer = await tempUserAccount.publicKey;
+    tx.recentBlockhash = (await provider.connection.getLatestBlockhash()).blockhash;
+    tx.sign(escrowAccount);
+    const signedTx = await tempUserAccount.signTransaction(tx);
+    const txId = await provider.connection.sendRawTransaction(signedTx.serialize());
+    await provider.connection.confirmTransaction(txId)*/
+
+    console.log("Fetching transaction logs...");
+    let t = await provider.connection.getConfirmedTransaction(tx1, "confirmed");
+    console.log(t.meta.logMessages);
+
+    // Fetch the account details of the account containing the price and bet data
+    const _escrowAccount = await program.account.escrowAccount.fetch(
+      escrowAccount.publicKey
+    );
+    console.log("Price for choosen coin is: " + _escrowAccount.value / DIVISOR);
+    console.log("Bet amount Is: " + _escrowAccount.betAmount);
+    console.log("Bet on result Is: " + _escrowAccount.betOnResult);
+    console.log("Pair name: " + _escrowAccount.pairName);
+    console.log("Better account : " + _escrowAccount.betterAccount);
+
+    let userDepositTokenBalance =
+      await provider.connection.getTokenAccountBalance(depositPubkey);
+    console.log(
+      "USER_DEPOSIT_TOKEN_ACCOUNT balance : ",
+      userDepositTokenBalance.value.uiAmountString
+    );
+
+    let treasuryBalance = await provider.connection.getTokenAccountBalance(
+      treasuryPubkey
+    );
+    console.log(
+      "TREASURY_ACCOUNT_PDA balance : ",
+      treasuryBalance.value.uiAmountString
+    );
+
+    // Take a time for a bet check
+    let pause = 15;
+    console.log("waiting for " + pause + " sec...");
+    await new Promise((resolve) => setTimeout(resolve, pause * 1000));
+
+    const calculateTimeLeft = () => {
+      let year = new Date().getFullYear();
+
+      let difference = +new Date(`10/01/${year}`) - +new Date();
+
+      let timeLeft = {};
+
+      if (difference > 0) {
+        timeLeft = {
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((difference / 1000 / 60) % 60),
+          seconds: Math.floor((difference / 1000) % 60),
+        };
+      }
+
+      return timeLeft;
+    };
+
+    /* interact with the program via rpc */
+    let tx2 = await program.rpc.checkBet({
+      accounts: {
+        escrowAccount: escrowAccount.publicKey, //generated escrow with props
+        chainlinkFeed: CHAINLINK_FEED, //CoinName
+        chainlinkProgram: CHAINLINK_PROGRAM_ID, //Chainlink program
+        treasuryAccount: TREASURY_ACCOUNT_PDA, //escrow treasury
+        treasuryAuthority: TREASURY_AUTHORITY_PDA, //escrow treasury authority
+        userDepositTokenAccount: USER_DEPOSIT_TOKEN_ACCOUNT, //betToken user account
+        tokenProgram: TOKEN_PROGRAM_ID,
+      },
+      options: { commitment: "confirmed" },
+      signers: [escrowAccount],
+    });
+
+    //console.log("Fetching transaction logs...");
+    //let t2 = await provider.connection.getConfirmedTransaction(tx2, "confirmed");
+    //console.log(t2.meta.logMessages);
+
+    // Fetch the account details of the account containing the price and bet data
+    const _escrowAccountCheck = await program.account.escrowAccount.fetch(
+      escrowAccount.publicKey
+    );
+    console.log("Price Is: " + _escrowAccountCheck.value / DIVISOR);
+    console.log(
+      "Bet amount after closing escrow: " + _escrowAccountCheck.betAmount
+    );
+    console.log("Bet on result is: " + _escrowAccountCheck.betOnResult);
+    console.log("Coin pair name: " + _escrowAccountCheck.pairName);
+    console.log("Better account : " + _escrowAccountCheck.betterAccount);
+
+    //Use it in UI
+    if (_escrowAccountCheck.userWins) {
+      console.log("User WINS a bet");
+    } else {
+      console.log("User LOOSE a bet");
+    }
+
+    userDepositTokenBalance = await provider.connection.getTokenAccountBalance(
+      depositPubkey
+    );
+    console.log(
+      "USER_DEPOSIT_TOKEN_ACCOUNT balance : ",
+      userDepositTokenBalance.value.uiAmountString
+    );
+
+    treasuryBalance = await provider.connection.getTokenAccountBalance(
+      treasuryPubkey
+    );
+    console.log(
+      "TREASURY_ACCOUNT_PDA balance : ",
+      treasuryBalance.value.uiAmountString
+    );
+
+    console.log("Bet is closed");
+
+    //  } catch (err) {
+    //    console.log("Transaction error: ", err);
+    //  }
+  }
+
+  async function CheckTheBet() {
+    const provider = await getProvider();
+    /* create the program interface combining the idl, program ID, and provider */
+    const program = new anchor.Program(idl, programID, provider);
+    try {
+      /* interact with the program via rpc */
+      let tx2 = await program.rpc.checkBet({
+        accounts: {
+          escrowAccount: escrowAccount.publicKey, //generated escrow with props
+          chainlinkFeed: CHAINLINK_FEED, //CoinName
+          chainlinkProgram: CHAINLINK_PROGRAM_ID, //Chainlink program
+          treasuryAccount: TREASURY_ACCOUNT_PDA, //escrow treasury
+          treasuryAuthority: TREASURY_AUTHORITY_PDA, //escrow treasury authority
+          userDepositTokenAccount: USER_DEPOSIT_TOKEN_ACCOUNT, //betToken user account
+          tokenProgram: TOKEN_PROGRAM_ID,
+        },
+        options: { commitment: "confirmed" },
+        signers: [escrowAccount],
+      });
+
+      console.log("Fetching transaction logs...");
+      let t2 = await provider.connection.getConfirmedTransaction(
+        tx2,
+        "confirmed"
+      );
+      console.log(t2.meta.logMessages);
+
+      // Fetch the account details of the account containing the price and bet data
+      const _escrowAccountCheck = await program.account.escrowAccount.fetch(
+        escrowAccount.publicKey
+      );
+      console.log("Price Is: " + _escrowAccountCheck.value / DIVISOR);
+      console.log(
+        "Bet amount after closing escrow: " + _escrowAccountCheck.betAmount
+      );
+      console.log("Bet on result is: " + _escrowAccountCheck.betOnResult);
+      console.log("Coin pair name: " + _escrowAccountCheck.pairName);
+      console.log("Better account : " + _escrowAccountCheck.betterAccount);
+
+      //Use it in UI
+      if (_escrowAccountCheck.userWins) {
+        console.log("User WINS a bet");
+      } else {
+        console.log("User LOOSE a bet");
+      }
+
+      let userDepositTokenBalance =
+        await provider.connection.getTokenAccountBalance(depositPubkey);
+      console.log(
+        "USER_DEPOSIT_TOKEN_ACCOUNT balance : ",
+        userDepositTokenBalance.value.uiAmountString
+      );
+
+      let treasuryBalance = await provider.connection.getTokenAccountBalance(
+        treasuryPubkey
+      );
+      console.log(
+        "TREASURY_ACCOUNT_PDA balance : ",
+        treasuryBalance.value.uiAmountString
+      );
+
+      console.log("Bet is closed");
+    } catch (err) {
+      console.log("Transaction error: ", err);
+    }
   }
 
   function handleInputChange(event) {
@@ -102,6 +368,8 @@ export default function Main() {
     document.getElementById("apesCategory").classList.remove("active-category");
 
     document.getElementById("catsCategory").classList.remove("active-category");
+
+    document.getElementById("testCategory").classList.remove("active-category");
 
     switch (num) {
       case 0:
@@ -121,6 +389,12 @@ export default function Main() {
           .getElementById("apesCategory")
           .classList.add("active-category");
         await setSlideWrapper(-200);
+        break;
+      case 3:
+        document
+          .getElementById("testCategory")
+          .classList.add("active-category");
+        await setSlideWrapper(-300);
         break;
       default:
         break;
@@ -192,6 +466,8 @@ export default function Main() {
     let catsLineWidth = (currentPrice / catsCoins.maxPrice) * 100 + 10;
 
     let apesLineWidth = (currentPrice / catsCoins.maxPrice) * 100 + 10;
+
+    let testLineWidth = (currentPrice / testCoins.maxPrice) * 100 + 10;
 
     switch (symbol) {
       case "DOGE":
@@ -396,6 +672,39 @@ export default function Main() {
             }}
           />
         );
+      case "BTC":
+        return (
+          <div
+            className="line"
+            style={{
+              width: catsLineWidth + "%",
+              background:
+                "transparent linear-gradient(270deg, #FFF5CA 0%, #F6BE06 100%) 0% 0% no-repeat padding-box",
+            }}
+          />
+        );
+      case "ETH":
+        return (
+          <div
+            className="line"
+            style={{
+              width: catsLineWidth + "%",
+              background:
+                "transparent linear-gradient(270deg, #FFF5CA 0%, #F6BE06 100%) 0% 0% no-repeat padding-box",
+            }}
+          />
+        );
+      case "LINK":
+        return (
+          <div
+            className="line"
+            style={{
+              width: catsLineWidth + "%",
+              background:
+                "transparent linear-gradient(270deg, #FFF5CA 0%, #F6BE06 100%) 0% 0% no-repeat padding-box",
+            }}
+          />
+        );
       default:
         break;
     }
@@ -496,10 +805,12 @@ export default function Main() {
         let dogsPrices = [];
         let catsPrices = [];
         let apesPrices = [];
+        let testPrices = [];
 
-        let gc = [];
+        let dc = [];
         let cc = [];
         let ac = [];
+        let tc = [];
 
         for (let i = 0; i < fullData.length; i++) {
           const element = fullData[i];
@@ -520,7 +831,7 @@ export default function Main() {
               element.rate = element.rate.toFixed(10);
             }
 
-            gc.push(fullData[i]);
+            dc.push(fullData[i]);
             const price = fullData[i].rate;
             dogsPrices.push(price);
           }
@@ -552,16 +863,28 @@ export default function Main() {
             const price = fullData[i].rate;
             apesPrices.push(price);
           }
+
+          if (
+            element.symbol === "BTC" ||
+            element.symbol === "LINK" ||
+            element.symbol === "ETH" ||
+            element.symbol === "ETH"
+          ) {
+            tc.push(fullData[i]);
+            const price = fullData[i].rate;
+            testPrices.push(price);
+          }
         }
 
         let dogsMaxPrice = Math.max(...dogsPrices);
         let catsMaxPrice = Math.max(...catsPrices);
         let apesMaxPrice = Math.max(...apesPrices);
+        let testMaxPrice = Math.max(...testPrices);
 
         setDogsCoins((prev) => {
           return {
             ...prev,
-            items: gc,
+            items: dc,
             maxPrice: dogsMaxPrice,
           };
         });
@@ -577,6 +900,13 @@ export default function Main() {
             ...prev,
             items: ac,
             maxPrice: apesMaxPrice,
+          };
+        });
+        setTestCoins((prev) => {
+          return {
+            ...prev,
+            items: tc,
+            maxPrice: testMaxPrice,
           };
         });
       })
@@ -653,6 +983,10 @@ export default function Main() {
     elem.classList.toggle("show-modal");
   };
 
+  const showBetModal = () => {
+    document.querySelector(".bet-modal").classList.add("show-modal");
+  };
+
   return (
     <div className="main">
       <div className="overview">
@@ -683,6 +1017,10 @@ export default function Main() {
               <label>APES</label>
               <label>COINS</label>
             </div>
+            <div id="testCategory" onClick={() => selectCategory(3)}>
+              <label>TEST</label>
+              <label>COINS</label>
+            </div>
           </div>
           <div className="categories-mini">
             <select
@@ -693,17 +1031,21 @@ export default function Main() {
               <option value="0">DOGS COINS</option>
               <option value="1">CATS COINS</option>
               <option value="2">APES COINS</option>
+              <option value="2">TEST COINS</option>
             </select>
           </div>
-          <div className="current-bets-btn" onClick={() => getData()}>
-            CURRENT BETS
-          </div>
-          <ConnectWallet
+          <div className="header-group">
+            <div className="current-bets-btn" onClick={() => getData()}>
+              CURRENT BETS
+            </div>
+            {/* <ConnectWallet
             DisconnectPhantom={DisconnectPhantom}
             backColor={connectWallet.backColor}
             inner={connectWallet.inner}
             closeBtn={connectWallet.closeBtn}
-          />
+          /> */}
+            <WalletMultiButton />
+          </div>
         </div>
         {/* <div className="coins-sort">
             <div>
@@ -781,10 +1123,13 @@ export default function Main() {
                           </div>
                           <div
                             className="bet-btn"
-                            onClick={() =>
-                              document
-                                .querySelector(".bet-modal")
-                                .classList.add("show-modal")
+                            onClick={
+                              () => {
+                                makeTheBet();
+                              }
+                              //document
+                              //  .querySelector(".bet-modal")
+                              //  .classList.add("show-modal")
                             }
                           >
                             <label>BET</label>
@@ -886,6 +1231,54 @@ export default function Main() {
                 );
               })}
           </div>
+          <div class="slide">
+            {testCoins.items
+              .sort((a, b) => (a.rate > b.rate ? -1 : 1))
+              .map((coin, index) => {
+                return (
+                  <div className="row-coin" key={coin.id}>
+                    <div className="row-coin-head">
+                      <label className="coin-number">{index + 1}</label>
+                      {coinImage(coin.symbol)}
+                      <div className="coin-info-group">
+                        <div className="coin-name-group">
+                          <label className="coin-fullname">{coin.name}</label>
+                          <label className="coin-shortname">
+                            {coin.symbol}
+                          </label>
+                        </div>
+                        <label className="coin-price">
+                          ${coin.rate.toString().substr(0, 12)}
+                        </label>
+                      </div>
+                    </div>
+                    <div className="row-coin-body">
+                      <div
+                        className="score"
+                        style={{ background: ScoreBack(coin.symbol) }}
+                      >
+                        <div className="score-group">
+                          {scoreWidth(coin.rate, coin.symbol)}
+                          {scoreImage(coin.symbol)}
+                        </div>
+                        <div className="finish-section">
+                          <img alt="" src={boneFinish} />
+                          <div className="coefficient">
+                            <label>x 0.15</label>
+                          </div>
+                          <div
+                            className="bet-btn"
+                            onClick={() => showBetModal()}
+                          >
+                            <label>BET</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+          </div>
         </div>
         <div className="connect-wallet-modal">
           <div className="connect-wallet-content">
@@ -951,7 +1344,7 @@ export default function Main() {
         closeBtn={connectWallet.closeBtn}
       />
 
-      <Bet />
+      <Bet makeBet={() => makeTheBet()} />
       <Bets />
     </div>
   );

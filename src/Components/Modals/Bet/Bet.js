@@ -39,9 +39,15 @@ export default function Bet(props) {
             <span>5:00</span> min
           </label>
           <div className="actions-group">
-            <button className="down-btn">Down</button>
-            <button className="same-btn">Same</button>
-            <button className="up-btn">Up</button>
+            <button className="down-btn" onClick={async () => props.makeBet()}>
+              Down
+            </button>
+            <button className="same-btn" onClick={async () => props.makeBet()}>
+              Same
+            </button>
+            <button className="up-btn" onClick={async () => props.makeBet()}>
+              Up
+            </button>
           </div>
         </div>
       </div>

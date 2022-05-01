@@ -23,54 +23,62 @@
 
   .head {
     display: grid;
-    grid-template-columns: 4fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr;
     position: sticky;
 
-    .current-bets-btn {
-      background-color: #0d90ff;
-      margin-right: 40px;
+    .header-group {
       display: flex;
       flex-direction: row;
-      justify-content: center;
       align-items: center;
-      text-align: center;
-      height: auto;
-      padding: 20px 15px;
-      border-radius: 30px;
-      cursor: pointer;
-      text-overflow: ellipsis;
-      overflow-wrap: break-word;
-      width: 13%;
-      transition: all 500ms ease;
-      margin-top: auto;
-      margin-bottom: auto;
-      color: #FFF;
-      width: auto;
-      font: normal normal bold 16px/19px Montserrat;
-    
-      label {
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+      justify-content: space-evenly;
+
+      .current-bets-btn {
+        background-color: #0d90ff;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: auto;
+        padding: 15px 15px;
+        border-radius: 1.5rem;
         cursor: pointer;
-        margin-left: 5px;
-        font: normal normal bold 15px/18px Montserrat;
-        color: white;
+        text-overflow: ellipsis;
+        overflow-wrap: break-word;
+        width: 10%;
+        transition: all 500ms ease;
+        color: #FFF;
+        width: auto;
+        font: normal normal bold 16px/19px Montserrat;
+      
+        label {
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          cursor: pointer;
+          font: normal normal bold 15px/18px Montserrat;
+          color: white;
+        }
       }
-    }
-
-    svg {
-      height: 13%;
-      width: 13%;
-      margin-right: 40px;
-      margin-left: auto;
-      margin-top: 20px;
-      cursor: pointer;
-    }
-
-    svg:focus {
-      height: 12%;
-      width: 12%;
+  
+      .wallet-adapter-button {
+        border-radius: 1.5rem;
+        font: normal normal bold 15px/18px Montserrat;
+      }
+  
+      svg {
+        height: 13%;
+        width: 13%;
+        margin-right: 40px;
+        margin-left: auto;
+        margin-top: 20px;
+        cursor: pointer;
+      }
+  
+      svg:focus {
+        height: 12%;
+        width: 12%;
+      }
     }
   }
 }
@@ -79,14 +87,14 @@
   margin-left: 3%;
   display: flex;
   flex-direction: row;
-  column-gap: 40px;
+  column-gap: 20px;
   align-items: center;
 
   .active-category {
     opacity: 1;
     label {
       cursor: pointer;
-      font: normal normal bold 35px/43px Montserrat;
+      font: normal normal bold 30px/38px Montserrat;
     }
   }
 
@@ -104,7 +112,7 @@
     label {
       margin: 0 5px;
       cursor: pointer;
-      font: normal normal normal 35px/43px Montserrat;
+      font: normal normal normal 30px/38px Montserrat;
     }
   }
 
@@ -249,11 +257,11 @@
 }
  
 .slide-wrapper {
-  width: 300%;
+  width: 400%;
   height: auto;
   overflow: auto;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   transition: all 1s ease-in-out;
 }
 
