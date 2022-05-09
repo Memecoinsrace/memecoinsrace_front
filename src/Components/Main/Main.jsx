@@ -25,7 +25,6 @@ import apex from "../../PNG/icon-APE@2x.png";
 import solape from "../../PNG/icon-SOLAPE@2x.png";
 import gdt from "../../PNG/icon-GDT@2x.png";
 import boneFinish from "../../SVG/bone-finish.svg";
-import ConnectWallet from "../ConnectWallet/ConnectWallet";
 import bone from "../../SVG/bone.svg";
 import fish from "../../SVG/fish.svg";
 import banan from "../../SVG/banana.svg";
@@ -42,10 +41,8 @@ import idl from "../../idl.json";
 import kp from "../../BetUser.json";
 
 import { PhantomWalletAdapter } from "@solana/wallet-adapter-wallets";
-import { useWallet, useAnchorWallet } from "@solana/wallet-adapter-react";
+import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
-
-import Countdown from "react-countdown";
 
 require("@solana/wallet-adapter-react-ui/styles.css");
 
@@ -139,7 +136,7 @@ export default function Main() {
     return provider;
   }
 
-  async function makeTheBet() {
+  async function makeTheBet(betType) {
     const provider = await getProvider();
     /* create the program interface combining the idl, program ID, and provider */
     const program = new anchor.Program(idl, programID, provider);
@@ -149,7 +146,7 @@ export default function Main() {
     //const tx = program.transaction.execute(
     let tx1 = await program.rpc.execute(
       new anchor.BN(100), //bet amount
-      new anchor.BN(0), //bet_on_name 0/1/2 rise/equal/decrease
+      new anchor.BN(betType), //bet_on_name 0/1/2 rise/equal/decrease
       {
         accounts: {
           //coinInfo: "FJpv98TrcWURFaGXVRnzwQ7gfdF2ZWzKYeRo6Y3Jim9Z",
@@ -209,6 +206,8 @@ export default function Main() {
     // Take a time for a bet check
     let pause = 15;
     console.log("waiting for " + pause + " sec...");
+
+    // Pause (now is 15 seconds)
     await new Promise((resolve) => setTimeout(resolve, pause * 1000));
 
     const calculateTimeLeft = () => {

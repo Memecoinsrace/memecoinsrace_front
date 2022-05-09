@@ -5,9 +5,56 @@ import closeIcon from "../../../SVG/close.svg";
 import memeIcon from "../../../SVG/icon-mcr.svg";
 import dogecoin from "../../../PNG/icon-dogecoin.png";
 
+import Countdown from "react-countdown";
+
 export default function Bet(props) {
   const CloseBet = () => {
-    document.querySelector(".bet-modal").classList.remove("show-modal");
+    // document.querySelector(".bet-modal").classList.remove("show-modal");
+  };
+
+  const renderer = ({ api, formatted }) => {
+    const { minutes, seconds } = formatted;
+    const completed = api.isCompleted();
+    if (completed) {
+      return <span>FINISHED</span>;
+    } else {
+      return (
+        <>
+          <span>
+            {minutes}:{seconds}
+          </span>
+          <div className="actions-group">
+            <button
+              className="down-btn"
+              onClick={async () => {
+                props.makeBet(2);
+                api.start();
+              }}
+            >
+              Down
+            </button>
+            <button
+              className="same-btn"
+              onClick={async () => {
+                props.makeBet(1);
+                api.start();
+              }}
+            >
+              Same
+            </button>
+            <button
+              className="up-btn"
+              onClick={async () => {
+                props.makeBet(0);
+                api.start();
+              }}
+            >
+              Up
+            </button>
+          </div>
+        </>
+      );
+    }
   };
 
   return (
@@ -36,19 +83,12 @@ export default function Bet(props) {
           </div> */}
           <label className="timer-header">price goes in next</label>
           <label className="timer">
-            <span>5:00</span> min
+            <Countdown
+              date={Date.now() + 300000}
+              renderer={renderer}
+              autoStart={false}
+            />
           </label>
-          <div className="actions-group">
-            <button className="down-btn" onClick={async () => props.makeBet()}>
-              Down
-            </button>
-            <button className="same-btn" onClick={async () => props.makeBet()}>
-              Same
-            </button>
-            <button className="up-btn" onClick={async () => props.makeBet()}>
-              Up
-            </button>
-          </div>
         </div>
       </div>
     </div>
