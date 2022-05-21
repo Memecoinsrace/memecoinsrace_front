@@ -44,6 +44,8 @@ import { PhantomWalletAdapter } from "@solana/wallet-adapter-wallets";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
+import { SnackbarProvider, useSnackbar } from "notistack";
+
 require("@solana/wallet-adapter-react-ui/styles.css");
 
 console.log("idl", idl);
@@ -92,6 +94,11 @@ const programID = new PublicKey("ApkhVUsEgqYgHuCo3paK4dF9hnvPrYEjxHnk9dkcezAb");
 
 export default function Main() {
   const wallet = useAnchorWallet();
+  const { enqueueSnackbar } = useSnackbar();
+
+  const [userIsWin, setUserIsWin] = useState(false);
+
+  const [betValue, setBetValue] = useState(0);
 
   const [dogsCoins, setDogsCoins] = useState({
     items: [],
@@ -136,16 +143,19 @@ export default function Main() {
     return provider;
   }
 
-  async function makeTheBet(betType) {
+  async function makeTheBet(betType, betValue) {
     const provider = await getProvider();
     /* create the program interface combining the idl, program ID, and provider */
     const program = new anchor.Program(idl, programID, provider);
     //try {
     /* interact with the program via rpc */
 
+    console.log("BET TYPE => " + betType);
+    console.log("BET VALUE => " + betValue);
+
     //const tx = program.transaction.execute(
     let tx1 = await program.rpc.execute(
-      new anchor.BN(100), //bet amount
+      new anchor.BN(betValue), //bet amount
       new anchor.BN(betType), //bet_on_name 0/1/2 rise/equal/decrease
       {
         accounts: {
@@ -263,8 +273,15 @@ export default function Main() {
     //Use it in UI
     if (_escrowAccountCheck.userWins) {
       console.log("User WINS a bet");
+      //setUserIsWin(true);
+      enqueueSnackbar("Congrats! Your meme bet won!", { variant: "success" });
     } else {
       console.log("User LOOSE a bet");
+      enqueueSnackbar(
+        "You lost! Unfontunately, your prediction didn`t come true.",
+        { variant: "info" }
+      );
+      //setUserIsWin(false);
     }
 
     userDepositTokenBalance = await provider.connection.getTokenAccountBalance(
@@ -814,6 +831,8 @@ export default function Main() {
         for (let i = 0; i < fullData.length; i++) {
           const element = fullData[i];
 
+          element.seconds = 300;
+
           if (
             element.symbol === "DOGE" ||
             element.symbol === "SAMO" ||
@@ -983,7 +1002,18 @@ export default function Main() {
   };
 
   const showBetModal = () => {
-    document.querySelector(".bet-modal").classList.add("show-modal");
+    if ("solana" in window) {
+      let provider = window.solana;
+      if (provider.isPhantom) {
+        if (window.solana.isConnected) {
+          document.querySelector(".bet-modal").classList.add("show-modal");
+        } else {
+          alert("To place a bet, you need to connect the Phantom wallet");
+        }
+      }
+    } else {
+      alert("Solana provider is not found");
+    }
   };
 
   return (
@@ -1120,17 +1150,7 @@ export default function Main() {
                           <div className="coefficient">
                             <label>x 0.15</label>
                           </div>
-                          <div
-                            className="bet-btn"
-                            onClick={
-                              () => {
-                                makeTheBet();
-                              }
-                              //document
-                              //  .querySelector(".bet-modal")
-                              //  .classList.add("show-modal")
-                            }
-                          >
+                          <div className="bet-btn">
                             <label>BET</label>
                           </div>
                         </div>
@@ -1342,9 +1362,13 @@ export default function Main() {
         inner={connectWallet.inner}
         closeBtn={connectWallet.closeBtn}
       />
-
-      <Bet makeBet={() => makeTheBet()} />
       <Bets />
+
+      <Bet
+        isWin={userIsWin}
+        makeBet={(betType, betValue) => makeTheBet(betType, betValue)}
+        betValue={betValue}
+      />
     </div>
   );
 }

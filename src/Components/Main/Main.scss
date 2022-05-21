@@ -50,7 +50,7 @@
         color: #FFF;
         width: auto;
         font: normal normal bold 16px/19px Montserrat;
-      
+
         label {
           overflow: hidden;
           white-space: nowrap;
@@ -60,12 +60,12 @@
           color: white;
         }
       }
-  
+
       .wallet-adapter-button {
         border-radius: 1.5rem;
         font: normal normal bold 15px/18px Montserrat;
       }
-  
+
       svg {
         height: 13%;
         width: 13%;
@@ -74,7 +74,7 @@
         margin-top: 20px;
         cursor: pointer;
       }
-  
+
       svg:focus {
         height: 12%;
         width: 12%;
@@ -92,6 +92,7 @@
 
   .active-category {
     opacity: 1;
+
     label {
       cursor: pointer;
       font: normal normal bold 30px/38px Montserrat;
@@ -123,6 +124,7 @@
 
 .categories-mini {
   display: none;
+
   select {
     border: none;
     background-color: transparent;
@@ -237,8 +239,9 @@
 
 .carousel {
   height: 72%;
+
   div:focus {
-    outline: none!important;
+    outline: none !important;
   }
 }
 
@@ -249,13 +252,24 @@
 #slideshow {
   height: 100%;
 }
- 
+
 .slide {
   width: 100%;
   height: 100%;
   overflow: auto;
 }
- 
+
+.slide::-webkit-scrollbar {
+  width: 0.5rem;
+  border-radius: 20px;
+  background-color: transparent;
+}
+
+.slide::-webkit-scrollbar-thumb {
+  background-color: #e70dff;
+  border-radius: 20px;
+}
+
 .slide-wrapper {
   width: 400%;
   height: auto;
@@ -286,19 +300,19 @@
       margin-bottom: auto;
       font: normal normal bold 20px/24px Montserrat;
     }
-  
+
     img {
       height: 60px;
       width: 60px;
       margin-right: auto;
       margin-left: auto;
     }
-  
+
     .coin-info-group {
       display: flex;
       flex-direction: column;
       justify-content: center;
-  
+
       .coin-name-group {
         .coin-fullname {
           margin-right: auto;
@@ -307,7 +321,7 @@
           font: normal normal bold 20px/24px Montserrat;
           margin-right: 20px;
         }
-  
+
         .coin-shortname {
           margin-left: auto;
           margin-right: auto;
@@ -317,7 +331,7 @@
           font: normal normal bold 20px/24px Montserrat;
         }
       }
-  
+
       .coin-price {
         margin-top: auto;
         margin-bottom: auto;
@@ -335,12 +349,12 @@
       box-shadow: inset 2px 2px 7px rgba(0, 0, 0, 0.15);
       display: grid;
       grid-template-columns: 8fr 3fr;
-  
+
       .score-group {
         display: flex;
         flex-direction: row;
       }
-  
+
       .line {
         height: 20px;
         margin-top: auto;
@@ -365,7 +379,7 @@
         // );
         // filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#deba28",endColorstr="#ffd217",GradientType=1);
       }
-  
+
       .score-img {
         height: 30px;
         width: 30px;
@@ -374,7 +388,7 @@
         z-index: 1;
         margin-left: -15px;
       }
-  
+
       .finish-section {
         display: inline-flex;
         // justify-content: space-between;
@@ -384,13 +398,13 @@
         margin-right: 10px;
         width: 100%;
         text-align: center;
-  
+
         img {
           height: 40px;
           margin: auto 0;
           width: 20%;
         }
-  
+
         .coefficient {
           height: 50%;
           width: 3.5vw;
@@ -403,7 +417,7 @@
           justify-content: center;
           cursor: pointer;
           transition: all 500ms ease;
-  
+
           label {
             cursor: pointer;
             font: normal normal 600 16px/19px Montserrat;
@@ -411,15 +425,15 @@
             color: #e70dff;
           }
         }
-  
+
         .coefficient:hover {
           background-color: #e70dff;
-  
+
           label {
             color: white;
           }
         }
-  
+
         .bet-btn {
           cursor: pointer;
           height: 60%;
@@ -431,7 +445,7 @@
           align-items: center;
           justify-content: center;
           transition: all 500ms ease;
-  
+
           label {
             font: normal normal 600 16px/19px Montserrat;
             color: white;
@@ -446,12 +460,12 @@
 .race-table::-webkit-scrollbar {
   width: 0.5em;
 }
- 
+
 .race-table::-webkit-scrollbar-track {
   // box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: #f8f9fc;
 }
- 
+
 .race-table::-webkit-scrollbar-thumb {
   // background-color: red;
   background: #CB26FE 0% 0% no-repeat padding-box;
@@ -667,17 +681,18 @@
   .main .head .current-bets-btn {
     margin-left: auto;
     font: normal normal bold 14px/17px Montserrat;
-    padding: 20px 15px!important;
+    padding: 20px 15px !important;
     width: 60%;
     margin-right: 30px;
   }
 
   .main .head .connect-wallet {
-    padding: 10px 15px!important;
+    padding: 10px 15px !important;
+
     label {
-      font: normal normal bold 14px/17px Montserrat!important;
-      padding: 10px 7px!important;
-      padding-left: 0px!important;
+      font: normal normal bold 14px/17px Montserrat !important;
+      padding: 10px 7px !important;
+      padding-left: 0px !important;
     }
   }
 
@@ -700,13 +715,14 @@
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 40px;
+
     select {
       font: normal normal bold 25px/33px Montserrat;
     }
   }
 
   .slide-wrapper {
-    height: 100%!important;
+    height: 100% !important;
   }
 }
 
@@ -720,6 +736,7 @@
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 40px;
+
     select {
       font: normal normal bold 25px/33px Montserrat;
     }
@@ -727,10 +744,11 @@
 }
 
 @media all and (min-width: 1024px) and (max-width: 1280px) {
-  
+
   .logo-nav {
     margin-top: 20%;
   }
+
   .nav-item .item-container {
     padding: 10px 20px;
 
@@ -739,7 +757,7 @@
     }
 
     a {
-      font-size: 12px; 
+      font-size: 12px;
     }
   }
 
@@ -750,10 +768,11 @@
   .main .overview {
     row-gap: 5px;
   }
+
   .main .head .current-bets-btn {
     margin-left: auto;
     font: normal normal bold 10px/12px Montserrat;
-    padding: 17px 0px!important;
+    padding: 17px 0px !important;
     width: 100%;
     margin-right: 0px;
     margin-top: auto;
@@ -761,7 +780,7 @@
   }
 
   .main .head .connect-wallet {
-    padding: 10px!important;
+    padding: 10px !important;
     margin-top: auto;
     margin-bottom: auto;
     width: 25%;
@@ -774,9 +793,9 @@
 
     label {
       display: none;
-      font: normal normal bold 10px/13px Montserrat!important;
-      padding: 10px 7px!important;
-      padding-left: 0px!important;
+      font: normal normal bold 10px/13px Montserrat !important;
+      padding: 10px 7px !important;
+      padding-left: 0px !important;
     }
   }
 
@@ -852,7 +871,7 @@
     a {
       display: none;
     }
-    
+
     img {
       height: 80%;
     }
@@ -876,6 +895,7 @@
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 40px;
+
     select {
       font: normal normal bold 30px/38px Montserrat;
     }
@@ -890,7 +910,7 @@
   }
 
   .main .head .connect-wallet {
-    padding: 10px!important;
+    padding: 10px !important;
     margin-top: auto;
     margin-bottom: auto;
     width: 50%;
@@ -903,9 +923,9 @@
 
     label {
       display: none;
-      font: normal normal bold 10px/13px Montserrat!important;
-      padding: 10px 7px!important;
-      padding-left: 0px!important;
+      font: normal normal bold 10px/13px Montserrat !important;
+      padding: 10px 7px !important;
+      padding-left: 0px !important;
     }
   }
 
@@ -927,7 +947,7 @@
 
   .row-coin {
     height: 30px * 5;
-    width: 90%;    
+    width: 90%;
     margin-left: auto;
     margin-right: auto;
     grid-template-columns: repeat(1, 1fr);
@@ -1009,31 +1029,32 @@
   }
 }
 
-@media all and (min-width: 480px) and (max-width: 768px) {
-  
- }
+@media all and (min-width: 480px) and (max-width: 768px) {}
 
-@media all and (max-width: 480px) { }
+@media all and (max-width: 480px) {}
 
 
 /* Portrait */
-@media screen and (orientation:portrait) { /* Portrait styles here */ }
+@media screen and (orientation:portrait) {
+  /* Portrait styles here */
+}
+
 /* Landscape */
-@media screen and (orientation:landscape) { /* Landscape styles here */ }
+@media screen and (orientation:landscape) {
+  /* Landscape styles here */
+}
 
 
 /* CSS for iPhone, iPad, and Retina Displays */
 
 /* Non-Retina */
-@media screen and (-webkit-max-device-pixel-ratio: 1) {
-}
+@media screen and (-webkit-max-device-pixel-ratio: 1) {}
 
 /* Retina */
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
 only screen and (-o-min-device-pixel-ratio: 3/2),
 only screen and (min--moz-device-pixel-ratio: 1.5),
-only screen and (min-device-pixel-ratio: 1.5) {
-}
+only screen and (min-device-pixel-ratio: 1.5) {}
 
 /* iPhone Portrait */
 @media screen and (max-device-width: 480px) and (orientation:portrait) {
@@ -1042,7 +1063,7 @@ only screen and (min-device-pixel-ratio: 1.5) {
     a {
       display: none;
     }
-    
+
     img {
       height: 60%;
     }
@@ -1070,6 +1091,7 @@ only screen and (min-device-pixel-ratio: 1.5) {
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 40px;
+
     select {
       font: normal normal bold 20px/28px Montserrat;
     }
@@ -1084,7 +1106,7 @@ only screen and (min-device-pixel-ratio: 1.5) {
   }
 
   .main .head .connect-wallet {
-    padding: 10px!important;
+    padding: 10px !important;
     margin-top: auto;
     margin-bottom: auto;
     width: 30%;
@@ -1097,9 +1119,9 @@ only screen and (min-device-pixel-ratio: 1.5) {
 
     label {
       display: none;
-      font: normal normal bold 10px/13px Montserrat!important;
-      padding: 10px 7px!important;
-      padding-left: 0px!important;
+      font: normal normal bold 10px/13px Montserrat !important;
+      padding: 10px 7px !important;
+      padding-left: 0px !important;
     }
   }
 
@@ -1121,7 +1143,7 @@ only screen and (min-device-pixel-ratio: 1.5) {
 
   .row-coin {
     height: 30px * 5;
-    width: 90%;    
+    width: 90%;
     margin-left: auto;
     margin-right: auto;
     grid-template-columns: repeat(1, 1fr);
@@ -1201,28 +1223,35 @@ only screen and (min-device-pixel-ratio: 1.5) {
     display: block;
     padding: 10px 0px;
   }
-} 
+}
 
 /* iPhone Landscape */
-@media screen and (max-device-width: 480px) and (orientation:landscape) {
-}
+@media screen and (max-device-width: 480px) and (orientation:landscape) {}
 
 /* iPad Portrait */
-@media screen and (min-device-width: 481px) and (orientation:portrait) {
-}
+@media screen and (min-device-width: 481px) and (orientation:portrait) {}
 
 /* iPad Landscape */
-@media screen and (min-device-width: 481px) and (orientation:landscape) {
-}
+@media screen and (min-device-width: 481px) and (orientation:landscape) {}
 
 @media screen and (max-width: 1680px) {}
+
 @media screen and (max-width: 1400px) {}
+
 @media screen and (max-width: 1280px) {}
+
 @media screen and (max-width: 1199px) {}
+
 @media screen and (max-width: 1024px) {}
+
 @media screen and (max-width: 991px) {}
+
 @media screen and (max-width: 767px) {}
+
 @media screen and (max-width: 600px) {}
+
 @media screen and (max-width: 575px) {}
+
 @media screen and (max-width: 480px) {}
+
 @media screen and (max-width: 360px) {}
