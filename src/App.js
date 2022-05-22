@@ -13,6 +13,8 @@ import { clusterApiUrl } from "@solana/web3.js";
 
 import { PhantomWalletAdapter } from "@solana/wallet-adapter-wallets";
 
+import { SnackbarProvider } from "notistack";
+
 const wallets = [new PhantomWalletAdapter()];
 
 const network = clusterApiUrl("devnet");
@@ -22,10 +24,12 @@ function App() {
     <ConnectionProvider endpoint={network}>
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>
-          <div className="App">
-            <Sidebar />
-            <Main />
-          </div>
+          <SnackbarProvider>
+            <div className="App">
+              <Sidebar />
+              <Main />
+            </div>
+          </SnackbarProvider>
         </WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>

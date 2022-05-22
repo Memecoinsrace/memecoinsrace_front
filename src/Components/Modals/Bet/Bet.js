@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "./Bet.scss";
 
 import closeIcon from "../../../SVG/close.svg";
@@ -11,6 +11,24 @@ import { ReactComponent as QWERTY } from "../../../SVG/icon-mcr.svg";
 
 export default function Bet(props) {
   const [betValue, setBetValue] = useState();
+  const [coin, setCoin] = useState("");
+
+  useEffect(() => {
+    // set adress of coin by name
+    switch (props.coin) {
+      case "Bitcoin":
+        setCoin("F4QZEMQjNRvwHd9tLgp74fVD99Bg3cXbHuEQ7EGymBq6");
+        break;
+      case "Ethereum":
+        setCoin("5zxs8888az8dgB5KauGEFoPuMANtrKtkpFiFRmo3cSa9");
+        break;
+      case "Chainlink":
+        setCoin("CFRkaCg9PcuMaCZZdcePkaa8d8ugtH221HL7tXQHNVia");
+        break;
+      default:
+        break;
+    }
+  });
 
   const CloseBet = () => {
     document.querySelector(".bet-modal").classList.remove("show-modal");
@@ -32,7 +50,7 @@ export default function Bet(props) {
       return;
     }
 
-    props.makeBet(betType, betValue);
+    props.makeBet(betType, betValue, coin);
   };
 
   return (
@@ -60,9 +78,9 @@ export default function Bet(props) {
           <label className="timer">
             {/* <CountdownTimer seconds={props.seconds} /> */}
             <div className="actions-group">
-              <button onClick={makeBet()}>DOWN</button>
-              <button>SAME</button>
-              <button>UP</button>
+              <button onClick={() => makeBet(2)}>DOWN</button>
+              <button onClick={() => makeBet(1)}>SAME</button>
+              <button onClick={() => makeBet(0)}>UP</button>
             </div>
           </label>
         </div>

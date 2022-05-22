@@ -82,7 +82,7 @@ const USER_DEPOSIT_TOKEN_ACCOUNT =
   "FaVQBqKVUaSBsNWuGAz2goL3x59mrVtoSaFhjDwAeTFK";
 const depositPubkey = new PublicKey(USER_DEPOSIT_TOKEN_ACCOUNT);
 //Coin name. Take it from UI list
-const CHAINLINK_FEED = "EdWr4ww1Dq82vPe8GFjjcVPo2Qno3Nhn6baCgM3dCy28";
+var CHAINLINK_FEED = "EdWr4ww1Dq82vPe8GFjjcVPo2Qno3Nhn6baCgM3dCy28";
 //Hardcoded PublicKey for chainlink programm
 const CHAINLINK_PROGRAM_ID = "CaH12fwNTKJAG8PxEvo9R96Zc2j8qNHZaFj8ZW49yZNT";
 const DIVISOR = 100000000;
@@ -143,13 +143,14 @@ export default function Main() {
     return provider;
   }
 
-  async function makeTheBet(betType, betValue) {
+  async function makeTheBet(betType, betValue, coin) {
     const provider = await getProvider();
     /* create the program interface combining the idl, program ID, and provider */
     const program = new anchor.Program(idl, programID, provider);
     //try {
     /* interact with the program via rpc */
 
+    if (coin !== "") CHAINLINK_FEED = coin;
     console.log("BET TYPE => " + betType);
     console.log("BET VALUE => " + betValue);
 
@@ -212,6 +213,9 @@ export default function Main() {
       "TREASURY_ACCOUNT_PDA balance : ",
       treasuryBalance.value.uiAmountString
     );
+
+    // hide bet modal
+    document.querySelector(".bet-modal").classList.remove("show-modal");
 
     // Take a time for a bet check
     let pause = 15;
@@ -1067,53 +1071,9 @@ export default function Main() {
             <div className="current-bets-btn" onClick={() => getData()}>
               CURRENT BETS
             </div>
-            {/* <ConnectWallet
-            DisconnectPhantom={DisconnectPhantom}
-            backColor={connectWallet.backColor}
-            inner={connectWallet.inner}
-            closeBtn={connectWallet.closeBtn}
-          /> */}
             <WalletMultiButton />
           </div>
         </div>
-        {/* <div className="coins-sort">
-            <div>
-              <label>1 day</label>
-              <span>
-                <img alt="" src={arrowDown} />
-              </span>
-            </div>
-            <div>
-              <label>1 week</label>
-              <span>
-                <img alt="" src={arrowHeight} />
-              </span>
-            </div>
-            <div>
-              <label>1 month</label>
-              <span>
-                <img alt="" src={arrowHeight} />
-              </span>
-            </div>
-            <div>
-              <label>6 months</label>
-              <span>
-                <img alt="" src={arrowHeight} />
-              </span>
-            </div>
-            <div>
-              <label>1 year</label>
-              <span>
-                <img alt="" src={arrowHeight} />
-              </span>
-            </div>
-            <div>
-              <label>Odds</label>
-              <span>
-                <img alt="" src={arrowHeight2} />
-              </span>
-            </div>
-          </div> */}
         <div class="slide-wrapper" style={{ marginLeft: slideWrapper + "%" }}>
           <div class="slide">
             {dogsCoins.items
@@ -1299,7 +1259,7 @@ export default function Main() {
               })}
           </div>
         </div>
-        <div className="connect-wallet-modal">
+        {/* <div className="connect-wallet-modal">
           <div className="connect-wallet-content">
             <div className="connect-wallet-header">
               <label>Preference</label>
@@ -1325,9 +1285,9 @@ export default function Main() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
-        <div className="select-application-modal">
+        {/* <div className="select-application-modal">
           <div className="select-application-content">
             <div className="select-application-header">
               <label>Preference</label>
@@ -1353,7 +1313,7 @@ export default function Main() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
 
       <HowItWorks
@@ -1366,7 +1326,9 @@ export default function Main() {
 
       <Bet
         isWin={userIsWin}
-        makeBet={(betType, betValue) => makeTheBet(betType, betValue)}
+        makeBet={(betType, betValue, coin) =>
+          makeTheBet(betType, betValue, coin)
+        }
         betValue={betValue}
       />
     </div>
