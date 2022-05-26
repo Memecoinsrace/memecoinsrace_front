@@ -48,6 +48,16 @@ import { SnackbarProvider, useSnackbar } from "notistack";
 
 require("@solana/wallet-adapter-react-ui/styles.css");
 
+///Added for ATA generating
+const SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID =
+  "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL";
+const splATAProgramId = new PublicKey(SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID);
+
+///Mint account
+const MINT_ACCOUNT = "EwJr2ibR39HTBPJqKEP9etqcMmJ9hb7djLxe28vwM6oF";
+const mintAccount = new PublicKey(MINT_ACCOUNT);
+const tokenProgramId = new PublicKey(TOKEN_PROGRAM_ID);
+
 console.log("idl", idl);
 console.log("kp", kp);
 
@@ -149,6 +159,47 @@ export default function Main() {
     const program = new anchor.Program(idl, programID, provider);
     //try {
     /* interact with the program via rpc */
+
+    const associatedAddress = await Token.getAssociatedTokenAddress(
+      splATAProgramId,
+      tokenProgramId,
+      mintAccount,
+      provider.wallet.publicKey
+    );
+    console.log("ATA publicKey: ", associatedAddress.toString());
+    const doesAccountExist = await provider.connection.getAccountInfo(
+      associatedAddress
+    );
+    console.log("doesAccountExist publicKey: ", doesAccountExist);
+
+    if (!doesAccountExist) {
+      console.log("we did not found  ATA, creating...");
+      const transaction = new anchor.web3.Transaction().add(
+        Token.createAssociatedTokenAccountInstruction(
+          splATAProgramId,
+          tokenProgramId,
+          mintAccount,
+          associatedAddress,
+          provider.wallet.publicKey, //owner
+          provider.wallet.publicKey //payer
+        )
+      );
+      transaction.feePayer = provider.wallet.publicKey;
+      console.log("Getting recent blockhash");
+      transaction.recentBlockhash = (
+        await provider.connection.getRecentBlockhash()
+      ).blockhash;
+      let signed = await wallet.signTransaction(transaction);
+      let signature = await provider.connection.sendRawTransaction(
+        signed.serialize()
+      );
+      let confirmed = await provider.connection.confirmTransaction(signature);
+    }
+    const aTAAccount = await provider.connection.getAccountInfo(
+      associatedAddress
+    );
+    console.log("ATA : ", aTAAccount);
+    const userATAAccount = new PublicKey(associatedAddress);
 
     if (coin !== "") CHAINLINK_FEED = coin;
     console.log("BET TYPE => " + betType);
