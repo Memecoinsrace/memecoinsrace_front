@@ -137,6 +137,71 @@ export default function Main() {
 
   const [categoriesValue, setCategoriesValue] = useState("0");
 
+  async function FindATA() {
+    const provider = await getProvider();
+
+    console.log("PROVIDER IS", provider.wallet.publicKey);
+
+    const associatedAddress = await Token.getAssociatedTokenAddress(
+      splATAProgramId,
+      tokenProgramId,
+      mintAccount,
+      provider.wallet.publicKey
+    );
+    console.log("ATA publicKey: ", associatedAddress.toString());
+
+    const doesAccountExist = await provider.connection.getAccountInfo(
+      associatedAddress
+    );
+    console.log("doesAccountExist publicKey: ", doesAccountExist);
+
+    ///checking ATA
+
+    if (!doesAccountExist) {
+      console.log("we did not found  ATA, creating...");
+      //TODO: Show  0 balance somewhere
+      const transaction = new anchor.web3.Transaction().add(
+        Token.createAssociatedTokenAccountInstruction(
+          splATAProgramId,
+          tokenProgramId,
+          mintAccount,
+          associatedAddress,
+          provider.wallet.publicKey, //owner
+          provider.wallet.publicKey //payer
+        )
+      );
+
+      transaction.feePayer = provider.wallet.publicKey;
+
+      console.log("Getting recent blockhash");
+      transaction.recentBlockhash = (
+        await provider.connection.getRecentBlockhash()
+      ).blockhash;
+
+      let signed = await wallet.signTransaction(transaction);
+
+      let signature = await provider.connection.sendRawTransaction(
+        signed.serialize()
+      );
+
+      let confirmed = await provider.connection.confirmTransaction(signature);
+    }
+    const aTAAccount = await provider.connection.getAccountInfo(
+      associatedAddress
+    );
+    console.log("ATA : ", aTAAccount);
+    const userATAAccount = new PublicKey(associatedAddress);
+
+    const aTAbalance = await provider.connection.getTokenAccountBalance(
+      userATAAccount
+    );
+    console.log("USER ATA balance : ", aTAbalance.value.uiAmountString);
+    //TODO: Show balance somewhere
+
+    //TODO: Send associatedAddress to beckend
+    return associatedAddress.toString();
+  }
+
   async function getProvider() {
     /* create the provider and return it to the caller */
     /* network set to local network for now */
@@ -360,77 +425,6 @@ export default function Main() {
     //  } catch (err) {
     //    console.log("Transaction error: ", err);
     //  }
-  }
-
-  async function CheckTheBet() {
-    const provider = await getProvider();
-    /* create the program interface combining the idl, program ID, and provider */
-    const program = new anchor.Program(idl, programID, provider);
-    try {
-      /* interact with the program via rpc */
-      let tx2 = await program.rpc.checkBet({
-        accounts: {
-          escrowAccount: escrowAccount.publicKey, //generated escrow with props
-          chainlinkFeed: CHAINLINK_FEED, //CoinName
-          chainlinkProgram: CHAINLINK_PROGRAM_ID, //Chainlink program
-          treasuryAccount: TREASURY_ACCOUNT_PDA, //escrow treasury
-          treasuryAuthority: TREASURY_AUTHORITY_PDA, //escrow treasury authority
-          userDepositTokenAccount: USER_DEPOSIT_TOKEN_ACCOUNT, //betToken user account
-          tokenProgram: TOKEN_PROGRAM_ID,
-        },
-        options: { commitment: "confirmed" },
-        signers: [escrowAccount],
-      });
-
-      console.log("Fetching transaction logs...");
-      let t2 = await provider.connection.getConfirmedTransaction(
-        tx2,
-        "confirmed"
-      );
-      console.log(t2.meta.logMessages);
-
-      // Fetch the account details of the account containing the price and bet data
-      const _escrowAccountCheck = await program.account.escrowAccount.fetch(
-        escrowAccount.publicKey
-      );
-      console.log("Price Is: " + _escrowAccountCheck.value / DIVISOR);
-      console.log(
-        "Bet amount after closing escrow: " + _escrowAccountCheck.betAmount
-      );
-      console.log("Bet on result is: " + _escrowAccountCheck.betOnResult);
-      console.log("Coin pair name: " + _escrowAccountCheck.pairName);
-      console.log("Better account : " + _escrowAccountCheck.betterAccount);
-
-      //Use it in UI
-      if (_escrowAccountCheck.userWins) {
-        console.log("User WINS a bet");
-      } else {
-        console.log("User LOOSE a bet");
-      }
-
-      let userDepositTokenBalance =
-        await provider.connection.getTokenAccountBalance(depositPubkey);
-      console.log(
-        "USER_DEPOSIT_TOKEN_ACCOUNT balance : ",
-        userDepositTokenBalance.value.uiAmountString
-      );
-
-      let treasuryBalance = await provider.connection.getTokenAccountBalance(
-        treasuryPubkey
-      );
-      console.log(
-        "TREASURY_ACCOUNT_PDA balance : ",
-        treasuryBalance.value.uiAmountString
-      );
-
-      console.log("Bet is closed");
-    } catch (err) {
-      console.log("Transaction error: ", err);
-    }
-  }
-
-  function handleInputChange(event) {
-    // this.setState({ value: event.target.value });
   }
 
   const selectCategory = async (num) => {
@@ -988,8 +982,32 @@ export default function Main() {
       });
   };
 
+  const getInitialPrice = async () => {
+    let prov = getProvider();
+    const associatedAddress = await Token.getAssociatedTokenAddress(
+      splATAProgramId,
+      tokenProgramId,
+      mintAccount,
+      window.solana.publicKey.toString()
+    );
+    console.log("ATA publicKey: ", associatedAddress.toString());
+    let key = associatedAddress.toString();
+    axios
+      .post("https://api.memecoinsrace.com/user/wallet", {
+        wallet_id: key,
+      })
+      .then(function (result) {
+        console.log("SUCCESS => ", result);
+      })
+      .catch(function (error) {
+        console.log("ERROR => ", error);
+      });
+  };
+
   useEffect(() => {
     getData();
+
+    window.solana.on("connect", () => getInitialPrice());
 
     if (localStorage.getItem("phantomPublicKey") === null) {
       setConnectWallet((prev) => {
@@ -1105,18 +1123,6 @@ export default function Main() {
               <label>TEST</label>
               <label>COINS</label>
             </div>
-          </div>
-          <div className="categories-mini">
-            <select
-              name="categories-mini"
-              value={categoriesValue}
-              onChange={handleInputChange}
-            >
-              <option value="0">DOGS COINS</option>
-              <option value="1">CATS COINS</option>
-              <option value="2">APES COINS</option>
-              <option value="2">TEST COINS</option>
-            </select>
           </div>
           <div className="header-group">
             <div className="current-bets-btn" onClick={() => getData()}>
