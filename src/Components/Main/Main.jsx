@@ -45,7 +45,7 @@ import {
 //import { Program, Provider, web3 } from "@project-serum/anchor";
 import { TOKEN_PROGRAM_ID, Token } from "@solana/spl-token";
 import idl from "../../idl.json";
-import kp from "../../BetUser.json";
+//import kp from "../../BetUser.json";
 
 import { PhantomWalletAdapter } from "@solana/wallet-adapter-wallets";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
@@ -72,9 +72,9 @@ const tokenProgramId = new PublicKey(TOKEN_PROGRAM_ID);
 //console.log("idl", idl);
 //console.log("kp", kp);
 
-const arr = Object.values(kp);
-const secret = new Uint8Array(arr);
-const tempUserAccount = anchor.web3.Keypair.fromSecretKey(secret);
+//const arr = Object.values(kp);
+//const secret = new Uint8Array(arr);
+//const tempUserAccount = anchor.web3.Keypair.fromSecretKey(secret);
 //const tempUserAccount = anchor.web3.Keypair.generate();
 
 //console.log("pk", tempUserAccount.publicKey.toString());
@@ -82,14 +82,15 @@ const wallets = [new PhantomWalletAdapter()];
 
 const { SystemProgram, Keypair } = anchor.web3;
 
-//create an account to store the price and bett data
-const escrowAccount = anchor.web3.Keypair.generate();
+
 
 //initialize a value in UI
 let bet_amount = null;
 
 //initialize in UI 0,1,2,
 let bet_on_result = null;
+
+let existingATA = null;
 
 ////Some hardcoded values
 //Hardcoded
@@ -99,9 +100,9 @@ const treasuryPubkey = new PublicKey(TREASURY_ACCOUNT_PDA);
 const TREASURY_AUTHORITY_PDA = "8NdpuYnWHxYYCifxxe9cXidrTb6VPfJmm9txLYirqQBY";
 
 //Token account with the minted tokens for bet (firstly hardcoded)
-const USER_DEPOSIT_TOKEN_ACCOUNT =
-  "FaVQBqKVUaSBsNWuGAz2goL3x59mrVtoSaFhjDwAeTFK";
-const depositPubkey = new PublicKey(USER_DEPOSIT_TOKEN_ACCOUNT);
+//const USER_DEPOSIT_TOKEN_ACCOUNT =
+//  "FaVQBqKVUaSBsNWuGAz2goL3x59mrVtoSaFhjDwAeTFK";
+//const depositPubkey = new PublicKey(USER_DEPOSIT_TOKEN_ACCOUNT);
 //Coin name. Take it from UI list
 var CHAINLINK_FEED = "EdWr4ww1Dq82vPe8GFjjcVPo2Qno3Nhn6baCgM3dCy28";
 //Hardcoded PublicKey for chainlink programm
@@ -256,7 +257,10 @@ export default function Main() {
   }
 
  
-  async function makeTheBet(betType, betValue, coin) {
+  async function makeTheBet(betType, betValue, coin, userAtAccount) {
+    //create an account to store the price and bett data
+    const escrowAccount = anchor.web3.Keypair.generate();
+    
     const provider = await getProviderForAnchor();
     /* create the program interface combining the idl, program ID, and provider */
     const program = new anchor.Program(idl, programID, provider);
@@ -308,6 +312,8 @@ export default function Main() {
     if (coin !== "") CHAINLINK_FEED = coin;
     console.log("BET TYPE => " + betType);
     console.log("BET VALUE => " + betValue);
+    console.log("BET USER_TOKEN_ACCOUNT => " + userAtAccount);
+    
 
     //const tx = program.transaction.execute(
     let tx1 = await program.rpc.execute(
@@ -317,9 +323,9 @@ export default function Main() {
         accounts: {
           //coinInfo: "FJpv98TrcWURFaGXVRnzwQ7gfdF2ZWzKYeRo6Y3Jim9Z",
           escrowAccount: escrowAccount.publicKey, //generated escrow
-          user: tempUserAccount.publicKey, //better main account
+          user: provider.wallet.publicKey, //better main account
           treasuryAccount: TREASURY_ACCOUNT_PDA, //escrow treasury
-          userDepositTokenAccount: USER_DEPOSIT_TOKEN_ACCOUNT, //user account with tokens
+          userDepositTokenAccount: userAtAccount, //user account with tokens
           chainlinkFeed: CHAINLINK_FEED, //CoinName
           chainlinkProgram: CHAINLINK_PROGRAM_ID, //Chainlink program
           systemProgram: anchor.web3.SystemProgram.programId, //System program
@@ -329,7 +335,7 @@ export default function Main() {
           await program.account.escrowAccount.createInstruction(escrowAccount),
         ],
         options: { commitment: "confirmed" },
-        signers: [escrowAccount, tempUserAccount],
+        signers: [escrowAccount],
       }
     );
     //Signing created transaction with cmd wallet
@@ -355,9 +361,9 @@ export default function Main() {
     console.log("Better account : " + _escrowAccount.betterAccount);
 
     let userDepositTokenBalance =
-      await provider.connection.getTokenAccountBalance(depositPubkey);
+      await provider.connection.getTokenAccountBalance(new PublicKey(userAtAccount));
     console.log(
-      "USER_DEPOSIT_TOKEN_ACCOUNT balance : ",
+      "User ATA balance : ",
       userDepositTokenBalance.value.uiAmountString
     );
 
@@ -406,7 +412,7 @@ export default function Main() {
         chainlinkProgram: CHAINLINK_PROGRAM_ID, //Chainlink program
         treasuryAccount: TREASURY_ACCOUNT_PDA, //escrow treasury
         treasuryAuthority: TREASURY_AUTHORITY_PDA, //escrow treasury authority
-        userDepositTokenAccount: USER_DEPOSIT_TOKEN_ACCOUNT, //betToken user account
+        userDepositTokenAccount: userAtAccount, //betToken user account
         tokenProgram: TOKEN_PROGRAM_ID,
       },
       options: { commitment: "confirmed" },
@@ -444,7 +450,7 @@ export default function Main() {
     }
 
     userDepositTokenBalance = await provider.connection.getTokenAccountBalance(
-      depositPubkey
+      new PublicKey(userAtAccount)
     );
     console.log(
       "USER_DEPOSIT_TOKEN_ACCOUNT balance : ",
@@ -1103,7 +1109,7 @@ export default function Main() {
     console.log("window.solana.publicKey", window.solana.publicKey.toString());
     
     
-    let existingATA = await FindOrCreateATA(window.solana.publicKey);
+    existingATA = await FindOrCreateATA(window.solana.publicKey);
     
     console.log("existingATA:",existingATA)
     
@@ -1441,7 +1447,7 @@ export default function Main() {
       <Bet
         isWin={userIsWin}
         makeBet={(betType, betValue, coin) =>
-          makeTheBet(betType, betValue, coin)
+          makeTheBet(betType, betValue, coin, existingATA)
         }
         betValue={betValue}
       />
