@@ -55,10 +55,6 @@ import { SnackbarProvider, useSnackbar } from "notistack";
 
 require("@solana/wallet-adapter-react-ui/styles.css");
 
-
-
-
-
 ///Added for ATA generating
 const SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID =
   "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL";
@@ -81,8 +77,6 @@ const tokenProgramId = new PublicKey(TOKEN_PROGRAM_ID);
 const wallets = [new PhantomWalletAdapter()];
 
 const { SystemProgram, Keypair } = anchor.web3;
-
-
 
 //initialize a value in UI
 let bet_amount = null;
@@ -115,25 +109,22 @@ const opts = {
 const programID = new PublicKey("ApkhVUsEgqYgHuCo3paK4dF9hnvPrYEjxHnk9dkcezAb");
 
 export default function Main() {
-   
-    
   const getProvider = () => {
     if ("solana" in window) {
-        const provider = window.solana;
-        if (provider.isPhantom) {
+      const provider = window.solana;
+      if (provider.isPhantom) {
         return provider;
-        }
+      }
     }
     window.open("https://phantom.app/", "_blank");
-    };
+  };
 
   const network = clusterApiUrl("devnet");
   const connection = new Connection(network);
   //const transaction = new Transaction();
   //const { signature } = await window.solana.signAndSendTransaction(transaction);
   //await connection.confirmTransaction(signature);
-  
-  
+
   const wallet = useAnchorWallet();
   //console.log("FIRST we make wallet var:", wallet);
   const { enqueueSnackbar } = useSnackbar();
@@ -158,7 +149,7 @@ export default function Main() {
     items: [],
     maxPrice: null,
   });
-  
+
   const [pubKey, setPubKey] = useState(null);
 
   const [connectWallet, setConnectWallet] = useState({
@@ -171,7 +162,7 @@ export default function Main() {
 
   const [categoriesValue, setCategoriesValue] = useState("0");
 
-   async function getProviderForAnchor() {
+  async function getProviderForAnchor() {
     /* create the provider and return it to the caller */
     /* network set to local network for now */
     const network = clusterApiUrl("devnet");
@@ -188,8 +179,6 @@ export default function Main() {
   }
 
   async function FindOrCreateATA(solanaPubkey) {
-    
-
     console.log("Solana Pubkey for finding ATA is", solanaPubkey.toString());
 
     const associatedAddress = await Token.getAssociatedTokenAddress(
@@ -200,9 +189,7 @@ export default function Main() {
     );
     console.log("ATA publicKey: ", associatedAddress.toString());
 
-    const doesAccountExist = await connection.getAccountInfo(
-      associatedAddress
-    );
+    const doesAccountExist = await connection.getAccountInfo(associatedAddress);
     console.log("doesAccountExist publicKey: ", doesAccountExist);
 
     ///checking ATA
@@ -217,7 +204,7 @@ export default function Main() {
           mintAccount,
           associatedAddress,
           solanaPubkey, //owner
-          solanaPubkey, //payer
+          solanaPubkey //payer
         )
       );
 
@@ -227,45 +214,37 @@ export default function Main() {
       transaction.recentBlockhash = (
         await connection.getRecentBlockhash()
       ).blockhash;
-      
+
       //console.log("Second we look for a wallet :", wallet)
 
       let signed = await window.solana.signTransaction(transaction);
 
-      let signature = await connection.sendRawTransaction(
-        signed.serialize()
-      );
+      let signature = await connection.sendRawTransaction(signed.serialize());
 
       let confirmed = await connection.confirmTransaction(signature);
     } else {
-        console.log("ATA already exists..")
+      console.log("ATA already exists..");
     }
-    const aTAAccount = await connection.getAccountInfo(
-      associatedAddress
-    );
+    const aTAAccount = await connection.getAccountInfo(associatedAddress);
     console.log("ATA : ", aTAAccount);
     const userATAAccount = new PublicKey(associatedAddress);
 
-    const aTAbalance = await connection.getTokenAccountBalance(
-      userATAAccount
-    );
+    const aTAbalance = await connection.getTokenAccountBalance(userATAAccount);
     console.log("USER ATA balance : ", aTAbalance.value.uiAmountString);
     //TODO: Show balance somewhere
 
-    
     return associatedAddress.toString();
   }
 
- 
   async function makeTheBet(betType, betValue, coin, userAtAccount) {
     //create an account to store the price and bett data
     const escrowAccount = anchor.web3.Keypair.generate();
-    
+
     const provider = await getProviderForAnchor();
     /* create the program interface combining the idl, program ID, and provider */
     const program = new anchor.Program(idl, programID, provider);
     //try {
-    /* interact with the program via rpc *//*
+    /* interact with the program via rpc */ /*
 
     const associatedAddress = await Token.getAssociatedTokenAddress(
       splATAProgramId,
@@ -313,7 +292,6 @@ export default function Main() {
     console.log("BET TYPE => " + betType);
     console.log("BET VALUE => " + betValue);
     console.log("BET USER_TOKEN_ACCOUNT => " + userAtAccount);
-    
 
     //const tx = program.transaction.execute(
     let tx1 = await program.rpc.execute(
@@ -361,7 +339,9 @@ export default function Main() {
     console.log("Better account : " + _escrowAccount.betterAccount);
 
     let userDepositTokenBalance =
-      await provider.connection.getTokenAccountBalance(new PublicKey(userAtAccount));
+      await provider.connection.getTokenAccountBalance(
+        new PublicKey(userAtAccount)
+      );
     console.log(
       "User ATA balance : ",
       userDepositTokenBalance.value.uiAmountString
@@ -1026,7 +1006,7 @@ export default function Main() {
         console.log("Error => " + error);
       });
   };
-  
+
   /*
    const ConnectPhantom = async () => {
        
@@ -1066,10 +1046,8 @@ export default function Main() {
     }
   };
 */
-  
 
   useEffect(() => {
-      
     getData();
 
     if (localStorage.getItem("phantomPublicKey") === null) {
@@ -1090,29 +1068,20 @@ export default function Main() {
           closeBtn: "block",
         };
       });
-    } 
-      
-    
+    }
+
     window.solana.on("connect", () => getInitialPrice());
-    
+
     //TODO: disconnect provider
-    
-   
-    
   }, []);
-  
-  
-  
-  
+
   const getInitialPrice = async () => {
-    
     console.log("window.solana.publicKey", window.solana.publicKey.toString());
-    
-    
+
     existingATA = await FindOrCreateATA(window.solana.publicKey);
-    
-    console.log("existingATA:",existingATA)
-    
+
+    console.log("existingATA:", existingATA);
+
     axios
       .post("https://api.memecoinsrace.com/user/wallet", {
         wallet_id: existingATA,
@@ -1124,8 +1093,6 @@ export default function Main() {
         console.log("ERROR => ", error);
       });
   };
-
- 
 
   const closeSelectApplication = () => {
     let elem = document.querySelector(".select-application-modal");
