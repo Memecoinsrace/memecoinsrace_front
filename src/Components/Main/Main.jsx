@@ -129,6 +129,8 @@ export default function Main() {
   //console.log("FIRST we make wallet var:", wallet);
   const { enqueueSnackbar } = useSnackbar();
 
+  const [selectedCategory, setCategory] = useState(0);
+
   const [userIsWin, setUserIsWin] = useState(false);
 
   const [betValue, setBetValue] = useState(0);
@@ -1007,46 +1009,6 @@ export default function Main() {
       });
   };
 
-  /*
-   const ConnectPhantom = async () => {
-       
-       console.log("Solana provider");
-    try {
-      if ("solana" in window) {
-          
-        providerW3 = window.solana;
-        console.log("Solana provider", providerW3);
-        
-        if (providerW3.isPhantom) {
-          const resp = await window.solana.connect();
-
-          document
-            .querySelector(".select-application-modal")
-            .classList.toggle("show-modal");
-          document
-            .querySelector(".connect-wallet-modal")
-            .classList.toggle("show-modal");
-
-          setConnectWallet((prev) => {
-            return {
-              ...prev,
-              backColor: "#4BC716",
-              inner: resp.publicKey.toString(),
-              closeBtn: "block",
-            };
-          });
-
-          localStorage.setItem("phantomPublicKey", resp.publicKey.toString());
-        }
-      } else {
-        alert("Solana provider is not found");
-      }
-    } catch (ex) {
-      alert(ex);
-    }
-  };
-*/
-
   useEffect(() => {
     getData();
 
@@ -1119,11 +1081,45 @@ export default function Main() {
     }
   };
 
+  const handleCategoryChange = (event) => {
+    console.log(event.target.value);
+    setCategory(event.target.value);
+
+    switch (event.target.value) {
+      case "0":
+        setSlideWrapper(0);
+        break;
+      case "1":
+        setSlideWrapper(-100);
+        break;
+      case "2":
+        setSlideWrapper(-200);
+        break;
+      case "3":
+        setSlideWrapper(-300);
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <div className="main">
       <div className="overview">
         <div className="head">
           <div className="categories">
+            <select
+              className="select-category"
+              value={selectedCategory}
+              onChange={(event) => handleCategoryChange(event)}
+            >
+              <option selected value={0}>
+                🦴 DOGS COINS
+              </option>
+              <option value={1}>🐟 CATS COINS</option>
+              <option value={2}>🍌 APES COINS</option>
+              <option value={3}>🧪 TEST COINS</option>
+            </select>
             <div
               id="dogsCategory"
               className="active-category"

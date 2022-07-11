@@ -6,6 +6,7 @@ import discord from "../../SVG/Social/discord.svg";
 import medium from "../../SVG/Social/medium.svg";
 import { ReactComponent as MenuSVG } from "../../SVG/menu-svg.svg";
 import logo from "../../SVG/Logo_MCR.svg";
+import logoSmall from "../../SVG/Logo_MCR_small.svg";
 import overviewIcon from "../../SVG/overview.svg";
 import questionIcon from "../../SVG/question.svg";
 import stakeIcon from "../../SVG/stake.svg";
@@ -79,6 +80,7 @@ export default class Sidebar extends React.Component {
     return (
       <div className="sidebar">
         <img className="logo-nav" src={logo} />
+        <img className="logo-nav-small" src={logoSmall} />
         <nav>
           <div className="underline">
             <MenuSVG />

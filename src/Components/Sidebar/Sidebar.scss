@@ -82,6 +82,7 @@ nav {
 
   .item-container:hover {
     background: #f3f0ff;
+
     a {
       color: #551fff;
     }
@@ -89,6 +90,7 @@ nav {
 
   .item-container.active-item {
     background: #f3f0ff;
+
     a {
       color: #551fff;
     }
@@ -96,6 +98,17 @@ nav {
 }
 
 .logo-nav {
+  height: auto;
+  width: 75%;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 10%;
+  margin-bottom: 35%;
+  cursor: pointer;
+}
+
+.logo-nav-small {
+  display: none;
   height: auto;
   width: 75%;
   margin-right: auto;
@@ -126,6 +139,7 @@ nav {
     margin-bottom: 5px;
     cursor: pointer;
     text-align: center;
+
     a {
       img {
         height: 60%;

@@ -122,18 +122,15 @@
   }
 }
 
-.categories-mini {
+.select-category {
   display: none;
+  border: none;
+  background-color: transparent;
+  font: normal normal normal 35px/43px Montserrat;
 
-  select {
+  option {
+    background: #f8f9fc;
     border: none;
-    background-color: transparent;
-    font: normal normal normal 35px/43px Montserrat;
-
-    option {
-      background: #f8f9fc;
-      border: none;
-    }
   }
 }
 
@@ -277,6 +274,10 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   transition: all 1s ease-in-out;
+}
+
+.row-coin:last-child {
+  margin-bottom: 20px;
 }
 
 .row-coin {
@@ -1762,22 +1763,36 @@
   }
 }
 
-
+// done
 @media screen and (max-width: 767px) {
-  #dogsCategory label {
+  #dogsCategory {
     font-size: 11px;
+    display: none;
   }
 
-  #catsCategory label {
+  #catsCategory {
     font-size: 11px;
+    display: none;
   }
 
-  #apesCategory label {
+  #apesCategory {
     font-size: 11px;
+    display: none;
   }
 
-  #testCategory label {
+  #testCategory {
     font-size: 11px;
+    display: none;
+  }
+
+  .select-category {
+    display: block;
+    font-size: 15px;
+    margin-left: 25px;
+  }
+
+  .select-category:focus {
+    outline: none;
   }
 
   .main .head .header-group .current-bets-btn {
@@ -1792,7 +1807,7 @@
   }
 
   .main .head {
-    grid-template-columns: 2.5fr 1fr;
+    grid-template-columns: 2fr 1fr;
   }
 
   .main .head .header-group {
@@ -1804,89 +1819,296 @@
   }
 
   .nav-item {
-    height: 5rem;
+    height: 3rem;
+  }
+
+  .sidebar {
+    width: 10%;
   }
 
   .nav-item .item-container {
-    padding: 8px 20px;
+    padding: 8px 8px;
+    display: flex;
+    width: auto;
 
     a {
-      font-size: 9px;
+      display: none;
+    }
+
+    img {
+      height: 20px;
+      width: 20px;
     }
   }
 
   .underline {
-    width: .2rem;
+    width: 1px;
+    display: none;
+  }
+
+  .row-coin .row-coin-head {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    grid-template-columns: auto;
+    column-gap: 10px;
   }
 
   .row-coin .row-coin-head .coin-info-group .coin-name-group .coin-shortname {
-    font-size: 12px;
+    font-size: 10px;
   }
 
   .row-coin .row-coin-head .coin-info-group .coin-name-group .coin-fullname {
-    font-size: 12px;
+    font-size: 10px;
   }
 
   .row-coin .row-coin-head .coin-info-group .coin-price {
-    font-size: 12px;
+    font-size: 10px;
   }
 
   .row-coin .row-coin-head img {
-    height: 40px;
-    width: 40px;
+    height: 35px;
+    width: 35px;
     margin-top: auto;
     margin-bottom: auto;
-  }
-
-  .nav-item .item-container img {
-    height: 21px;
-    width: 21px;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .logo-nav {
-    margin-top: 18%;
-    margin-bottom: 50%;
+    margin-top: 30%;
+    margin-bottom: 38%;
+    display: none;
+  }
+
+  .logo-nav-small {
+    display: block;
+    width: 40%;
+    margin-top: 30px;
+    margin-bottom: 100px;
   }
 
   .social-group .social-footer label {
-    font-size: 7px;
+    font-size: 5px;
   }
 
   .row-coin .row-coin-body .score .score-img {
-    height: 20px;
-    width: 20px;
+    height: 17px;
+    width: 17px;
   }
 
   .row-coin .row-coin-body .score .line {
-    height: 15px;
+    height: 13px;
   }
 
   .row-coin .row-coin-body .score .finish-section img {
-    height: 25px;
+    height: 20px;
   }
 
   .row-coin .row-coin-body .score .finish-section .coefficient label {
-    font-size: 10px;
+    font-size: 7px;
   }
 
   .row-coin .row-coin-body .score .finish-section .bet-btn label {
-    font-size: 10px;
+    font-size: 7px;
+  }
+
+  .row-coin .row-coin-head .coin-number {
+    font-size: 12px;
+    margin-left: 10px;
+    margin-right: 0px;
   }
 
   .row-coin .row-coin-body .score {
     height: auto;
     padding: 10px 0;
     align-items: center;
+    width: auto;
+    margin-left: 25px;
   }
 
   .row-coin {
-    height: 33px;
+    height: 80px;
     padding: 15px;
-
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: auto;
+    row-gap: 10px;
   }
 }
 
-@media screen and (max-width: 600px) {}
+@media screen and (max-width: 600px) {
+  #dogsCategory {
+    font-size: 11px;
+    display: none;
+  }
+
+  #catsCategory {
+    font-size: 11px;
+    display: none;
+  }
+
+  #apesCategory {
+    font-size: 11px;
+    display: none;
+  }
+
+  #testCategory {
+    font-size: 11px;
+    display: none;
+  }
+
+  .select-category {
+    display: block;
+    font-size: 15px;
+    margin-left: 25px;
+  }
+
+  .select-category:focus {
+    outline: none;
+  }
+
+  .main .head .header-group .current-bets-btn {
+    font-size: 8px;
+    padding: 3px 9px;
+  }
+
+  .main .head .header-group .wallet-adapter-button {
+    font-size: 8px;
+    padding: 3px 9px;
+    height: auto;
+  }
+
+  .main .head {
+    grid-template-columns: 2fr 1fr;
+  }
+
+  .main .head .header-group {
+    padding-right: 10px;
+  }
+
+  .main .overview {
+    grid-template-rows: 1fr 8fr;
+  }
+
+  .nav-item {
+    height: 3rem;
+  }
+
+  .sidebar {
+    width: 10%;
+  }
+
+  .nav-item .item-container {
+    padding: 8px 8px;
+    display: flex;
+    width: auto;
+
+    a {
+      display: none;
+    }
+
+    img {
+      height: 20px;
+      width: 20px;
+    }
+  }
+
+  .underline {
+    width: 1px;
+    display: none;
+  }
+
+  .row-coin .row-coin-head {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    grid-template-columns: auto;
+    column-gap: 10px;
+  }
+
+  .row-coin .row-coin-head .coin-info-group .coin-name-group .coin-shortname {
+    font-size: 10px;
+  }
+
+  .row-coin .row-coin-head .coin-info-group .coin-name-group .coin-fullname {
+    font-size: 10px;
+  }
+
+  .row-coin .row-coin-head .coin-info-group .coin-price {
+    font-size: 10px;
+  }
+
+  .row-coin .row-coin-head img {
+    height: 35px;
+    width: 35px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .logo-nav {
+    margin-top: 30%;
+    margin-bottom: 38%;
+    display: none;
+  }
+
+  .logo-nav-small {
+    display: block;
+    width: 40%;
+    margin-top: 30px;
+    margin-bottom: 100px;
+  }
+
+  .social-group .social-footer label {
+    font-size: 5px;
+  }
+
+  .row-coin .row-coin-body .score .score-img {
+    height: 17px;
+    width: 17px;
+  }
+
+  .row-coin .row-coin-body .score .line {
+    height: 13px;
+  }
+
+  .row-coin .row-coin-body .score .finish-section img {
+    height: 20px;
+  }
+
+  .row-coin .row-coin-body .score .finish-section .coefficient label {
+    font-size: 7px;
+  }
+
+  .row-coin .row-coin-body .score .finish-section .bet-btn label {
+    font-size: 7px;
+  }
+
+  .row-coin .row-coin-head .coin-number {
+    font-size: 12px;
+    margin-left: 10px;
+    margin-right: 0px;
+  }
+
+  .row-coin .row-coin-body .score {
+    height: auto;
+    padding: 10px 0;
+    align-items: center;
+    width: auto;
+    margin-left: 25px;
+  }
+
+  .row-coin {
+    height: 80px;
+    padding: 15px;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: auto;
+    row-gap: 10px;
+  }
+}
 
 @media screen and (max-width: 575px) {}
 
