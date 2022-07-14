@@ -1049,7 +1049,13 @@ export default function Main() {
         wallet_id: existingATA,
       })
       .then(function (result) {
-        console.log("SUCCESS => ", result);
+        // console.log("SUCCESS => ", result);
+        if (result.status === 201) {
+          enqueueSnackbar(
+            "Congrats! We just sent you your first 300 $MCR. Go ahead and place your bet!",
+            { variant: "success" }
+          );
+        }
       })
       .catch(function (error) {
         console.log("ERROR => ", error);
