@@ -677,555 +677,6 @@
   }
 }
 
-// @media all and (min-width: 1280px) and (max-width: 1700px) {
-
-//   .main .head .current-bets-btn {
-//     margin-left: auto;
-//     font: normal normal bold 14px/17px Montserrat;
-//     padding: 20px 15px !important;
-//     width: 60%;
-//     margin-right: 30px;
-//   }
-
-//   .main .head .connect-wallet {
-//     padding: 10px 15px !important;
-
-//     label {
-//       font: normal normal bold 14px/17px Montserrat !important;
-//       padding: 10px 7px !important;
-//       padding-left: 0px !important;
-//     }
-//   }
-
-//   .categories .active-category label {
-//     font: normal normal bold 30px/38px Montserrat;
-//   }
-
-//   .categories div label {
-//     font: normal normal normal 30px/38px Montserrat;
-//   }
-// }
-
-// @media all and (width: 1600px) and (height: 1080px) {
-//   .categories {
-//     display: none;
-//   }
-
-//   .categories-mini {
-//     display: block;
-//     margin-top: auto;
-//     margin-bottom: auto;
-//     margin-left: 40px;
-
-//     select {
-//       font: normal normal bold 25px/33px Montserrat;
-//     }
-//   }
-
-//   .slide-wrapper {
-//     height: 100% !important;
-//   }
-// }
-
-// @media all and (width: 1280px) and (height: 800px) {
-//   .categories {
-//     display: none;
-//   }
-
-//   .categories-mini {
-//     display: block;
-//     margin-top: auto;
-//     margin-bottom: auto;
-//     margin-left: 40px;
-
-//     select {
-//       font: normal normal bold 25px/33px Montserrat;
-//     }
-//   }
-// }
-
-// @media all and (min-width: 1024px) and (max-width: 1280px) {
-
-//   .logo-nav {
-//     margin-top: 20%;
-//   }
-
-//   .nav-item .item-container {
-//     padding: 10px 20px;
-
-//     img {
-//       height: 50%;
-//     }
-
-//     a {
-//       font-size: 12px;
-//     }
-//   }
-
-//   .main .head {
-//     grid-template-columns: 5fr 0.7fr 0.7fr;
-//   }
-
-//   .main .overview {
-//     row-gap: 5px;
-//   }
-
-//   .main .head .current-bets-btn {
-//     margin-left: auto;
-//     font: normal normal bold 10px/12px Montserrat;
-//     padding: 17px 0px !important;
-//     width: 100%;
-//     margin-right: 0px;
-//     margin-top: auto;
-//     margin-bottom: auto;
-//   }
-
-//   .main .head .connect-wallet {
-//     padding: 10px !important;
-//     margin-top: auto;
-//     margin-bottom: auto;
-//     width: 25%;
-//     margin-right: 40px;
-//     margin-left: auto;
-
-//     img {
-//       width: 90%;
-//     }
-
-//     label {
-//       display: none;
-//       font: normal normal bold 10px/13px Montserrat !important;
-//       padding: 10px 7px !important;
-//       padding-left: 0px !important;
-//     }
-//   }
-
-//   .categories .active-category label {
-//     font: normal normal bold 25px/33px Montserrat;
-//   }
-
-//   .categories div label {
-//     font: normal normal bold 25px/33px Montserrat;
-//   }
-
-//   .coins-sort div label {
-//     font: normal normal bold 15px/19px Montserrat;
-//   }
-
-//   .coins-sort {
-//     padding: 10px;
-//   }
-
-//   .row-coin {
-//     height: 50px;
-//     width: 95%;
-//     margin-left: auto;
-//     margin-right: auto;
-//     grid-template-columns: 3.5fr 5fr;
-//   }
-
-//   .row-coin img {
-//     height: 40px;
-//     width: 40px;
-//     margin-right: auto;
-//     margin-left: auto;
-//     margin-top: auto;
-//     margin-bottom: auto;
-//   }
-
-//   .row-coin .coin-info-group .coin-name-group .coin-fullname {
-//     font: normal normal bold 16px/20px Montserrat;
-//   }
-
-//   .row-coin .coin-info-group .coin-name-group .coin-shortname {
-//     font: normal normal bold 16px/20px Montserrat;
-//   }
-
-//   .row-coin .coin-info-group .coin-price {
-//     font: normal normal bold 16px/20px Montserrat;
-//   }
-
-//   .row-coin .score .line {
-//     height: 15px;
-//   }
-
-//   .row-coin .score .score-img {
-//     height: 20px;
-//     width: 20px;
-//   }
-
-//   .row-coin .score .finish-section .coefficient label {
-//     font: normal normal 600 12px/15px Montserrat;
-//   }
-
-//   .row-coin .score .finish-section .bet-btn label {
-//     font: normal normal 600 12px/15px Montserrat
-//   }
-
-//   .social-group .social-footer label {
-//     font-size: 8px;
-//   }
-// }
-
-// @media all and (min-width: 768px) and (max-width: 1024px) {
-//   .nav-item .item-container {
-//     a {
-//       display: none;
-//     }
-
-//     img {
-//       height: 80%;
-//     }
-//   }
-
-//   .sidebar {
-//     display: grid;
-//     grid-template-rows: 1fr 3fr;
-
-//     .logo-nav {
-//       margin-top: 45%;
-//     }
-//   }
-
-//   .categories {
-//     display: none;
-//   }
-
-//   .categories-mini {
-//     display: block;
-//     margin-top: auto;
-//     margin-bottom: auto;
-//     margin-left: 40px;
-
-//     select {
-//       font: normal normal bold 30px/38px Montserrat;
-//     }
-//   }
-
-//   .main .head {
-//     grid-template-columns: 5fr 1fr;
-//   }
-
-//   .main .head .current-bets-btn {
-//     display: none;
-//   }
-
-//   .main .head .connect-wallet {
-//     padding: 10px !important;
-//     margin-top: auto;
-//     margin-bottom: auto;
-//     width: 50%;
-//     margin-right: 40px;
-//     margin-left: auto;
-
-//     img {
-//       width: 90%;
-//     }
-
-//     label {
-//       display: none;
-//       font: normal normal bold 10px/13px Montserrat !important;
-//       padding: 10px 7px !important;
-//       padding-left: 0px !important;
-//     }
-//   }
-
-//   .categories .active-category label {
-//     font: normal normal bold 25px/33px Montserrat;
-//   }
-
-//   .categories div label {
-//     font: normal normal bold 25px/33px Montserrat;
-//   }
-
-//   .coins-sort div label {
-//     font: normal normal bold 15px/19px Montserrat;
-//   }
-
-//   .coins-sort {
-//     padding: 10px;
-//   }
-
-//   .row-coin {
-//     height: 30px * 5;
-//     width: 90%;
-//     margin-left: auto;
-//     margin-right: auto;
-//     grid-template-columns: repeat(1, 1fr);
-//     padding-right: 20px;
-//     row-gap: 20px;
-//   }
-
-//   .row-coin img {
-//     height: 40px;
-//     width: 40px;
-//     margin-right: auto;
-//     margin-left: auto;
-//     margin-top: auto;
-//     margin-bottom: auto;
-//   }
-
-//   .row-coin .row-coin-head {
-//     display: grid;
-//     grid-template-columns: 0.5fr 1fr 5fr;
-//   }
-
-//   .row-coin .row-coin-body {
-//     margin-left: 20px;
-//   }
-
-//   .row-coin .coin-info-group .coin-name-group .coin-fullname {
-//     font: normal normal bold 16px/20px Montserrat;
-//   }
-
-//   .row-coin .coin-info-group .coin-name-group .coin-shortname {
-//     font: normal normal bold 16px/20px Montserrat;
-//   }
-
-//   .row-coin .coin-info-group .coin-price {
-//     font: normal normal bold 16px/20px Montserrat;
-//   }
-
-//   .row-coin .score .line {
-//     height: 15px;
-//   }
-
-//   .row-coin .score .score-img {
-//     height: 20px;
-//     width: 20px;
-//   }
-
-//   .row-coin .score .finish-section .coefficient label {
-//     font: normal normal 600 12px/15px Montserrat;
-//   }
-
-//   .row-coin .score .finish-section .bet-btn label {
-//     font: normal normal 600 12px/15px Montserrat
-//   }
-
-//   .social-group .social-footer label {
-//     font-size: 8px;
-//   }
-
-//   .row-coin .row-coin-body .score .finish-section .coefficient {
-//     display: none;
-//   }
-
-//   .row-coin .row-coin-body .score .finish-section .bet-btn {
-//     width: 10vw;
-//   }
-
-//   .social-group {
-//     display: none;
-//   }
-
-//   .row-coin .row-coin-head .coin-info-group .coin-price {
-//     margin-top: 0;
-//     margin-bottom: 0;
-//   }
-
-//   .nav-item .item-container {
-//     display: block;
-//     padding: 10px 0px;
-//   }
-// }
-
-// @media all and (min-width: 480px) and (max-width: 768px) {}
-
-// @media all and (max-width: 480px) {}
-
-
-// /* Portrait */
-// @media screen and (orientation:portrait) {
-//   /* Portrait styles here */
-// }
-
-// /* Landscape */
-// @media screen and (orientation:landscape) {
-//   /* Landscape styles here */
-// }
-
-
-// /* CSS for iPhone, iPad, and Retina Displays */
-
-// /* Non-Retina */
-// @media screen and (-webkit-max-device-pixel-ratio: 1) {}
-
-// /* Retina */
-// @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
-// only screen and (-o-min-device-pixel-ratio: 3/2),
-// only screen and (min--moz-device-pixel-ratio: 1.5),
-// only screen and (min-device-pixel-ratio: 1.5) {}
-
-// /* iPhone Portrait */
-// @media screen and (max-device-width: 480px) and (orientation:portrait) {
-
-//   .nav-item .item-container {
-//     a {
-//       display: none;
-//     }
-
-//     img {
-//       height: 60%;
-//     }
-//   }
-
-//   .underline {
-//     display: none;
-//   }
-
-//   .sidebar {
-//     display: grid;
-//     grid-template-rows: 1fr 3fr;
-
-//     .logo-nav {
-//       margin-top: 45%;
-//     }
-//   }
-
-//   .categories {
-//     display: none;
-//   }
-
-//   .categories-mini {
-//     display: block;
-//     margin-top: auto;
-//     margin-bottom: auto;
-//     margin-left: 40px;
-
-//     select {
-//       font: normal normal bold 20px/28px Montserrat;
-//     }
-//   }
-
-//   .main .head {
-//     grid-template-columns: 3fr 1fr;
-//   }
-
-//   .main .head .current-bets-btn {
-//     display: none;
-//   }
-
-//   .main .head .connect-wallet {
-//     padding: 10px !important;
-//     margin-top: auto;
-//     margin-bottom: auto;
-//     width: 30%;
-//     margin-right: 40px;
-//     margin-left: auto;
-
-//     img {
-//       width: 90%;
-//     }
-
-//     label {
-//       display: none;
-//       font: normal normal bold 10px/13px Montserrat !important;
-//       padding: 10px 7px !important;
-//       padding-left: 0px !important;
-//     }
-//   }
-
-//   .categories .active-category label {
-//     font: normal normal bold 25px/33px Montserrat;
-//   }
-
-//   .categories div label {
-//     font: normal normal bold 25px/33px Montserrat;
-//   }
-
-//   .coins-sort div label {
-//     font: normal normal bold 15px/19px Montserrat;
-//   }
-
-//   .coins-sort {
-//     padding: 10px;
-//   }
-
-//   .row-coin {
-//     height: 30px * 5;
-//     width: 90%;
-//     margin-left: auto;
-//     margin-right: auto;
-//     grid-template-columns: repeat(1, 1fr);
-//     padding-right: 20px;
-//     row-gap: 20px;
-//   }
-
-//   .row-coin .row-coin-head img {
-//     height: 40px;
-//     width: 40px;
-//     margin-right: auto;
-//     margin-left: auto;
-//     margin-top: auto;
-//     margin-bottom: auto;
-//   }
-
-//   .row-coin .row-coin-head {
-//     display: grid;
-//     grid-template-columns: 0.5fr 1fr 4fr;
-//   }
-
-//   .row-coin .row-coin-body {
-//     margin-left: 20px;
-//   }
-
-//   .row-coin .coin-info-group .coin-name-group .coin-fullname {
-//     font: normal normal bold 16px/30px Montserrat !important;
-//   }
-
-//   .row-coin .coin-info-group .coin-name-group .coin-shortname {
-//     font: normal normal bold 16px/30px Montserrat !important;
-//   }
-
-//   .row-coin .coin-info-group .coin-price {
-//     font: normal normal bold 16px/30px Montserrat !important;
-//   }
-
-//   .row-coin .score .line {
-//     height: 15px;
-//   }
-
-//   .row-coin .score .score-img {
-//     height: 20px;
-//     width: 20px;
-//   }
-
-//   .row-coin .score .finish-section .coefficient label {
-//     font: normal normal 600 12px/15px Montserrat;
-//   }
-
-//   .row-coin .score .finish-section .bet-btn label {
-//     font: normal normal 600 12px/15px Montserrat
-//   }
-
-//   .social-group .social-footer label {
-//     font-size: 8px;
-//   }
-
-//   .row-coin .row-coin-body .score .finish-section .coefficient {
-//     display: none;
-//   }
-
-//   .row-coin .row-coin-body .score .finish-section .bet-btn {
-//     width: 10vw;
-//   }
-
-//   .social-group {
-//     display: none;
-//   }
-
-//   .row-coin .row-coin-head .coin-info-group .coin-price {
-//     margin-top: 0;
-//     margin-bottom: 0;
-//   }
-
-//   .nav-item .item-container {
-//     display: block;
-//     padding: 10px 0px;
-//   }
-// }
-
 // done
 @media screen and (max-width: 1680px) {
   #dogsCategory label {
@@ -1412,6 +863,11 @@
 
 // done
 @media screen and (max-width: 1199px) {
+
+  .how-it-works .how-it-works-header p {
+    font-size: 2rem !important;
+  }
+
   #dogsCategory label {
     font-size: 16px;
   }
@@ -1519,6 +975,11 @@
 
 // done
 @media screen and (max-width: 1024px) {
+
+  .how-it-works .how-it-works-header p {
+    font-size: 1.3rem !important;
+  }
+
   #dogsCategory label {
     font-size: 13px;
   }
@@ -1937,24 +1398,21 @@
   }
 }
 
+// done
 @media screen and (max-width: 600px) {
   #dogsCategory {
-    font-size: 11px;
     display: none;
   }
 
   #catsCategory {
-    font-size: 11px;
     display: none;
   }
 
   #apesCategory {
-    font-size: 11px;
     display: none;
   }
 
   #testCategory {
-    font-size: 11px;
     display: none;
   }
 
@@ -1971,16 +1429,24 @@
   .main .head .header-group .current-bets-btn {
     font-size: 8px;
     padding: 3px 9px;
+
   }
 
   .main .head .header-group .wallet-adapter-button {
     font-size: 8px;
-    padding: 3px 9px;
+    padding: 0px 8px;
     height: auto;
+
+    i {
+      img {
+        height: 14px;
+        width: 14px;
+      }
+    }
   }
 
   .main .head {
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
   .main .head .header-group {
@@ -2015,7 +1481,6 @@
   }
 
   .underline {
-    width: 1px;
     display: none;
   }
 
@@ -2062,8 +1527,29 @@
     margin-bottom: 100px;
   }
 
-  .social-group .social-footer label {
-    font-size: 5px;
+  .social-group {
+    .social-icons {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      grid-template-areas: 'a a', 'b b';
+    }
+  }
+
+  .social-group .social-footer {
+    padding-bottom: 10px;
+    grid-template-columns: none;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    label:nth-child(2) {
+      transform: rotate(90deg);
+    }
+
+    label {
+      font-size: 6px;
+      margin: auto;
+    }
   }
 
   .row-coin .row-coin-body .score .score-img {
@@ -2098,118 +1584,653 @@
     padding: 10px 0;
     align-items: center;
     width: auto;
-    margin-left: 25px;
+    margin-left: 20px;
   }
 
   .row-coin {
     height: 80px;
-    padding: 15px;
+    padding: 15px 10px;
     grid-template-rows: 1fr 1fr;
     grid-template-columns: auto;
     row-gap: 10px;
   }
 }
 
-@media screen and (max-width: 575px) {}
-
-@media screen and (max-width: 480px) {
-
-  .logo-nav {
-    margin-top: 70% !important;
-    margin-bottom: 50% !important;
+// done
+@media screen and (max-width: 575px) {
+  #dogsCategory {
+    display: none;
   }
 
-  .item-container {
-    padding: 10px !important;
-    display: flex !important;
-    flex-direction: column !important;
+  #catsCategory {
+    display: none;
+  }
+
+  #apesCategory {
+    display: none;
+  }
+
+  #testCategory {
+    display: none;
+  }
+
+  .select-category {
+    display: block;
+    font-size: 15px;
+    margin-left: 25px;
+  }
+
+  .select-category:focus {
+    outline: none;
+  }
+
+  .main .head .header-group .current-bets-btn {
+    font-size: 8px;
+    padding: 3px 9px;
+
+  }
+
+  .main .head .header-group .wallet-adapter-button {
+    font-size: 8px;
+    padding: 0px 8px;
+    height: auto;
+
+    i {
+      img {
+        height: 14px;
+        width: 14px;
+      }
+    }
+  }
+
+  .main .head {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .main .head .header-group {
+    padding-right: 10px;
+  }
+
+  .main .overview {
+    grid-template-rows: 1fr 8fr;
+  }
+
+  .nav-item {
+    height: 3rem;
+  }
+
+  .sidebar {
+    width: 10%;
+  }
+
+  .nav-item .item-container {
+    padding: 8px 8px;
+    display: flex;
+    width: auto;
 
     a {
       display: none;
     }
 
     img {
+      height: 20px;
       width: 20px;
     }
   }
 
   .underline {
-    width: .5rem;
-    margin-right: .6rem;
-    height: 5rem;
+    display: none;
+  }
+
+  .row-coin .row-coin-head {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    grid-template-columns: auto;
+    column-gap: 10px;
+  }
+
+  .row-coin .row-coin-head .coin-info-group .coin-name-group .coin-shortname {
+    font-size: 10px;
+  }
+
+  .row-coin .row-coin-head .coin-info-group .coin-name-group .coin-fullname {
+    font-size: 10px;
+  }
+
+  .row-coin .row-coin-head .coin-info-group .coin-price {
+    font-size: 10px;
+  }
+
+  .row-coin .row-coin-head img {
+    height: 35px;
+    width: 35px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .logo-nav {
+    margin-top: 30%;
+    margin-bottom: 38%;
+    display: none;
+  }
+
+  .logo-nav-small {
+    display: block;
+    width: 40%;
+    margin-top: 30px;
+    margin-bottom: 100px;
   }
 
   .social-group {
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-
     .social-icons {
-      // display: grid;
-      // grid-template-columns: 1fr 1fr;
-      // grid-template-rows: 1fr 1fr;
-      // grid-template-areas:
-      //   ". ."
-      //   ". .";
-      // justify-content: start;
-      margin-bottom: .5rem;
-      display: flex;
-      flex-direction: column;
-      margin-top: auto;
-
-      a {
-        img {
-          width: 80%;
-        }
-      }
-    }
-
-    .social-footer {
-      display: none;
-      flex-direction: column;
-
-      label {
-        font-size: .3rem;
-      }
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      grid-template-areas: 'a a', 'b b';
     }
   }
 
-  .head {
-    display: flex !important;
-    flex-direction: row !important;
-    column-gap: 1rem;
-  }
-
-  .categories {
-    width: auto;
+  .social-group .social-footer {
+    padding-bottom: 12px;
+    grid-template-columns: none;
     display: flex;
     flex-direction: column;
-    padding-left: 0px;
-    padding-top: 10px;
+    text-align: center;
 
-    div label {
-      font-size: 10px !important;
+    label:nth-child(2) {
+      transform: rotate(90deg);
+    }
+
+    label {
+      font-size: 6px;
+      margin: auto;
     }
   }
 
-  .header-group {
-    display: flex;
-    flex-direction: column !important;
-    justify-content: center;
+  .row-coin .row-coin-body .score .score-img {
+    height: 17px;
+    width: 17px;
+  }
 
-    .current-bets-btn {
-      font-size: .5rem !important;
-    }
+  .row-coin .row-coin-body .score .line {
+    height: 13px;
+  }
 
-    button {
-      font-size: .5rem !important;
-    }
+  .row-coin .row-coin-body .score .finish-section img {
+    height: 20px;
+  }
+
+  .row-coin .row-coin-body .score .finish-section .coefficient label {
+    font-size: 7px;
+  }
+
+  .row-coin .row-coin-body .score .finish-section .bet-btn label {
+    font-size: 7px;
+  }
+
+  .row-coin .row-coin-head .coin-number {
+    font-size: 12px;
+    margin-left: 10px;
+    margin-right: 0px;
+  }
+
+  .row-coin .row-coin-body .score {
+    height: auto;
+    padding: 10px 0;
+    align-items: center;
+    width: auto;
+    margin-left: 20px;
   }
 
   .row-coin {
-    padding: 10px;
-
+    height: 80px;
+    padding: 15px 10px;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: auto;
+    row-gap: 10px;
   }
 }
 
-@media screen and (max-width: 360px) {}
+// done
+@media screen and (max-width: 480px) {
+
+  #dogsCategory {
+    display: none;
+  }
+
+  #catsCategory {
+    display: none;
+  }
+
+  #apesCategory {
+    display: none;
+  }
+
+  #testCategory {
+    display: none;
+  }
+
+  .select-category {
+    display: block;
+    font-size: 15px;
+    margin-left: 25px;
+  }
+
+  .select-category:focus {
+    outline: none;
+  }
+
+  .main .head .header-group .current-bets-btn {
+    font-size: 8px;
+    padding: 3px 9px;
+    display: none;
+  }
+
+  .main .head .header-group .wallet-adapter-button {
+    font-size: 8px;
+    padding: 5px 5px;
+    height: auto;
+    font-size: 0;
+
+    i {
+      margin-right: 0;
+
+      img {
+        height: 12px;
+        width: 12px;
+      }
+    }
+
+    .wallet-adapter-dropdown-list-active {
+      z-index: 999;
+    }
+  }
+
+  .main {
+    width: 85%;
+  }
+
+  .main .head {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .main .head .header-group {
+    padding-right: 25px;
+    justify-content: end;
+  }
+
+  .main .overview {
+    grid-template-rows: 1fr 8fr;
+  }
+
+  .sidebar {
+    width: auto;
+  }
+
+  .nav-item {
+    height: 3rem;
+  }
+
+
+  .nav-item .item-container {
+    padding: 6px 6px;
+    display: flex;
+    width: auto;
+
+    a {
+      display: none;
+    }
+
+    img {
+      height: 20px;
+      width: 20px;
+    }
+  }
+
+  .underline {
+    display: none;
+  }
+
+  .row-coin .row-coin-head {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    grid-template-columns: auto;
+    column-gap: 10px;
+  }
+
+  .row-coin .row-coin-head .coin-info-group .coin-name-group .coin-shortname {
+    font-size: 10px;
+  }
+
+  .row-coin .row-coin-head .coin-info-group .coin-name-group .coin-fullname {
+    font-size: 10px;
+  }
+
+  .row-coin .row-coin-head .coin-info-group .coin-price {
+    font-size: 10px;
+  }
+
+  .row-coin .row-coin-head img {
+    height: 35px;
+    width: 35px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .logo-nav {
+    margin-top: 30%;
+    margin-bottom: 38%;
+    display: none;
+  }
+
+  .logo-nav-small {
+    display: block;
+    width: 40%;
+    margin-top: 30px;
+    margin-bottom: 100px;
+  }
+
+  .social-group {
+    .social-icons {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      grid-template-areas: 'a a', 'b b';
+    }
+  }
+
+  .social-group .social-footer {
+    padding-bottom: 12px;
+    grid-template-columns: none;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    label:nth-child(2) {
+      transform: rotate(90deg);
+    }
+
+    label {
+      font-size: 6px;
+      margin: auto;
+    }
+  }
+
+  .row-coin .row-coin-body .score .score-img {
+    height: 17px;
+    width: 17px;
+    z-index: 1;
+  }
+
+  .row-coin .row-coin-body .score .line {
+    height: 13px;
+  }
+
+  .row-coin .row-coin-body .score .finish-section img {
+    height: 20px;
+  }
+
+  .row-coin .row-coin-body .score .finish-section .coefficient {
+    font-size: 7px;
+    display: none;
+  }
+
+  .row-coin .row-coin-body .score .finish-section {
+    margin-right: 0;
+
+    .bet-btn {
+      label {
+        font-size: 7px;
+      }
+    }
+  }
+
+  .row-coin .row-coin-head .coin-number {
+    font-size: 12px;
+    margin-left: 10px;
+    margin-right: 0px;
+  }
+
+  .row-coin .row-coin-body .score {
+    height: auto;
+    padding: 10px 0;
+    align-items: center;
+    width: 95%;
+    margin-left: 10px;
+    grid-template-columns: 6fr 3fr;
+  }
+
+  .row-coin {
+    height: 80px;
+    padding: 15px 5px;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: auto;
+    row-gap: 10px;
+  }
+}
+
+// done
+@media screen and (max-width: 360px) {
+  #dogsCategory {
+    display: none;
+  }
+
+  #catsCategory {
+    display: none;
+  }
+
+  #apesCategory {
+    display: none;
+  }
+
+  #testCategory {
+    display: none;
+  }
+
+  .select-category {
+    display: block;
+    font-size: 15px;
+    margin-left: 25px;
+  }
+
+  .select-category:focus {
+    outline: none;
+  }
+
+  .main .head .header-group .current-bets-btn {
+    font-size: 8px;
+    padding: 3px 9px;
+    display: none;
+  }
+
+  .main .head .header-group .wallet-adapter-button {
+    font-size: 8px;
+    padding: 5px 5px;
+    height: auto;
+    font-size: 0;
+
+    i {
+      margin-right: 0;
+
+      img {
+        height: 12px;
+        width: 12px;
+      }
+    }
+
+    .wallet-adapter-dropdown-list-active {
+      z-index: 999;
+    }
+  }
+
+  .main {
+    width: 85%;
+  }
+
+  .main .head {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .main .head .header-group {
+    padding-right: 25px;
+    justify-content: end;
+  }
+
+  .main .overview {
+    grid-template-rows: 1fr 8fr;
+  }
+
+  .sidebar {
+    width: auto;
+  }
+
+  .nav-item {
+    height: 3rem;
+  }
+
+
+  .nav-item .item-container {
+    padding: 6px 6px;
+    display: flex;
+    width: auto;
+
+    a {
+      display: none;
+    }
+
+    img {
+      height: 20px;
+      width: 20px;
+    }
+  }
+
+  .underline {
+    display: none;
+  }
+
+  .row-coin .row-coin-head {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    grid-template-columns: auto;
+    column-gap: 10px;
+  }
+
+  .row-coin .row-coin-head .coin-info-group .coin-name-group .coin-shortname {
+    font-size: 10px;
+  }
+
+  .row-coin .row-coin-head .coin-info-group .coin-name-group .coin-fullname {
+    font-size: 10px;
+  }
+
+  .row-coin .row-coin-head .coin-info-group .coin-price {
+    font-size: 10px;
+  }
+
+  .row-coin .row-coin-head img {
+    height: 35px;
+    width: 35px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .logo-nav {
+    margin-top: 30%;
+    margin-bottom: 38%;
+    display: none;
+  }
+
+  .logo-nav-small {
+    display: block;
+    width: 40%;
+    margin-top: 30px;
+    margin-bottom: 100px;
+  }
+
+  .social-group {
+    .social-icons {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      grid-template-areas: 'a a', 'b b';
+    }
+  }
+
+  .social-group .social-footer {
+    padding-bottom: 12px;
+    grid-template-columns: none;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    label:nth-child(2) {
+      transform: rotate(90deg);
+    }
+
+    label {
+      font-size: 6px;
+      margin: auto;
+    }
+  }
+
+  .row-coin .row-coin-body .score .score-img {
+    height: 17px;
+    width: 17px;
+    z-index: 1;
+  }
+
+  .row-coin .row-coin-body .score .line {
+    height: 13px;
+  }
+
+  .row-coin .row-coin-body .score .finish-section img {
+    height: 20px;
+  }
+
+  .row-coin .row-coin-body .score .finish-section .coefficient {
+    font-size: 7px;
+    display: none;
+  }
+
+  .row-coin .row-coin-body .score .finish-section {
+    margin-right: 0;
+
+    .bet-btn {
+      label {
+        font-size: 7px;
+      }
+    }
+  }
+
+  .row-coin .row-coin-head .coin-number {
+    font-size: 12px;
+    margin-left: 10px;
+    margin-right: 0px;
+  }
+
+  .row-coin .row-coin-body .score {
+    height: auto;
+    padding: 10px 0;
+    align-items: center;
+    width: 95%;
+    margin-left: 10px;
+    grid-template-columns: 6fr 3fr;
+  }
+
+  .row-coin {
+    height: 80px;
+    padding: 15px 5px;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: auto;
+    row-gap: 10px;
+  }
+}
