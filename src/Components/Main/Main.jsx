@@ -1032,7 +1032,10 @@ export default function Main() {
       });
     }
 
-    window.solana.on("connect", () => getInitialPrice());
+    if ("solana" in window) {
+      window.solana.connect(); // opens wallet to connect to
+      window.solana.on("connect", () => getInitialPrice());
+    }
 
     //TODO: disconnect provider
   }, []);
