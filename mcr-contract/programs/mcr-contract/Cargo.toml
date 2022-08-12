@@ -1,27 +1,23 @@
 [package]
-name = "bet-program"
+name = "mcr-contract"
 version = "0.1.0"
 description = "Created with Anchor"
-edition = "2018"
+edition = "2021"
 
 [lib]
 crate-type = ["cdylib", "lib"]
-name = "bet_program"
+name = "mcr_contract"
 
 [features]
 no-entrypoint = []
 no-idl = []
 no-log-ix-name = []
 cpi = ["no-entrypoint"]
-mainnet = []
-testnet = []
-devnet = []
-localnet = []
-default = ["localnet"]
+default = []
 
 [dependencies]
-anchor-lang = "0.22.0"
-chainlink_solana = "0.1.0"
-anchor-spl = {version = "0.22.0"}
+anchor-lang = "0.25.0"
+anchor-spl = {version = "0.25.0"}
+chainlink_solana = "1.0.0"
 spl-token = "3.3.0"
 

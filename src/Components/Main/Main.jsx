@@ -88,25 +88,25 @@ let existingATA = null;
 
 ////Some hardcoded values
 //Hardcoded
-const TREASURY_ACCOUNT_PDA = "2Q5FCcUhvBVgJv6dCwNRdgAvEtxZVPUwxmxTKY9GHfZc";
+const TREASURY_ACCOUNT_PDA = "F9kpqvvcCgzxKmCUKR2xruvzPG65jRjv4qgxzXJpr3yG";
 const treasuryPubkey = new PublicKey(TREASURY_ACCOUNT_PDA);
 
-const TREASURY_AUTHORITY_PDA = "8NdpuYnWHxYYCifxxe9cXidrTb6VPfJmm9txLYirqQBY";
+const TREASURY_AUTHORITY_PDA = "HZYKAu5avVgBPV82aapS3fjN1nNvwfGa2tffAuVUTZcP";
 
 //Token account with the minted tokens for bet (firstly hardcoded)
 //const USER_DEPOSIT_TOKEN_ACCOUNT =
 //  "FaVQBqKVUaSBsNWuGAz2goL3x59mrVtoSaFhjDwAeTFK";
 //const depositPubkey = new PublicKey(USER_DEPOSIT_TOKEN_ACCOUNT);
 //Coin name. Take it from UI list
-var CHAINLINK_FEED = "EdWr4ww1Dq82vPe8GFjjcVPo2Qno3Nhn6baCgM3dCy28";
+var CHAINLINK_FEED = "HgTtcbcmp5BeThax5AU8vg4VwK79qAvAKKFMs8txMLW6";
 //Hardcoded PublicKey for chainlink programm
-const CHAINLINK_PROGRAM_ID = "CaH12fwNTKJAG8PxEvo9R96Zc2j8qNHZaFj8ZW49yZNT";
+const CHAINLINK_PROGRAM_ID = "HEvSKofvBgfaexv23kMabbYqxasxU3mQ4ibBMEmJWHny";
 const DIVISOR = 100000000;
 
 const opts = {
   preflightCommitment: "processed",
 };
-const programID = new PublicKey("ApkhVUsEgqYgHuCo3paK4dF9hnvPrYEjxHnk9dkcezAb");
+const programID = new PublicKey("3hiTKYS4bVHgZbkr8sexTzp62tkxS4bufcMNJfgEtVfK");
 
 export default function Main() {
   const getProvider = () => {
@@ -171,7 +171,7 @@ export default function Main() {
     const connection = new Connection(network, opts.preflightCommitment);
     console.log("find1");
     console.log("Wallet for getting the provider: => ", wallet);
-    const provider = new anchor.Provider(
+    const provider = new anchor.AnchorProvider(
       connection,
       wallet,
       opts.preflightCommitment
