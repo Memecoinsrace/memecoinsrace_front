@@ -1,0 +1,524 @@
+{
+  "version": "0.1.0",
+  "name": "mcr_switchboard",
+  "instructions": [
+    {
+      "name": "initialize",
+      "accounts": [
+        {
+          "name": "platform",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "initializer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "vaultAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "vaultSolAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "mint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "betDuration",
+          "type": "i64"
+        }
+      ]
+    },
+    {
+      "name": "makeBet",
+      "accounts": [
+        {
+          "name": "escrowAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "treasuryAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userDepositTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "aggregatorFeed",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "betAmount",
+          "type": "u64"
+        },
+        {
+          "name": "betOnResult",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "makeBetSol",
+      "accounts": [
+        {
+          "name": "platform",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "escrowAccountSol",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "user",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "vaultSolAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "aggregatorFeed",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "clock",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "lamportsAmount",
+          "type": "u64"
+        },
+        {
+          "name": "betOnResult",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "checkBet",
+      "accounts": [
+        {
+          "name": "escrowAccount",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "aggregatorFeed",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "treasuryAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "treasuryAuthority",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "userDepositTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "checkBetSol",
+      "accounts": [
+        {
+          "name": "escrowAccountSol",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "aggregatorFeed",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "betterAccount",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "vaultSolAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "clock",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "withdrawal",
+      "accounts": [
+        {
+          "name": "withdrawalAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "treasuryAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "treasuryAuthority",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "user",
+          "isMut": false,
+          "isSigner": true
+        }
+      ],
+      "args": [
+        {
+          "name": "withdrawAmount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "withdrawalSol",
+      "accounts": [
+        {
+          "name": "withdrawalAccount",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "vaultSolAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "withdrawAmount",
+          "type": "u64"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "EscrowAccountSol",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "value",
+            "type": "f64"
+          },
+          {
+            "name": "solBetAmount",
+            "type": "u64"
+          },
+          {
+            "name": "betOnResult",
+            "type": "u64"
+          },
+          {
+            "name": "pairName",
+            "type": "publicKey"
+          },
+          {
+            "name": "betterAccount",
+            "type": "publicKey"
+          },
+          {
+            "name": "active",
+            "type": "bool"
+          },
+          {
+            "name": "userWins",
+            "type": "bool"
+          },
+          {
+            "name": "betTime",
+            "type": "i64"
+          },
+          {
+            "name": "timeLock",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Platform",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "bumpVaultAccount",
+            "type": "u8"
+          },
+          {
+            "name": "bumpVaultSolAccount",
+            "type": "u8"
+          },
+          {
+            "name": "betDuration",
+            "type": "i64"
+          },
+          {
+            "name": "withdrawalAccount",
+            "type": "publicKey"
+          },
+          {
+            "name": "authority",
+            "type": "publicKey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "EscrowAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "value",
+            "type": "f64"
+          },
+          {
+            "name": "betAmount",
+            "type": "u64"
+          },
+          {
+            "name": "betOnResult",
+            "type": "u64"
+          },
+          {
+            "name": "pairName",
+            "type": "publicKey"
+          },
+          {
+            "name": "betterAccount",
+            "type": "publicKey"
+          },
+          {
+            "name": "active",
+            "type": "bool"
+          },
+          {
+            "name": "userWins",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "EscrowAccountSol",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "value",
+            "type": "f64"
+          },
+          {
+            "name": "solBetAmount",
+            "type": "u64"
+          },
+          {
+            "name": "betOnResult",
+            "type": "u64"
+          },
+          {
+            "name": "pairName",
+            "type": "publicKey"
+          },
+          {
+            "name": "betterAccount",
+            "type": "publicKey"
+          },
+          {
+            "name": "active",
+            "type": "bool"
+          },
+          {
+            "name": "userWins",
+            "type": "bool"
+          },
+          {
+            "name": "betTime",
+            "type": "i64"
+          },
+          {
+            "name": "timeLock",
+            "type": "i64"
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "EmptyBump",
+      "msg": "Can't get bump"
+    },
+    {
+      "code": 6001,
+      "name": "DataTooLarge",
+      "msg": "Program may only take a bet les 100000"
+    },
+    {
+      "code": 6002,
+      "name": "DataTooSmall",
+      "msg": "Program may only take a bet more 100"
+    },
+    {
+      "code": 6003,
+      "name": "InsuficientUserFunds",
+      "msg": "User dont have enouph funds for the bet"
+    },
+    {
+      "code": 6004,
+      "name": "InsuficientTreasury",
+      "msg": "User bet is too high for the Treasury"
+    },
+    {
+      "code": 6005,
+      "name": "WrongBetOnResult",
+      "msg": "Error in bet on result provided for escrow"
+    },
+    {
+      "code": 6006,
+      "name": "WrongBetOnResultInEscrow",
+      "msg": "Error in reading suspended bet on result"
+    },
+    {
+      "code": 6007,
+      "name": "WrongBetterAccount",
+      "msg": "Token account for refund is wrong"
+    },
+    {
+      "code": 6008,
+      "name": "WrongPairName",
+      "msg": "User is checking another account, not an escrow one"
+    },
+    {
+      "code": 6009,
+      "name": "EscrowIsClosed",
+      "msg": "Provided escrow account is closed"
+    },
+    {
+      "code": 6010,
+      "name": "WithdrawalToUnknown",
+      "msg": "The provided withraw account is unknown"
+    },
+    {
+      "code": 6011,
+      "name": "InsuficientTreasuryForWithdraw",
+      "msg": "Treasury has not enouph tokens for requested withdraw"
+    },
+    {
+      "code": 6012,
+      "name": "UnauthorizedWithdrawal",
+      "msg": "Withdrawal is not authorized by withdraw account owner"
+    },
+    {
+      "code": 6013,
+      "name": "EarlyEscrowCheck",
+      "msg": "Escrow check is out of locked time"
+    }
+  ],
+  "metadata": {
+    "address": "13gCmWk6FxkUxvvS8ybABQd5HvYraqJfavfjd4qs59Vp"
+  }
+}

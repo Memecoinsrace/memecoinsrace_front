@@ -33,19 +33,16 @@ import HowItWorks from "../HowItWorks/HowItWorks";
 import Bets from "../Bets/Bets";
 import Bet from "../Modals/Bet/Bet";
 
-import * as anchor from "@project-serum/anchor";
+import * as anchor from "@coral-xyz/anchor";
 import {
   Connection,
   PublicKey,
   Transaction,
   clusterApiUrl,
-  //SystemProgram,
 } from "@solana/web3.js";
-//import { Connection, PublicKey, clusterApiUrl, Transaction } from "@solana/web3.js";
-//import { Program, Provider, web3 } from "@project-serum/anchor";
-import { TOKEN_PROGRAM_ID, Token } from "@solana/spl-token";
-import idl from "../../idl.json";
-//import kp from "../../BetUser.json";
+
+import { TOKEN_PROGRAM_ID /*Token*/ } from "@solana/spl-token";
+import idl from "../../mcr_switchboard.json";
 
 import { PhantomWalletAdapter } from "@solana/wallet-adapter-wallets";
 import { useAnchorWallet } from "@solana/wallet-adapter-react";
@@ -55,25 +52,12 @@ import { SnackbarProvider, useSnackbar } from "notistack";
 
 require("@solana/wallet-adapter-react-ui/styles.css");
 
-///Added for ATA generating
-const SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID =
-  "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL";
-const splATAProgramId = new PublicKey(SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID);
+const PLATFORM_PDA = "FXQvrsi1FaeVWmPJq5n7wq2aq2cEDZwFP1n9o9woDqam";
+const platformPDA = new PublicKey(PLATFORM_PDA);
 
-///Mint account
-const MINT_ACCOUNT = "EwJr2ibR39HTBPJqKEP9etqcMmJ9hb7djLxe28vwM6oF";
-const mintAccount = new PublicKey(MINT_ACCOUNT);
-const tokenProgramId = new PublicKey(TOKEN_PROGRAM_ID);
+const VAULT_SOL_ACCOUNT_PDA = "EeUMeU1wDPHDwdYiHgp5NrRxj32HV5BuBrnX5GAogrAj";
+const vaultSolAccount = new PublicKey(VAULT_SOL_ACCOUNT_PDA);
 
-//console.log("idl", idl);
-//console.log("kp", kp);
-
-//const arr = Object.values(kp);
-//const secret = new Uint8Array(arr);
-//const tempUserAccount = anchor.web3.Keypair.fromSecretKey(secret);
-//const tempUserAccount = anchor.web3.Keypair.generate();
-
-//console.log("pk", tempUserAccount.publicKey.toString());
 const wallets = [new PhantomWalletAdapter()];
 
 const { SystemProgram, Keypair } = anchor.web3;
@@ -84,29 +68,16 @@ let bet_amount = null;
 //initialize in UI 0,1,2,
 let bet_on_result = null;
 
-let existingATA = null;
+const feed_btc = "8SXvChNYFhRq4EZuZvnhjrB3jJRQCv4k3P4W6hesH3Ee";
 
-////Some hardcoded values
-//Hardcoded
-const TREASURY_ACCOUNT_PDA = "F9kpqvvcCgzxKmCUKR2xruvzPG65jRjv4qgxzXJpr3yG";
-const treasuryPubkey = new PublicKey(TREASURY_ACCOUNT_PDA);
-
-const TREASURY_AUTHORITY_PDA = "HZYKAu5avVgBPV82aapS3fjN1nNvwfGa2tffAuVUTZcP";
-
-//Token account with the minted tokens for bet (firstly hardcoded)
-//const USER_DEPOSIT_TOKEN_ACCOUNT =
-//  "FaVQBqKVUaSBsNWuGAz2goL3x59mrVtoSaFhjDwAeTFK";
-//const depositPubkey = new PublicKey(USER_DEPOSIT_TOKEN_ACCOUNT);
-//Coin name. Take it from UI list
-var CHAINLINK_FEED = "HgTtcbcmp5BeThax5AU8vg4VwK79qAvAKKFMs8txMLW6";
-//Hardcoded PublicKey for chainlink programm
-const CHAINLINK_PROGRAM_ID = "HEvSKofvBgfaexv23kMabbYqxasxU3mQ4ibBMEmJWHny";
-const DIVISOR = 100000000;
+let feed = feed_btc;
 
 const opts = {
   preflightCommitment: "processed",
 };
-const programID = new PublicKey("3hiTKYS4bVHgZbkr8sexTzp62tkxS4bufcMNJfgEtVfK");
+
+// Smart contract address
+const programID = new PublicKey("13gCmWk6FxkUxvvS8ybABQd5HvYraqJfavfjd4qs59Vp");
 
 export default function Main() {
   const getProvider = () => {
@@ -121,12 +92,9 @@ export default function Main() {
 
   const network = clusterApiUrl("devnet");
   const connection = new Connection(network);
-  //const transaction = new Transaction();
-  //const { signature } = await window.solana.signAndSendTransaction(transaction);
-  //await connection.confirmTransaction(signature);
 
   const wallet = useAnchorWallet();
-  //console.log("FIRST we make wallet var:", wallet);
+
   const { enqueueSnackbar } = useSnackbar();
 
   const [selectedCategory, setCategory] = useState(0);
@@ -166,11 +134,9 @@ export default function Main() {
 
   async function getProviderForAnchor() {
     /* create the provider and return it to the caller */
-    /* network set to local network for now */
     const network = clusterApiUrl("devnet");
     const connection = new Connection(network, opts.preflightCommitment);
-    console.log("find1");
-    console.log("Wallet for getting the provider: => ", wallet);
+
     const provider = new anchor.AnchorProvider(
       connection,
       wallet,
@@ -180,278 +146,150 @@ export default function Main() {
     return provider;
   }
 
-  async function FindOrCreateATA(solanaPubkey) {
-    console.log("Solana Pubkey for finding ATA is", solanaPubkey.toString());
-
-    const associatedAddress = await Token.getAssociatedTokenAddress(
-      splATAProgramId,
-      tokenProgramId,
-      mintAccount,
-      solanaPubkey
-    );
-    console.log("ATA publicKey: ", associatedAddress.toString());
-
-    const doesAccountExist = await connection.getAccountInfo(associatedAddress);
-    console.log("doesAccountExist publicKey: ", doesAccountExist);
-
-    ///checking ATA
-
-    if (!doesAccountExist) {
-      console.log("we did not found  ATA, creating...");
-      //TODO: Show  0 balance somewhere
-      const transaction = new Transaction().add(
-        Token.createAssociatedTokenAccountInstruction(
-          splATAProgramId,
-          tokenProgramId,
-          mintAccount,
-          associatedAddress,
-          solanaPubkey, //owner
-          solanaPubkey //payer
-        )
-      );
-
-      transaction.feePayer = solanaPubkey;
-
-      console.log("Getting recent blockhash");
-      transaction.recentBlockhash = (
-        await connection.getRecentBlockhash()
-      ).blockhash;
-
-      //console.log("Second we look for a wallet :", wallet)
-
-      let signed = await window.solana.signTransaction(transaction);
-
-      let signature = await connection.sendRawTransaction(signed.serialize());
-
-      let confirmed = await connection.confirmTransaction(signature);
-    } else {
-      console.log("ATA already exists..");
-    }
-    const aTAAccount = await connection.getAccountInfo(associatedAddress);
-    console.log("ATA : ", aTAAccount);
-    const userATAAccount = new PublicKey(associatedAddress);
-
-    const aTAbalance = await connection.getTokenAccountBalance(userATAAccount);
-    console.log("USER ATA balance : ", aTAbalance.value.uiAmountString);
-    //TODO: Show balance somewhere
-
-    return associatedAddress.toString();
-  }
-
-  async function makeTheBet(betType, betValue, coin, userAtAccount) {
+  async function makeTheBet(betType, betValue, coin) {
     //create an account to store the price and bett data
-    const escrowAccount = anchor.web3.Keypair.generate();
+    const escrowAccountSol = anchor.web3.Keypair.generate();
 
     const provider = await getProviderForAnchor();
     /* create the program interface combining the idl, program ID, and provider */
     const program = new anchor.Program(idl, programID, provider);
-    //try {
-    /* interact with the program via rpc */ /*
+    try {
+      if (coin !== "") feed = coin;
+      console.log("BET TYPE => " + betType);
+      console.log("BET VALUE => " + betValue);
 
-    const associatedAddress = await Token.getAssociatedTokenAddress(
-      splATAProgramId,
-      tokenProgramId,
-      mintAccount,
-      provider.wallet.publicKey
-    );
-    console.log("ATA publicKey: ", associatedAddress.toString());
-    const doesAccountExist = await provider.connection.getAccountInfo(
-      associatedAddress
-    );
-    console.log("doesAccountExist publicKey: ", doesAccountExist);
+      const walletSigner = provider.wallet;
+      console.log("Wallet: ", walletSigner.publicKey.toString());
+      console.log("platformPDA: ", platformPDA.toString());
+      console.log("escrowAccountSol: ", escrowAccountSol.publicKey.toString());
+      console.log("vaultSolAccount: ", vaultSolAccount.toString());
+      console.log("feed: ", feed);
 
-    if (!doesAccountExist) {
-      console.log("we did not found  ATA, creating...");
-      const transaction = new anchor.web3.Transaction().add(
-        Token.createAssociatedTokenAccountInstruction(
-          splATAProgramId,
-          tokenProgramId,
-          mintAccount,
-          associatedAddress,
-          provider.wallet.publicKey, //owner
-          provider.wallet.publicKey //payer
-        )
+      let tx_bet = await program.methods
+        .makeBetSol(new anchor.BN(betValue), new anchor.BN(betType))
+        .accounts({
+          platform: platformPDA,
+          escrowAccountSol: escrowAccountSol.publicKey,
+          user: walletSigner.publicKey,
+          vaultSolAccount: vaultSolAccount,
+          aggregatorFeed: feed,
+          clock: anchor.web3.SYSVAR_CLOCK_PUBKEY,
+          systemProgram: anchor.web3.SystemProgram.programId,
+        })
+        .signers([escrowAccountSol])
+        .rpc();
+
+      // Take a time for a tx
+      let pause = 5;
+      console.log("waiting for " + pause + " sec...");
+      await new Promise((resolve) => setTimeout(resolve, pause * 1000));
+
+      console.log("Fetching transaction logs...");
+      let t = await provider.connection.getConfirmedTransaction(
+        tx_bet,
+        "confirmed"
       );
-      transaction.feePayer = provider.wallet.publicKey;
-      console.log("Getting recent blockhash");
-      transaction.recentBlockhash = (
-        await provider.connection.getRecentBlockhash()
-      ).blockhash;
-      let signed = await wallet.signTransaction(transaction);
-      let signature = await provider.connection.sendRawTransaction(
-        signed.serialize()
+      console.log(t.meta.logMessages);
+
+      // Fetch the account details of the account containing the price and bet data
+      const _escrowAccountSol = await program.account.escrowAccountSol.fetch(
+        escrowAccountSol.publicKey
       );
-      let confirmed = await provider.connection.confirmTransaction(signature);
-    }
-    const aTAAccount = await provider.connection.getAccountInfo(
-      associatedAddress
-    );
-    console.log("ATA : ", aTAAccount);
-    const userATAAccount = new PublicKey(associatedAddress);
-    */
+      console.log("Price for choosen coin is: " + _escrowAccountSol.value);
+      console.log("Bet amount Is: " + _escrowAccountSol.solBetAmount);
+      console.log("Bet on result Is: " + _escrowAccountSol.betOnResult);
+      console.log("Pair name: " + _escrowAccountSol.pairName);
+      console.log("Better account : " + _escrowAccountSol.betterAccount);
+      console.log("Bet time : " + _escrowAccountSol.betTime);
+      console.log("Bet time to lock : " + _escrowAccountSol.timeLock);
 
-    if (coin !== "") CHAINLINK_FEED = coin;
-    console.log("BET TYPE => " + betType);
-    console.log("BET VALUE => " + betValue);
-    console.log("BET USER_TOKEN_ACCOUNT => " + userAtAccount);
+      // hide bet modal
+      document.querySelector(".bet-modal").classList.remove("show-modal");
 
-    //const tx = program.transaction.execute(
-    let tx1 = await program.rpc.execute(
-      new anchor.BN(betValue), //bet amount
-      new anchor.BN(betType), //bet_on_name 0/1/2 rise/equal/decrease
-      {
-        accounts: {
-          //coinInfo: "FJpv98TrcWURFaGXVRnzwQ7gfdF2ZWzKYeRo6Y3Jim9Z",
-          escrowAccount: escrowAccount.publicKey, //generated escrow
-          user: provider.wallet.publicKey, //better main account
-          treasuryAccount: TREASURY_ACCOUNT_PDA, //escrow treasury
-          userDepositTokenAccount: userAtAccount, //user account with tokens
-          chainlinkFeed: CHAINLINK_FEED, //CoinName
-          chainlinkProgram: CHAINLINK_PROGRAM_ID, //Chainlink program
-          systemProgram: anchor.web3.SystemProgram.programId, //System program
-          tokenProgram: TOKEN_PROGRAM_ID,
-        },
-        instructions: [
-          await program.account.escrowAccount.createInstruction(escrowAccount),
-        ],
-        options: { commitment: "confirmed" },
-        signers: [escrowAccount],
-      }
-    );
-    //Signing created transaction with cmd wallet
-    /*tx.feePayer = await tempUserAccount.publicKey;
-    tx.recentBlockhash = (await provider.connection.getLatestBlockhash()).blockhash;
-    tx.sign(escrowAccount);
-    const signedTx = await tempUserAccount.signTransaction(tx);
-    const txId = await provider.connection.sendRawTransaction(signedTx.serialize());
-    await provider.connection.confirmTransaction(txId)*/
+      // Take a time for a bet check according to the platform settings
+      pause = 15;
+      console.log("waiting for " + pause + " sec...");
+      // Pause (now is 15 seconds)
+      await new Promise((resolve) => setTimeout(resolve, pause * 1000));
 
-    console.log("Fetching transaction logs...");
-    let t = await provider.connection.getConfirmedTransaction(tx1, "confirmed");
-    console.log(t.meta.logMessages);
+      //
+      const calculateTimeLeft = () => {
+        let year = new Date().getFullYear();
 
-    // Fetch the account details of the account containing the price and bet data
-    const _escrowAccount = await program.account.escrowAccount.fetch(
-      escrowAccount.publicKey
-    );
-    console.log("Price for choosen coin is: " + _escrowAccount.value / DIVISOR);
-    console.log("Bet amount Is: " + _escrowAccount.betAmount);
-    console.log("Bet on result Is: " + _escrowAccount.betOnResult);
-    console.log("Pair name: " + _escrowAccount.pairName);
-    console.log("Better account : " + _escrowAccount.betterAccount);
+        let difference = +new Date(`10/01/${year}`) - +new Date();
 
-    let userDepositTokenBalance =
-      await provider.connection.getTokenAccountBalance(
-        new PublicKey(userAtAccount)
+        let timeLeft = {};
+
+        if (difference > 0) {
+          timeLeft = {
+            days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+            hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+            minutes: Math.floor((difference / 1000 / 60) % 60),
+            seconds: Math.floor((difference / 1000) % 60),
+          };
+        }
+
+        return timeLeft;
+      };
+
+      //Check the bet
+      let tx_check = await program.methods
+        .checkBetSol()
+        .accounts({
+          //platform: platformPDA,
+          escrowAccountSol: escrowAccountSol.publicKey,
+          aggregatorFeed: feed,
+          better_account: walletSigner.publicKey,
+          vaultSolAccount: vaultSolAccount,
+          clock: anchor.web3.SYSVAR_CLOCK_PUBKEY,
+          systemProgram: anchor.web3.SystemProgram.programId,
+        })
+        .signers([])
+        .rpc();
+
+      // Wait to fetch transaction logs
+      pause = 5;
+      console.log("waiting for " + pause + " sec...");
+      await new Promise((resolve) => setTimeout(resolve, pause * 1000));
+
+      console.log("Fetching transaction logs...");
+      t = await provider.connection.getConfirmedTransaction(
+        tx_check,
+        "confirmed"
       );
-    console.log(
-      "User ATA balance : ",
-      userDepositTokenBalance.value.uiAmountString
-    );
+      console.log(t.meta.logMessages);
 
-    let treasuryBalance = await provider.connection.getTokenAccountBalance(
-      treasuryPubkey
-    );
-    console.log(
-      "TREASURY_ACCOUNT_PDA balance : ",
-      treasuryBalance.value.uiAmountString
-    );
+      // Fetch the account details of the account containing the price and bet data
+      const _escrowAccountCheck = await program.account.escrowAccountSol.fetch(
+        escrowAccountSol.publicKey
+      );
+      console.log("Price Is: " + _escrowAccountCheck.value);
+      console.log(
+        "Bet amount after closing escrow: " + _escrowAccountCheck.solBetAmount
+      );
+      console.log("Bet on result is: " + _escrowAccountCheck.betOnResult);
+      console.log("Coin pair name: " + _escrowAccountCheck.pairName);
+      console.log("Better account : " + _escrowAccountCheck.betterAccount);
+      console.log("active : " + _escrowAccountCheck.active);
 
-    // hide bet modal
-    document.querySelector(".bet-modal").classList.remove("show-modal");
-
-    // Take a time for a bet check
-    let pause = 15;
-    console.log("waiting for " + pause + " sec...");
-
-    // Pause (now is 15 seconds)
-    await new Promise((resolve) => setTimeout(resolve, pause * 1000));
-
-    const calculateTimeLeft = () => {
-      let year = new Date().getFullYear();
-
-      let difference = +new Date(`10/01/${year}`) - +new Date();
-
-      let timeLeft = {};
-
-      if (difference > 0) {
-        timeLeft = {
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-          minutes: Math.floor((difference / 1000 / 60) % 60),
-          seconds: Math.floor((difference / 1000) % 60),
-        };
+      //Use it in UI
+      if (_escrowAccountCheck.userWins) {
+        console.log("User WINS a bet");
+        //setUserIsWin(true);
+        enqueueSnackbar("Congrats! Your meme bet won!", { variant: "success" });
+      } else {
+        console.log("User LOOSE a bet");
+        enqueueSnackbar(
+          "You lost! Unfontunately, your prediction didn`t come true.",
+          { variant: "info" }
+        );
+        //setUserIsWin(false);
       }
 
-      return timeLeft;
-    };
-
-    /* interact with the program via rpc */
-    let tx2 = await program.rpc.checkBet({
-      accounts: {
-        escrowAccount: escrowAccount.publicKey, //generated escrow with props
-        chainlinkFeed: CHAINLINK_FEED, //CoinName
-        chainlinkProgram: CHAINLINK_PROGRAM_ID, //Chainlink program
-        treasuryAccount: TREASURY_ACCOUNT_PDA, //escrow treasury
-        treasuryAuthority: TREASURY_AUTHORITY_PDA, //escrow treasury authority
-        userDepositTokenAccount: userAtAccount, //betToken user account
-        tokenProgram: TOKEN_PROGRAM_ID,
-      },
-      options: { commitment: "confirmed" },
-      signers: [escrowAccount],
-    });
-
-    //console.log("Fetching transaction logs...");
-    //let t2 = await provider.connection.getConfirmedTransaction(tx2, "confirmed");
-    //console.log(t2.meta.logMessages);
-
-    // Fetch the account details of the account containing the price and bet data
-    const _escrowAccountCheck = await program.account.escrowAccount.fetch(
-      escrowAccount.publicKey
-    );
-    console.log("Price Is: " + _escrowAccountCheck.value / DIVISOR);
-    console.log(
-      "Bet amount after closing escrow: " + _escrowAccountCheck.betAmount
-    );
-    console.log("Bet on result is: " + _escrowAccountCheck.betOnResult);
-    console.log("Coin pair name: " + _escrowAccountCheck.pairName);
-    console.log("Better account : " + _escrowAccountCheck.betterAccount);
-
-    //Use it in UI
-    if (_escrowAccountCheck.userWins) {
-      console.log("User WINS a bet");
-      //setUserIsWin(true);
-      enqueueSnackbar("Congrats! Your meme bet won!", { variant: "success" });
-    } else {
-      console.log("User LOOSE a bet");
-      enqueueSnackbar(
-        "You lost! Unfontunately, your prediction didn`t come true.",
-        { variant: "info" }
-      );
-      //setUserIsWin(false);
+      console.log("Bet is closed");
+    } catch (err) {
+      console.log("Transaction error: ", err);
     }
-
-    userDepositTokenBalance = await provider.connection.getTokenAccountBalance(
-      new PublicKey(userAtAccount)
-    );
-    console.log(
-      "USER_DEPOSIT_TOKEN_ACCOUNT balance : ",
-      userDepositTokenBalance.value.uiAmountString
-    );
-
-    treasuryBalance = await provider.connection.getTokenAccountBalance(
-      treasuryPubkey
-    );
-    console.log(
-      "TREASURY_ACCOUNT_PDA balance : ",
-      treasuryBalance.value.uiAmountString
-    );
-
-    console.log("Bet is closed");
-
-    //  } catch (err) {
-    //    console.log("Transaction error: ", err);
-    //  }
   }
 
   const selectCategory = async (num) => {
@@ -1034,12 +872,12 @@ export default function Main() {
 
     if ("solana" in window) {
       window.solana.connect(); // opens wallet to connect to
-      window.solana.on("connect", () => getInitialPrice());
+      //window.solana.on("connect", () => getInitialPrice());
     }
 
     //TODO: disconnect provider
   }, []);
-
+  /*
   const getInitialPrice = async () => {
     console.log("window.solana.publicKey", window.solana.publicKey.toString());
 
@@ -1063,7 +901,7 @@ export default function Main() {
       .catch(function (error) {
         console.log("ERROR => ", error);
       });
-  };
+  };*/
 
   const closeSelectApplication = () => {
     let elem = document.querySelector(".select-application-modal");
@@ -1419,7 +1257,7 @@ export default function Main() {
       <Bet
         isWin={userIsWin}
         makeBet={(betType, betValue, coin) =>
-          makeTheBet(betType, betValue, coin, existingATA)
+          makeTheBet(betType, betValue, coin)
         }
         betValue={betValue}
       />
