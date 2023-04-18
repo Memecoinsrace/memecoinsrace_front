@@ -288,7 +288,15 @@ export default function Main() {
 
       console.log("Bet is closed");
     } catch (err) {
-      console.log("Transaction error: ", err);
+      //console.log("Transaction error: ", err);	
+
+	  //Вывести код оошибки
+	  console.log("errorCode: ", err['error']['errorCode']['code']);
+	  //Вывести сообщение ошибки
+	  console.log("errorMessage: ", err['error']['errorMessage']);
+	  
+	  //При желании еще что нибудь из этого объекта
+	  console.log("Error object: ", err['error']);
     }
   }
 
